@@ -16,9 +16,9 @@
         <div class="card">
           <div class="card-body">
             <div class="d-flex flex-column align-items-center text-center">
-              <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
+              <img [src]="userDetails?.photoUrl" alt="Admin" class="rounded-circle" width="150">
               <div class="mt-3">
-                <h4>Mattia Marra</h4>
+                <h4>{{userDetails?.name}}</h4>
               </div>
             </div>
           </div>
@@ -48,7 +48,7 @@
                 <h6 class="mb-0">Nome</h6>
               </div>
               <div class="col-sm-9 text-secondary">
-                Mattia
+                {{userDetails?.name}}
               </div>
             </div>
             <hr>
@@ -57,7 +57,7 @@
                 <h6 class="mb-0">Email</h6>
               </div>
               <div class="col-sm-9 text-secondary">
-                tbarbera98@gmail.com
+                {{userDetails?.email}}
               </div>
             </div>
             <hr>
