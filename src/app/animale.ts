@@ -1,4 +1,4 @@
-export interface Animale{
+export class Animale{
   id: number;
   nome: string;
   dataDiNascita: string;

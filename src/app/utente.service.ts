@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import * as Http from "http";
 import {HttpClient} from "@angular/common/http";
 import { Utente } from './utente';
 import {Observable} from "rxjs";
@@ -10,7 +9,7 @@ import {Animale} from "./animale";
 })
 export class UtenteService {
 
-  private apiServerUrl = 'localhost:8080';
+  private apiServerUrl = 'http://localhost:8080';
 
   constructor(private http: HttpClient) { }
 
@@ -19,6 +18,7 @@ export class UtenteService {
   }
 
   public getUser(utente: Utente) : Observable<Utente>{
+    console.log(this.apiServerUrl +'/user/' + utente.email + '/' + utente.nome);
     return this.http.get<Utente>(this.apiServerUrl +'/user/' + utente.email + '/' + utente.nome);
   }
 

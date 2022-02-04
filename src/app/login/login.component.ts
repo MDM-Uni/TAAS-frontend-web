@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FacebookLoginProvider, GoogleLoginProvider, SocialAuthService} from "angularx-social-login";
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
+import { Utente } from '../utente';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private socialAuthService: SocialAuthService,
-    private router: Router
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
