@@ -9,7 +9,7 @@ import {GestoreVisiteService} from "../../services/gestore-visite/gestore-visite
   styleUrls: ['./box-visita-pren.component.css']
 })
 export class BoxVisitaPrenComponent implements OnInit {
-  idAnimali = this.animaliService.getIdAnimali();
+  animali = this.animaliService.getAnimali();
   postVisitaForm = this.formBuilder.group({
     tipoVisita:"",
     idAnimale:"",

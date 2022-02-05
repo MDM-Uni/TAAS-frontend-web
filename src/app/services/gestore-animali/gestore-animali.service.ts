@@ -9,7 +9,7 @@ export class GestoreAnimaliService {
   constructor(private http: HttpClient) {
   }
 
-  getIdAnimali() {
+  getAnimali() {
     return this.http.get<{animaleId: number, nome: string}[]>("assets/animaliIds.json");
   }
 }
