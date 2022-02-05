@@ -1,0 +1,23 @@
+<form method="post" [formGroup]="postVisitaForm" (ngSubmit)="onSubmit()">
+    <div class="col">
+        <div class="input-group" style="margin: 10px;"><span class="input-group-text"><i class="fas fa-dog flex-row ms-auto" style="margin: 10px;transform: scale(1.48);"></i></span><select class="form-select flex-row me-auto">
+                <optgroup label="This is a group">
+                    <option value="12" selected="">Tobi</option>
+                    <option value="13">This is item 2</option>
+                    <option value="14">This is item 3</option>
+                </optgroup>
+            </select></div>
+        <div class="input-group" style="margin: 10px;"><span class="input-group-text"><label class="form-label flex-row ms-auto" style="margin: 10px;">Tipo visita</label></span><select class="form-select flex-row me-auto">
+                <option value="VACCINO" selected="">Vaccino</option>
+                <option value="OPERAZIONE">Operazione</option>
+                <option value="CONTROLLO">Controllo</option>
+            </select></div>
+        <div class="input-group" style="margin: 10px;"><span class="input-group-text"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-calendar-date flex-row ms-auto" style="margin: 10px;transform: scale(1.48);">
+                    <path d="M6.445 11.688V6.354h-.633A12.6 12.6 0 0 0 4.5 7.16v.695c.375-.257.969-.62 1.258-.777h.012v4.61h.675zm1.188-1.305c.047.64.594 1.406 1.703 1.406 1.258 0 2-1.066 2-2.871 0-1.934-.781-2.668-1.953-2.668-.926 0-1.797.672-1.797 1.809 0 1.16.824 1.77 1.676 1.77.746 0 1.23-.376 1.383-.79h.027c-.004 1.316-.461 2.164-1.305 2.164-.664 0-1.008-.45-1.05-.82h-.684zm2.953-2.317c0 .696-.559 1.18-1.184 1.18-.601 0-1.144-.383-1.144-1.2 0-.823.582-1.21 1.168-1.21.633 0 1.16.398 1.16 1.23z"></path>
+                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"></path>
+                </svg></span><input class="form-control flex-row me-auto" type="date"></div>
+        <div class="input-group" style="margin: 10px;"><span class="input-group-text"><label class="form-label flex-row ms-auto" style="margin: 10px;">Dura</label></span><input class="form-control flex-row me-auto" type="number"><span class="input-group-text"><label class="form-label flex-row ms-auto" style="margin: 10px;">minuti</label></span></div>
+        <div class="input-group" style="margin: 10px;"><span class="input-group-text"><label class="form-label flex-row ms-auto" style="margin: 10px;">Note</label></span><input class="form-control flex-row me-auto" type="text"></div>
+        <div class="input-group" style="margin: 10px;"><button class="btn btn-primary flex-row ms-auto" type="submit">Prenota</button></div>
+    </div>
+</form>
