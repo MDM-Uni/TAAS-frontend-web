@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { BoxVisitaPrenComponent } from './components/box-visita-pren/box-visita-pren.component';
 import {RouterModule} from "@angular/router";
 import {ReactiveFormsModule} from "@angular/forms";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import {ReactiveFormsModule} from "@angular/forms";
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     RouterModule.forRoot([
       {path: '', component: AppComponent}
     ]),
