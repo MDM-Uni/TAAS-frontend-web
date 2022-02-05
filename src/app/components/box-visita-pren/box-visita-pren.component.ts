@@ -11,11 +11,11 @@ import {GestoreVisiteService} from "../../services/gestore-visite/gestore-visite
 export class BoxVisitaPrenComponent implements OnInit {
   animali = this.animaliService.getAnimali();
   postVisitaForm = this.formBuilder.group({
-    tipoVisita:"",
-    idAnimale:"",
     data:"",
     durataInMinuti:0,
-    note:""
+    note:"",
+    tipoVisita:"",
+    idAnimale:""
   });
 
 
@@ -29,6 +29,7 @@ export class BoxVisitaPrenComponent implements OnInit {
   }
 
   onSubmit() {
-  this.visiteService.postVisita(this.postVisitaForm.value);
+    console.log(this.postVisitaForm.value);
+    //this.visiteService.postVisita(this.postVisitaForm.value);
   }
 }
