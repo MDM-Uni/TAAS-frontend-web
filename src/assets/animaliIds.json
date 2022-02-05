@@ -1,0 +1,18 @@
+[
+  {
+    "animaleId": 1,
+    "nome": "Leo"
+  },
+  {
+    "animaleId": 2,
+    "nome": "Rocky"
+  },
+  {
+    "animaleId": 3,
+    "nome": "Pippo"
+  },
+  {
+    "animaleId": 4,
+    "nome": "Paperino"
+  }
+]
