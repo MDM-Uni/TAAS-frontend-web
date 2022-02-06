@@ -12,11 +12,12 @@ export class GestoreVisiteService {
   ) { }
 
   postVisita(visita: Visita) {
-    this.http.post("http://localhost/ospedale/pushVisita", visita).subscribe(
-      (dataOnSuccess: any) => {
-        console.log(dataOnSuccess);
+    this.http.post("http://localhost:8080/ospedale/pushVisita", visita).subscribe(
+      (_: any) => {
+        console.log("Visita inviata con successo");
       },
       (error: any) => {
+        console.log("Errore nell'invio della visita");
         console.log(error);
       }
     );

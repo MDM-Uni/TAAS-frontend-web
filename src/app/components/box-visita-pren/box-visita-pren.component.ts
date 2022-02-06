@@ -12,10 +12,10 @@ export class BoxVisitaPrenComponent implements OnInit {
   animali = this.animaliService.getAnimali();
   postVisitaForm = this.formBuilder.group({
     data:"",
-    durataInMinuti:0,
+    durataInMinuti:30,
     note:"",
-    tipoVisita:"",
-    idAnimale:""
+    tipoVisita:"VACCINO",
+    idAnimale:1
   });
 
 
@@ -30,6 +30,6 @@ export class BoxVisitaPrenComponent implements OnInit {
 
   onSubmit() {
     console.log(this.postVisitaForm.value);
-    //this.visiteService.postVisita(this.postVisitaForm.value);
+    this.visiteService.postVisita(this.postVisitaForm.value);
   }
 }
