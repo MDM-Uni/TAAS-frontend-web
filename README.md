@@ -4,7 +4,7 @@
 
 Metodo 1: terminale
 
-``ng generate component component/<nome_component>``
+``ng generate component components/<nome_component>``
 
 Metodo 2: interfaccia IntelliJ
 

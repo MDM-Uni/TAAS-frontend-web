@@ -6,11 +6,13 @@ import { BoxVisitaPrenComponent } from './components/box-visita-pren/box-visita-
 import {RouterModule} from "@angular/router";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
+import { EventiComponent } from './components/eventi/eventi.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    BoxVisitaPrenComponent
+    BoxVisitaPrenComponent,
+    EventiComponent
   ],
   imports: [
     BrowserModule,
