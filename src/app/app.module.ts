@@ -14,12 +14,15 @@ import {HttpClientModule} from "@angular/common/http";
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AppRoutingModule } from './app-routing.module';
 import { RouterModule } from '@angular/router';
+import { DettagliAnimaleComponent } from './dettagli-animale/dettagli-animale.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    DettagliAnimaleComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +30,8 @@ import { RouterModule } from '@angular/router';
     SocialLoginModule,
     HttpClientModule,
     AppRoutingModule,
-    RouterModule
+    RouterModule,
+    NgbModule
   ],
   providers: [
     {

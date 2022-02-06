@@ -18,7 +18,6 @@ export class UtenteService {
   }
 
   public getUser(utente: Utente) : Observable<Utente>{
-    console.log(this.apiServerUrl +'/user/' + utente.email + '/' + utente.nome);
     return this.http.get<Utente>(this.apiServerUrl +'/user/' + utente.email + '/' + utente.nome);
   }
 
@@ -31,7 +30,7 @@ export class UtenteService {
   }
 
   public deleteAnimal(utente: Utente, animale: Animale) : Observable<Utente>{
-    return this.http.delete<Utente>(this.apiServerUrl + '/removeAnimal/' + animale.id);
+    return this.http.delete<Utente>(this.apiServerUrl + '/removeAnimal/' + utente.id + "/" + animale.id);
   }
 
 }

@@ -93,6 +93,10 @@ body{
   padding: 1rem;
 }
 
+table {
+  border-collapse: collapse;
+}
+
 .gutters-sm {
   margin-right: -8px;
   margin-left: -8px;
@@ -114,4 +118,8 @@ body{
 }
 .shadow-none {
   box-shadow: none!important;
+}
+
+button {
+  margin: 5px
 }

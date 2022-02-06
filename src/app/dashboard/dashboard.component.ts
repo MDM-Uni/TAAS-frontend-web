@@ -13,6 +13,7 @@ export class DashboardComponent implements OnInit {
 
   public userDetails: any;
   public utente : Utente;
+  public animaleSelezionato: Animale;
   public animali: Animale[];
 
   constructor(
@@ -60,10 +61,10 @@ export class DashboardComponent implements OnInit {
   public updateAnimal(animale: Animale): void {
     this.utenteService.updateAnimal(this.utente,animale).subscribe(
       (response) => {
-        this.animali.forEach((element,index) => {
-          if(element.id === animale.id) delete this.animali[index];
+        this.utente.animali.forEach((element,index) => {
+          if(element.id === animale.id) delete this.utente.animali[index];
         })
-        this.animali.push(response);
+        this.utente.animali.push(response);
       },
       (err) => {
         alert(err.message);
@@ -74,14 +75,18 @@ export class DashboardComponent implements OnInit {
   public deleteAnimal(animale: Animale): void {
     this.utenteService.deleteAnimal(this.utente,animale).subscribe(
       (response) => {
-        this.animali.forEach((element,index) => {
-          if(element.id === animale.id) delete this.animali[index];
+        this.utente.animali.forEach((element,index) => {
+          if(element.id === animale.id) delete this.utente.animali[index];
         })
       },
       (err) => {
         alert(err.message);
       }
     )
+  }
+
+  onSelect(animale: Animale) {
+    this.animaleSelezionato = animale;
   }
 
 }

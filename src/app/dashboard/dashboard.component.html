@@ -87,20 +87,34 @@
             <div class="card h-100">
               <div class="card-body">
                 <div class="list-group">
-                  <a href="#" class="list-group-item list-group-item-action">
-                    Pluto
-                  </a>
-                  <a href="#" class="list-group-item list-group-item-action">Hachi</a>
-                  <a href="#" class="list-group-item list-group-item-action">Birba</a>
+                  <table class="table">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th scope="col">Lista animali:</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let animale of utente.animali"
+                          [class.selected]="animale === animaleSelezionato"
+                          (click)="onSelect(animale)">
+                        <td>{{animale?.nome}}</td>
+                        <td>
+                          <app-dettagli-animale [animaleDaVisualizzare]="animaleSelezionato"></app-dettagli-animale>
+                          <button (click)="deleteAnimal(animale)" type="button" class="btn btn-danger">Elimina</button>
+                        </td>
+                        <hr>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
-                <hr>
-                <a class="btn btn-info " target="__blank" href="">Aggiungi animale</a>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
+
+
+      </div>
     </div>
   </div>
 </div>
