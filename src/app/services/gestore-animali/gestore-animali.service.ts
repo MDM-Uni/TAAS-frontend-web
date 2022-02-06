@@ -10,6 +10,6 @@ export class GestoreAnimaliService {
   }
 
   getAnimali() {
-    return this.http.get<{animaleId: number, nome: string}[]>("assets/animaliIds.json");
+    return this.http.get<{animaleId: number, nome: string}[]>("assets/animali-IDs-mock.json");
   }
 }
