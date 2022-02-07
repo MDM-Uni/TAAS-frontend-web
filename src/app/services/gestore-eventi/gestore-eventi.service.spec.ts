@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { GestoreVisiteService } from './gestore-visite.service';
+import { GestoreEventiService } from './gestore-eventi.service';
 
 describe('GestoreVisiteService', () => {
-  let service: GestoreVisiteService;
+  let service: GestoreEventiService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(GestoreVisiteService);
+    service = TestBed.inject(GestoreEventiService);
   });
 
   it('should be created', () => {

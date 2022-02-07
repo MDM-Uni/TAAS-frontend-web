@@ -1,37 +1,36 @@
-<div class="col">
-  <form [formGroup]="filterForm" (ngSubmit)="onSubmit()">
-    <div class="row" style="margin: 10px;">
+<form [formGroup]="filterForm" (ngSubmit)="onSubmit()">
+  <div class="row" style="margin: 10px;">
     <div class="col-auto flex-shrink-1" style="padding: 5px;">
-      <select class="flex-shrink-1" name="nomeAnimaleSelect" formControlName="idAnimale">
-        <optgroup label="I tuoi fedeli animali">
-          <option value=0 selected="">Tutti i tuoi animali</option>
-          <option *ngFor="let animale of animali | async" [ngValue]="animale.animaleId">
-            {{animale.nome}}
-          </option>
-        </optgroup>
-      </select>
-    </div>
+        <select class="flex-shrink-1" name="nomeAnimaleSelect" formControlName="idAnimale">
+          <optgroup label="I tuoi fedeli animali">
+            <option value=0 selected="">Tutti i tuoi animali</option>
+            <option *ngFor="let animale of animali | async" [ngValue]="animale.animaleId">
+              {{animale.nome}}
+            </option>
+          </optgroup>
+        </select>
+      </div>
     <div class="col-auto" style="padding: 5px;">
-      <select name="tipoEventoSelect" formControlName="tipoEvento">
-        <optgroup label="Tipo di Evento">
-          <option value="" selected="">Tutti gli eventi</option>
-          <option value="visita">Visita</option>
-          <option value="ordine">Ordine</option>
-        </optgroup>
-      </select>
-    </div>
+        <select name="tipoEventoSelect" formControlName="tipoEvento">
+          <optgroup label="Tipo di Evento">
+            <option value="" selected="">Tutti gli eventi</option>
+            <option value="visita">Visita</option>
+            <option value="ordine">Ordine</option>
+          </optgroup>
+        </select>
+      </div>
     <div class="col" style="padding: 5px;">
-      <button class="btn btn-primary" type="submit">Cerca</button>
-    </div>
+        <button class="btn btn-primary" type="submit">Cerca</button>
+      </div>
   </div>
+</form>
 
-  <div class="row">
-    <div class="col">
-      <ul class="list-group">
-        <li class="list-group-item"><span>List Group Item 1</span></li>
-        <li class="list-group-item"><span>List Group Item 2</span></li>
-        <li class="list-group-item"><span>List Group Item 3</span></li>
-      </ul>
-    </div>
+<div class="row">
+  <div class="col">
+    <ol class="list-group">
+      <li class="list-group-item"><span>List Group Item 1</span></li>
+      <li class="list-group-item"><span>List Group Item 2</span></li>
+      <li class="list-group-item"><span>List Group Item 3</span></li>
+    </ol>
   </div>
 </div>

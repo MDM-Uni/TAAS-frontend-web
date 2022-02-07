@@ -6,6 +6,7 @@ export class Visita implements Evento{
   durataInMinuti: number;
   note: string;
   id: number;
+  idAnimale: number;
 
   getData(): Date {
     return this.data;
