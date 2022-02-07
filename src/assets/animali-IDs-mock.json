@@ -1,18 +1,18 @@
 [
   {
-    "animaleId": 1,
+    "id": 1,
     "nome": "Leo"
   },
   {
-    "animaleId": 2,
+    "id": 2,
     "nome": "Rocky"
   },
   {
-    "animaleId": 3,
+    "id": 3,
     "nome": "Pippo"
   },
   {
-    "animaleId": 4,
+    "id": 4,
     "nome": "Paperino"
   }
 ]

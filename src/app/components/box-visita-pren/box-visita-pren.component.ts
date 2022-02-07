@@ -3,6 +3,7 @@ import {FormBuilder} from "@angular/forms";
 import {GestoreAnimaliService} from "../../services/gestore-animali/gestore-animali.service";
 import {GestoreEventiService} from "../../services/gestore-eventi/gestore-eventi.service";
 import {Observable} from "rxjs";
+import {Animale} from "../../models/animale";
 
 @Component({
   selector: 'app-box-visita-pren',

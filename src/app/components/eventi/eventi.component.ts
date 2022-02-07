@@ -1,10 +1,11 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, Optional} from '@angular/core';
 import {FormBuilder} from "@angular/forms";
 import {GestoreAnimaliService} from "../../services/gestore-animali/gestore-animali.service";
 import {GestoreEventiService} from "../../services/gestore-eventi/gestore-eventi.service";
-import {Observable} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import {Evento} from "../../models/evento";
 import {Visita} from "../../models/visita";
+import {Animale} from "../../models/animale";
 
 @Component({
   selector: 'app-eventi',
@@ -13,11 +14,12 @@ import {Visita} from "../../models/visita";
 })
 export class EventiComponent implements OnInit, OnDestroy {
   filterForm= this.formBuilder.group({
-    "animaleId":0,
+    "idAnimale":0,
     "tipoEvento":"",
   });
   animali!: Observable<Animale[]>;
   eventi!: Observable<Visita[]>;
+
   constructor(
     private formBuilder: FormBuilder,
     private animaliService: GestoreAnimaliService,
@@ -36,4 +38,5 @@ export class EventiComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
   }
+
 }
