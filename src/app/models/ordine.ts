@@ -14,6 +14,9 @@ export class Ordine implements Evento{
   dataConsegna: Date;
   prodotti: Map<Prodotto, number>
 
+  constructor() {
+    this.prodotti = new Map<Prodotto, number>();
+  }
 
   constructor(id: number, dataAcquisto: Date, dataConsegna: Date, prodotti: Map<Prodotto, number>) {
     this.id = id;

@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder} from "@angular/forms";
 import {GestoreAnimaliService} from "../../services/gestore-animali/gestore-animali.service";
 import {GestoreEventiService} from "../../services/gestore-eventi/gestore-eventi.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-box-visita-pren',
@@ -9,7 +10,7 @@ import {GestoreEventiService} from "../../services/gestore-eventi/gestore-eventi
   styleUrls: ['./box-visita-pren.component.css']
 })
 export class BoxVisitaPrenComponent implements OnInit, OnDestroy {
-  animali;
+  animali!: Observable<Animale[]>;
   postVisitaForm = this.formBuilder.group({
     data:"",
     durataInMinuti:30,
@@ -23,7 +24,7 @@ export class BoxVisitaPrenComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private animaliService: GestoreAnimaliService,
     private visiteService: GestoreEventiService
-) { }
+) {}
 
   ngOnInit(): void {
     this.animali = this.animaliService.getAnimali();
@@ -35,6 +36,5 @@ export class BoxVisitaPrenComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.animali.unsubscribe();
   }
 }

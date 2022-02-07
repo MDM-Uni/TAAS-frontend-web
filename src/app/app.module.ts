@@ -7,7 +7,6 @@ import {RouterModule} from "@angular/router";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import { EventiComponent } from './components/eventi/eventi.component';
-import { VisitaItemClassicComponent } from './components/visita-item-classic/visita-item-classic.component';
 import { VisitaItemStoriaComponent } from './components/visita-item-storia/visita-item-storia.component';
 
 @NgModule({
@@ -15,7 +14,6 @@ import { VisitaItemStoriaComponent } from './components/visita-item-storia/visit
     AppComponent,
     BoxVisitaPrenComponent,
     EventiComponent,
-    VisitaItemClassicComponent,
     VisitaItemStoriaComponent
   ],
   imports: [

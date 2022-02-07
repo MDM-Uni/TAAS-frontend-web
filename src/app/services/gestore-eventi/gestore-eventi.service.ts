@@ -8,8 +8,8 @@ import {Observable} from "rxjs";
   providedIn: 'root'
 })
 export class GestoreEventiService {
-  eventi: Observable<Evento[]>;
-  visite: Observable<Visita[]>;
+  eventi!: Observable<Evento[]>;
+  visite!: Observable<Visita[]>;
 
   constructor(
     private http: HttpClient,

@@ -4,6 +4,7 @@ import {GestoreAnimaliService} from "../../services/gestore-animali/gestore-anim
 import {GestoreEventiService} from "../../services/gestore-eventi/gestore-eventi.service";
 import {Observable} from "rxjs";
 import {Evento} from "../../models/evento";
+import {Visita} from "../../models/visita";
 
 @Component({
   selector: 'app-eventi',
@@ -15,13 +16,14 @@ export class EventiComponent implements OnInit, OnDestroy {
     "animaleId":0,
     "tipoEvento":"",
   });
-  animali;
-  eventi: Observable<Evento[]>;
+  animali!: Observable<Animale[]>;
+  eventi!: Observable<Visita[]>;
   constructor(
     private formBuilder: FormBuilder,
     private animaliService: GestoreAnimaliService,
     private gestoreEventiService: GestoreEventiService
-) { }
+) {
+  }
 
   ngOnInit(): void {
     this.animali = this.animaliService.getAnimali();
@@ -33,7 +35,5 @@ export class EventiComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.animali.unsubscribe();
-    this.eventi.unsubscribe();
   }
 }

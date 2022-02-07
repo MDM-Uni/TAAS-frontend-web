@@ -12,11 +12,12 @@ export class Visita implements Evento{
     return this.data;
   }
 
-  constructor(tipoVisita: string, data: Date, durataInMinuti: number, note: string, id: number) {
+  constructor(tipoVisita: string, data: Date, durataInMinuti: number, note: string, id: number, idAnimale: number) {
     this.tipoVisita = tipoVisita;
     this.data = data;
     this.durataInMinuti = durataInMinuti;
     this.note = note;
     this.id = id;
+    this.idAnimale = idAnimale;
   }
 }

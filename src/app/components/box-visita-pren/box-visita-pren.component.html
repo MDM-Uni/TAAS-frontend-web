@@ -6,7 +6,7 @@
       <select class="form-select flex-row me-auto" formControlName="idAnimale">
         <optgroup label="I tuoi fedeli animali">
           <option
-            *ngFor="let animale of animali | async" [ngValue]="animale.animaleId">
+            *ngFor="let animale of animali | async" [ngValue]="animale.id">
             {{animale.nome}}
           </option>
 
