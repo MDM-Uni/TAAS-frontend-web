@@ -1,4 +1,5 @@
 import {Evento} from "./evento";
+import {Animale} from "./animale";
 
 export class Prodotto {
   nome: string;
@@ -13,6 +14,7 @@ export class Ordine implements Evento{
   dataAcquisto: Date;
   dataConsegna: Date;
   prodotti: Map<Prodotto, number>
+  animale: Animale;
 
   constructor() {
     this.prodotti = new Map<Prodotto, number>();
@@ -44,4 +46,5 @@ export class Ordine implements Evento{
   getData(): Date {
     return this.dataAcquisto;
   }
+
 }
