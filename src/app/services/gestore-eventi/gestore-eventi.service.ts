@@ -2,8 +2,11 @@ import { Injectable } from '@angular/core';
 import {Visita} from "../../models/visita";
 import {HttpClient} from "@angular/common/http";
 import {Evento} from "../../models/evento";
-import {map, Observable} from "rxjs";
+import {concat, filter, from, map, Observable, of, tap} from "rxjs";
 import {GestoreAnimaliService} from "../gestore-animali/gestore-animali.service";
+import {Animale} from "../../models/animale";
+
+type VisitaDTO = { tipoVisita: string, data: Date, durataInMinuti: number, note: string, id: number, idAnimale: number };
 
 @Injectable({
   providedIn: 'root'
@@ -29,19 +32,33 @@ export class GestoreEventiService {
     );
   }
 
-  getVisite(): Observable<Visita[]> {
-    let visite_senza_animali = this.http.get<{tipoVisita:string, data: Date, durataInMinuti: number, note: string, id: number, idAnimale: number}[]>("http://localhost:8080/ospedale/getVisite");
+  getVisite(idAnimale?: number, tipoVisita?: string): Observable<Visita[]> {
+    //creo l'url corretto
+    let url: string = "http://localhost:8080/ospedale/getVisite";
+    if (idAnimale || tipoVisita) url += "?";
+    if (idAnimale) {
+      url += "idAnimale=" + idAnimale;
+    }
+    if (idAnimale && tipoVisita)
+      url += "&tipoVisita=" + tipoVisita;
+
+    let visite_senza_animali = this.http.get<VisitaDTO[]>(url);
     //aggiungo alle visite le informazioni sugli animali
     this.visite = visite_senza_animali.pipe(
-      map((visite: {tipoVisita:string, data: Date, durataInMinuti: number, note: string, id: number, idAnimale: number}[]) => {
-        let v = visite.map((visita) => {
-          return new Visita(visita.tipoVisita, visita.data, visita.durataInMinuti, visita.note, visita.id, this.serviceAnimali.getAnimale(visita.idAnimale));
-        });
-        console.log(v);
-        return v;
-      })
+      tap(visite => console.log("Visite ricevute: " + visite.length)),
+      map(visite => visite.filter(visita => this.serviceAnimali.getAnimale(visita.idAnimale))),
+      tap(visite => console.log("Visite filtrate: " + visite.length)),
+      map(visite => {
+        return visite
+          .filter(visita => this.serviceAnimali.getAnimale(visita.idAnimale))
+          .map((visita) => {
+            let animale: Animale = this.serviceAnimali.getAnimale(visita.idAnimale) as Animale;
+            return new Visita(visita.tipoVisita, visita.data, visita.durataInMinuti, visita.note, visita.id, animale);
+          });
+      }),
+      tap(visite => console.log("Visite trasformate da VisitaDTO[] a Visita[]: " + visite.length)),
     );
-    return this.visite
+    return this.visite;
   }
 
   getEventi() {

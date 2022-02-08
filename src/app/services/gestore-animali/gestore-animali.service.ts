@@ -27,8 +27,8 @@ export class GestoreAnimaliService{
     let animale = this.animaliMap.get(idAnimale);
 
     if (animale === undefined) {
-      console.log("Animale non trovato ${animale}");
-      return new Animale();
+      console.log(`Animale non trovato ${animale}`);
+      return false;
     }
     return animale;
   }

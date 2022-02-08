@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, Optional} from '@angular/core';
+import {Component, OnChanges, OnDestroy, OnInit, Optional, SimpleChanges} from '@angular/core';
 import {FormBuilder} from "@angular/forms";
 import {GestoreAnimaliService} from "../../services/gestore-animali/gestore-animali.service";
 import {GestoreEventiService} from "../../services/gestore-eventi/gestore-eventi.service";
@@ -12,10 +12,11 @@ import {Animale} from "../../models/animale";
   templateUrl: './eventi.component.html',
   styleUrls: ['./eventi.component.css']
 })
-export class EventiComponent implements OnInit, OnDestroy {
+export class EventiComponent implements OnInit, OnDestroy, OnChanges {
   filterForm= this.formBuilder.group({
     "idAnimale":0,
     "tipoEvento":"",
+    "tipoVisita":"",
   });
   animali!: Observable<Animale[]>;
   eventi!: Observable<Visita[]>;
@@ -33,10 +34,13 @@ export class EventiComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-
+    this.eventi = this.gestoreEventiService.getVisite(this.filterForm.get("idAnimale")!.value, this.filterForm.get("tipoVisita")!.value);
   }
 
   ngOnDestroy(): void {
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
   }
 
 }
