@@ -1,4 +1,5 @@
 import {Evento} from "./evento";
+import {Animale} from "./animale";
 
 export class Visita implements Evento{
   tipoVisita: string;
