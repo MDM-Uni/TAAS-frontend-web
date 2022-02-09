@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Visita} from "../../models/visita";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {Evento} from "../../models/evento";
 import {concat, filter, from, map, Observable, of, tap} from "rxjs";
 import {GestoreAnimaliService} from "../gestore-animali/gestore-animali.service";
@@ -34,15 +34,16 @@ export class GestoreEventiService {
 
   getVisite(idAnimale?: number, tipoVisita?: string): Observable<Visita[]> {
     //creo l'url corretto
-    let url: string = "http://localhost:8080/ospedale/getVisite";
-    if (idAnimale || tipoVisita) url += "?";
-    if (idAnimale) {
-      url += "idAnimale=" + idAnimale;
-    }
-    if (idAnimale && tipoVisita)
-      url += "&tipoVisita=" + tipoVisita;
+    let params = new HttpParams()
+    let baseURL: string = "http://localhost:8080/ospedale/getVisite";
+    if (idAnimale)
+      params = params.set("idAnimale", idAnimale)
+    if (tipoVisita)
+      params = params.set("tipoVisita", tipoVisita)
+    const fullURL = `${baseURL}?${params.toString()}`;
+    console.log(fullURL);
 
-    let visite_senza_animali = this.http.get<VisitaDTO[]>(url);
+    let visite_senza_animali = this.http.get<VisitaDTO[]>(fullURL);
     //aggiungo alle visite le informazioni sugli animali
     this.visite = visite_senza_animali.pipe(
       tap(visite => console.log("Visite ricevute: " + visite.length)),

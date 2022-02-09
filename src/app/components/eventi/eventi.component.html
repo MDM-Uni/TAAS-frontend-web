@@ -10,15 +10,25 @@
           </optgroup>
         </select>
       </div>
-    <div class="col-auto" style="padding: 5px;">
-        <select name="tipoEventoSelect" formControlName="tipoEvento">
-          <optgroup label="Tipo di Evento">
-            <option value="" selected="">Tutti gli eventi</option>
-            <option value="visita">Visita</option>
-            <option value="ordine">Ordine</option>
-          </optgroup>
-        </select>
-      </div>
+    <div class="col-auto flex-shrink-1" style="padding: 5px;">
+      <select name="tipoEventoSelect" formControlName="tipoEvento">
+        <optgroup label="Tipo di Evento">
+          <option value="" selected="">Tutti gli eventi</option>
+          <option value="visita">Visita</option>
+          <option value="ordine">Ordine</option>
+        </optgroup>
+      </select>
+    </div>
+    <div *ngIf="filterForm.get('tipoEvento')!.value=='visita'" class="col-auto" style="padding: 5px;">
+      <select name="tipoVisitaSelect" formControlName="tipoVisita">
+        <optgroup label="Tipo di Visita">
+          <option value="" selected="">Tutte le visite</option>
+          <option value="vaccino">Vaccino</option>
+          <option value="operazione">Operazione</option>
+          <option value="controllo">Controllo</option>
+        </optgroup>
+      </select>
+    </div>
     <div class="col" style="padding: 5px;">
         <button class="btn btn-primary" type="submit">Cerca</button>
       </div>
