@@ -1,6 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { Animale } from '../animale';
+import { Utente } from '../utente';
+import {UtenteService} from "../utente.service";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-dettagli-animale',
@@ -10,10 +13,17 @@ import { Animale } from '../animale';
 export class DettagliAnimaleComponent implements OnInit {
 
   closeResult: string;
+  modifica: String = 'modifica';
+  aggiungi: String = "aggiungi";
 
   @Input() animaleDaVisualizzare: Animale;
+  @Input() utenteCorrente: Utente;
 
-  constructor(private modalService: NgbModal) { }
+  constructor(
+    private modalService: NgbModal,
+    private utenteService: UtenteService,
+    private http: HttpClient
+  ) { }
 
   ngOnInit(): void {
   }
@@ -36,4 +46,48 @@ export class DettagliAnimaleComponent implements OnInit {
     }
   }
 
+  updateAnimal() {
+    let nome: string = (<HTMLInputElement>document.getElementById("nome")).value;
+    let razza: string = (<HTMLInputElement>document.getElementById("razza")).value;
+    let peso: number = Number((<HTMLInputElement>document.getElementById("peso")).value)
+    let data: Date = new Date((<HTMLInputElement>document.getElementById("data")).value);
+    let patologie: Array<string> = (<HTMLInputElement>document.getElementById("patologie")).value.split(",");
+    let peloLungo: boolean;
+
+    /*
+    let valueC;
+    if(this.animaleDaVisualizzare.peloLungo){
+      valueC = (<HTMLInputElement>document.getElementById("peloLungoSi")).value;
+    } else (valueC = (<HTMLInputElement>document.getElementById("peloLungoNo")))
+    if(valueC === "true"){
+      peloLungo = true;
+    }*/
+    peloLungo = false;
+    let animale: Animale = new Animale(nome,data,patologie,razza,peso,peloLungo);
+    this.utenteService.updateAnimal(this.utenteCorrente,this.animaleDaVisualizzare,animale).subscribe(data => {
+      this.utenteCorrente.animali.forEach((element,index) => {
+        if(element.id === animale.id) delete this.utenteCorrente.animali[index];
+      })
+      this.utenteCorrente.animali.push(animale);
+      window.location.reload();
+    })
+  }
+
+  addAnimal() {
+    let nome: string = (<HTMLInputElement>document.getElementById("nome")).value;
+    let razza: string = (<HTMLInputElement>document.getElementById("razza")).value;
+    let peso: number = Number((<HTMLInputElement>document.getElementById("peso")).value)
+    let data: Date = new Date((<HTMLInputElement>document.getElementById("data")).value);
+    let patologie: Array<string> = (<HTMLInputElement>document.getElementById("patologie")).value.split(",");
+    let peloLungo: boolean;
+    peloLungo = false;
+    let animale: Animale = new Animale(nome,data,patologie,razza,peso,peloLungo);
+
+    this.utenteService.addAnimal(this.utenteCorrente,animale).subscribe(data => {
+      this.utenteCorrente.animali.push(animale);
+      window.location.reload();
+    })
+
+
+  }
 }

@@ -58,31 +58,14 @@ export class DashboardComponent implements OnInit {
     )
   }
 
-  public updateAnimal(animale: Animale): void {
-    this.utenteService.updateAnimal(this.utente,animale).subscribe(
-      (response) => {
-        this.utente.animali.forEach((element,index) => {
-          if(element.id === animale.id) delete this.utente.animali[index];
-        })
-        this.utente.animali.push(response);
-      },
-      (err) => {
-        alert(err.message);
-      }
-    )
-  }
-
   public deleteAnimal(animale: Animale): void {
-    this.utenteService.deleteAnimal(this.utente,animale).subscribe(
-      (response) => {
+    this.utenteService.deleteAnimal(this.utente,animale).subscribe(data => {
         this.utente.animali.forEach((element,index) => {
           if(element.id === animale.id) delete this.utente.animali[index];
+          window.location.reload();
         })
       },
-      (err) => {
-        alert(err.message);
-      }
-    )
+        err => {console.log(err)})
   }
 
   onSelect(animale: Animale) {
