@@ -16,13 +16,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { RouterModule } from '@angular/router';
 import { DettagliAnimaleComponent } from './dettagli-animale/dettagli-animale.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AggiungiAnimaleComponent } from './aggiungi-animale/aggiungi-animale.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     DashboardComponent,
-    DettagliAnimaleComponent
+    DettagliAnimaleComponent,
+    AggiungiAnimaleComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +33,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     HttpClientModule,
     AppRoutingModule,
     RouterModule,
-    NgbModule
+    NgbModule,
   ],
   providers: [
     {
@@ -46,7 +48,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
       }, {
         id: FacebookLoginProvider.PROVIDER_ID,
         provider: new FacebookLoginProvider(
-          '1376977732742836'
+          '246239551009960'
         )
       }]
     } as SocialAuthServiceConfig

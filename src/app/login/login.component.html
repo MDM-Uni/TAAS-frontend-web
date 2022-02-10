@@ -2,39 +2,15 @@
 
   <div class="custom-card">
 
-    <div class="form-group">
-      <input type="email"
-             placeholder="Inserisci email"
-             class="form-control"
-      />
-    </div>
-
-    <div class="form-group" style="padding-top:10px">
-      <input type="password"
-             placeholder="Inserisci password"
-             class="form-control"
-      />
-    </div>
-
-    <div></div>
-
-    <div class="button-login">
-      <button class="btn btn-block btn-primary" style="width: 30%">Login</button>
-    </div>
-
-    <p class="horizontal-line-text">
-      <span>or</span>
-    </p>
-
     <button class="btn btn-block google-sign-in" (click)="loginWithGoogle()" style="width: 100%">
       <img [src]="'assets/images/google.svg'" alt="google"/>
-      <span>Continue with Google</span>
+      <span>Accedi con Google</span>
     </button>
 
     <div style="padding-top: 20px">
       <button class="btn btn-block google-sign-in" (click)="loginWithFacebook()" style="width: 100%">
         <img [src]="'assets/images/facebook.svg'" alt="facebook"/>
-        <span>Continue with Facebook</span>
+        <span>Accedi con Facebook</span>
       </button>
     </div>
 

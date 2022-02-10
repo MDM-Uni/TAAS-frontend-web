@@ -3,6 +3,7 @@ import {Router} from "@angular/router";
 import {UtenteService} from "../utente.service";
 import {Animale} from "../animale";
 import {Utente} from "../utente";
+import {ModalDismissReasons, NgbModal, NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-dashboard',
@@ -15,14 +16,16 @@ export class DashboardComponent implements OnInit {
   public utente : Utente;
   public animaleSelezionato: Animale;
   public animali: Animale[];
+  display = false;
 
   constructor(
     private router: Router,
     private utenteService: UtenteService,
+    private modalService: NgbModal,
   ) { }
 
   ngOnInit(): void {
-    const storage = localStorage.getItem('google_auth');
+    const storage = localStorage.getItem('auth');
     if(storage){
       this.userDetails = JSON.parse(storage);
       console.log(this.userDetails);
@@ -71,5 +74,6 @@ export class DashboardComponent implements OnInit {
   onSelect(animale: Animale) {
     this.animaleSelezionato = animale;
   }
+
 
 }

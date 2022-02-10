@@ -3,6 +3,8 @@ import {FacebookLoginProvider, GoogleLoginProvider, SocialAuthService} from "ang
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import { Utente } from '../utente';
+import { UtenteService } from '../utente.service';
+import {Animale} from "../animale";
 
 @Component({
   selector: 'app-login',
@@ -12,10 +14,12 @@ import { Utente } from '../utente';
 export class LoginComponent implements OnInit {
 
   public userDetails : any;
+  public animali: Animale[];
 
   constructor(
     private socialAuthService: SocialAuthService,
     private router: Router,
+    private utenteService: UtenteService
   ) { }
 
   ngOnInit(): void {
@@ -23,7 +27,7 @@ export class LoginComponent implements OnInit {
 
   loginWithGoogle(): void {
     this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID).then(data => {
-      localStorage.setItem("google_auth", JSON.stringify(data));
+      localStorage.setItem("auth", JSON.stringify(data));
       this.router.navigate(['/dashboard']).then();
     });
   }
@@ -33,7 +37,10 @@ export class LoginComponent implements OnInit {
   }
 
   loginWithFacebook(): void {
-    this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID).then();
+    this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID).then(data => {
+      localStorage.setItem("auth", JSON.stringify(data));
+      this.router.navigate(['/dashboard']).then();
+    })
   }
 
 }

@@ -1,4 +1,4 @@
-<button *ngIf="modifica" class="btn btn-primary" (click)="open(mymodal)">Modifica</button>
+<button class="btn btn-primary" (click)="open(mymodal)">Modifica</button>
 
 <ng-template #mymodal let-modal>
   <div class="modal-header">
@@ -29,20 +29,17 @@
         <label for="peso">Peso</label>
         <input type="nome" class="form-control" id="peso" placeholder="kg" value={{animaleDaVisualizzare.peso}}>
       </div>
-      <div *ngIf="animaleDaVisualizzare.peloLungo === false" style="margin-top:10px" class="form-group form-check">
+      <div *ngIf="animaleDaVisualizzare.peloLungo" style="margin-top:10px" class="form-group form-check">
+        <input value="false" type="checkbox" class="form-check-input" id="pelolungoSi" checked>
+        <label class="form-check-label" for="pelolungoSi">Pelo lungo</label>
+      </div>
+      <div *ngIf="!animaleDaVisualizzare.peloLungo" style="margin-top:10px" class="form-group form-check">
         <input value="false" type="checkbox" class="form-check-input" id="pelolungoNo">
         <label class="form-check-label" for="pelolungoNo">Pelo lungo</label>
       </div>
-      <div *ngIf="animaleDaVisualizzare.peloLungo !== false" style="margin-top:10px" class="form-group form-check" checked>
-        <input value="true" type="checkbox" class="form-check-input" id="pelolungoSi">
-        <label class="form-check-label" for="pelolungoSi">Pelo lungo</label>
-      </div>
     </form>
   </div>
-  <div *ngIf="this.animaleDaVisualizzare" class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="updateAnimal()">Modifica</button>
-  </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="addAnimal()">Aggiungi</button>
+    <button type="button" class="btn btn-outline-dark" (click)="updateAnimal()">Modifica</button>
   </div>
 </ng-template>
