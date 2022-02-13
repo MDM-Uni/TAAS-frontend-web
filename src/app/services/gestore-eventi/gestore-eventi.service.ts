@@ -24,6 +24,11 @@ export class GestoreEventiService {
     this.http.post("http://localhost:8080/ospedale/pushVisita", visita).subscribe(
       (_: any) => {
         console.log("Visita inviata con successo");
+        this.visite = this.visite.pipe(
+          map(visite => {
+            return [...visite, visita];
+          }),
+        )
       },
       (error: any) => {
         console.log("Errore nell'invio della visita");
@@ -39,12 +44,10 @@ export class GestoreEventiService {
         this.visite = this.visite.pipe(
           map((visite) => visite.filter((visita) => visita.id !== id))
         );
-        return true;
       },
       error: (error: any) => {
         console.log("Errore nell'eliminazione della visita");
         console.log(error);
-        return false;
       }
     });
   }

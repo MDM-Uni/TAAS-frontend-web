@@ -1,10 +1,10 @@
-<form [formGroup]="filterForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="filterForm" (ngSubmit)="onSubmitFilterForm()">
   <div class="row" style="margin: 10px;">
     <div class="col-auto flex-shrink-1" style="padding: 5px;">
         <select class="flex-shrink-1" name="nomeAnimaleSelect" formControlName="idAnimale">
           <optgroup label="I tuoi fedeli animali">
             <option value=0 selected="">Tutti i tuoi animali</option>
-            <option *ngFor="let animale of animali | async" [ngValue]="animale.id">
+            <option *ngFor="let animale of animali" [ngValue]="animale.id">
               {{animale.nome}}
             </option>
           </optgroup>
@@ -38,7 +38,7 @@
 <div class="row">
   <div class="col">
     <ol class="list-group">
-      <app-visita-item-storia *ngFor="let evento of eventi | async" [visita]="evento"></app-visita-item-storia>
+      <app-visita-item-storia *ngFor="let evento of eventi" [visita]="evento"></app-visita-item-storia>
     </ol>
   </div>
 </div>

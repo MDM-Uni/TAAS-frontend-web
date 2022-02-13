@@ -18,8 +18,10 @@ export class EventiComponent implements OnInit, OnDestroy, OnChanges {
     "tipoEvento":"",
     "tipoVisita":"",
   });
-  animali!: Observable<Animale[]>;
-  eventi!: Observable<Visita[]>;
+  animali!: Animale[];
+  eventi!: Visita[];
+  private animaliSub!: Subscription;
+  private eventiSub!: Subscription;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -29,22 +31,41 @@ export class EventiComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnInit(): void {
-    this.animali = this.animaliService.getAnimali();
-    this.eventi = this.gestoreEventiService.getVisite();
+    this.animaliSub = this.animaliService.getAnimali().subscribe({
+      next: (animali: Animale[]) => {
+        this.animali = animali;
+      }
+    });
+    this.eventiSub = this.gestoreEventiService.getVisite().subscribe({
+      next: (visite: Visita[]) => {
+        this.eventi = visite;
+      }
+    });
   }
 
-  onSubmit() {
-    this.eventi = this.gestoreEventiService.getVisite(this.filterForm.get("idAnimale")!.value, this.filterForm.get("tipoVisita")!.value);
+  onSubmitFilterForm() {
+    this.eventiSub.unsubscribe();
+    this.eventiSub = this.gestoreEventiService.getVisite(this.filterForm.get("idAnimale")!.value, this.filterForm.get("tipoVisita")!.value).subscribe({
+      next: (visite: Visita[]) => {
+        this.eventi = visite;
+      }
+    });
   }
 
   ngOnDestroy(): void {
+    this.animaliSub.unsubscribe();
+    this.eventiSub.unsubscribe();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.filterForm.get("tipoEvento")!.value != "visita") {
       this.filterForm.setControl("tipoVisita", new FormControl(""));
     }
-    this.eventi = this.gestoreEventiService.getVisite();
+    this.eventiSub = this.gestoreEventiService.getVisite().subscribe({
+      next: (visite: Visita[]) => {
+        this.eventi = visite;
+      }
+    });
   }
 
 }
