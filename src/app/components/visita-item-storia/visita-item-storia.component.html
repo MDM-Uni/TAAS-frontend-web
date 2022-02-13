@@ -1,5 +1,11 @@
-<li class="list-group-item"><span>
-  {{visita.data}}<br/>
-  {{visita.animale.nome}} deve effettuare una visita per {{visita.tipoVisita}}. Dovrà recarsi in ospedale per la durata di {{visita.durataInMinuti}} minuti.<br/>
-  Note: {{visita.note}}
-</span></li>
+<li class="list-group-item">
+  <span>
+{{visita.data}}<br/>
+{{visita.animale.nome}} deve effettuare una visita per {{visita.tipoVisita}}. Dovrà recarsi in ospedale per la durata di {{visita.durataInMinuti}} minuti.<br/>
+Note: {{visita.note}}
+    <button class="btn btn-primary float-end" (click)="deleteVisita(visita)">
+      <i class="fa fa-trash"></i>
+      Disdici
+    </button>
+  </span>
+</li>

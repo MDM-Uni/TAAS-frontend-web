@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {Visita} from "../../models/visita";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Evento} from "../../models/evento";
-import {concat, filter, from, map, Observable, of, tap} from "rxjs";
+import {map, Observable, tap} from "rxjs";
 import {GestoreAnimaliService} from "../gestore-animali/gestore-animali.service";
 import {Animale} from "../../models/animale";
 
@@ -30,6 +30,23 @@ export class GestoreEventiService {
         console.log(error);
       }
     );
+  }
+
+  deleteVisita(id: number) {
+    this.http.delete("http://localhost:8080/ospedale/deleteVisita/" + id).subscribe({
+      next: (_: any) => {
+        console.log("Visita eliminata con successo");
+        this.visite = this.visite.pipe(
+          map((visite) => visite.filter((visita) => visita.id !== id))
+        );
+        return true;
+      },
+      error: (error: any) => {
+        console.log("Errore nell'eliminazione della visita");
+        console.log(error);
+        return false;
+      }
+    });
   }
 
   getVisite(idAnimale?: number, tipoVisita?: string): Observable<Visita[]> {

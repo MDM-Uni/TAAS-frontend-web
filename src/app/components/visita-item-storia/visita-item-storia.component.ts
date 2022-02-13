@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Visita} from "../../models/visita";
+import {GestoreEventiService} from "../../services/gestore-eventi/gestore-eventi.service";
 
 @Component({
   selector: 'app-visita-item-storia',
@@ -9,9 +10,14 @@ import {Visita} from "../../models/visita";
 export class VisitaItemStoriaComponent implements OnInit {
   @Input() visita!: Visita;
 
-  constructor() { }
+  constructor(
+    private gestoreEventiService: GestoreEventiService
+) { }
 
   ngOnInit(): void {
   }
 
+  deleteVisita(visita: Visita) {
+    this.gestoreEventiService.deleteVisita(visita.id);
+  }
 }

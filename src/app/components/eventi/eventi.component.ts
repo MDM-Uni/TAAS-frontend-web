@@ -44,6 +44,7 @@ export class EventiComponent implements OnInit, OnDestroy, OnChanges {
     if (this.filterForm.get("tipoEvento")!.value != "visita") {
       this.filterForm.setControl("tipoVisita", new FormControl(""));
     }
+    this.eventi = this.gestoreEventiService.getVisite();
   }
 
 }
