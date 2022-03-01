@@ -8,6 +8,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import { EventiComponent } from './components/eventi/eventi.component';
 import { VisitaItemStoriaComponent } from './components/visita-item-storia/visita-item-storia.component';
+import { HotToastModule } from '@ngneat/hot-toast';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { VisitaItemStoriaComponent } from './components/visita-item-storia/visit
       {path: '', component: AppComponent}
     ]),
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    HotToastModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

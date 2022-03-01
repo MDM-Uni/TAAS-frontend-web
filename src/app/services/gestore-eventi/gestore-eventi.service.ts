@@ -6,6 +6,7 @@ import {map, Observable, tap} from "rxjs";
 import {GestoreAnimaliService} from "../gestore-animali/gestore-animali.service";
 import {Animale} from "../../models/animale";
 import {formatDate} from '@angular/common';
+import {HotToastService} from "@ngneat/hot-toast";
 
 type VisitaDTO = { tipoVisita: string, data: Date, durataInMinuti: number, note: string, id: number, idAnimale: number };
 
@@ -19,10 +20,17 @@ export class GestoreEventiService {
   constructor(
     private http: HttpClient,
     private serviceAnimali: GestoreAnimaliService,
+    private toast: HotToastService
   ) { }
 
   postVisita(visita: Visita) {
-    this.http.post("http://localhost:8080/ospedale/pushVisita", visita).subscribe(
+    this.http.post("http://localhost:8080/ospedale/pushVisita", visita).pipe(
+      this.toast.observe({
+         loading: 'Sto verificando la disponibilità...',
+         success: 'Visita registrata con successo!',
+         error: 'Qualcosa è andato storto!'
+      })
+    ).subscribe(
       (_: any) => {
         console.log("Visita inviata con successo");
         this.visite = this.visite.pipe(
@@ -39,7 +47,13 @@ export class GestoreEventiService {
   }
 
   deleteVisita(visitaDaEliminare: Visita) {
-    this.http.post("http://localhost:8080/ospedale/deleteVisita", visitaDaEliminare).subscribe({
+    this.http.post("http://localhost:8080/ospedale/deleteVisita", visitaDaEliminare).pipe(
+      this.toast.observe({
+         loading: 'Sto eliminando la visita...',
+         success: 'Visita eliminata con successo!',
+         error: 'Qualcosa è andato storto!'
+      })
+    ).subscribe({
       next: (_: any) => {
         console.log("Visita eliminata con successo");
         this.visite = this.visite.pipe(
