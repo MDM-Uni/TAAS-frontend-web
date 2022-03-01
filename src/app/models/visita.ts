@@ -1,5 +1,6 @@
 import {Evento} from "./evento";
 import {Animale} from "./animale";
+import {formatDate} from "@angular/common";
 
 export class Visita implements Evento{
   tipoVisita: string;
@@ -8,6 +9,7 @@ export class Visita implements Evento{
   note: string;
   id: number;
   animale: Animale;
+  dataFormattata: string;
 
   getData(): Date {
     return this.data;
@@ -20,5 +22,6 @@ export class Visita implements Evento{
     this.note = note;
     this.id = id;
     this.animale = animale;
+    this.dataFormattata = formatDate(data, 'dd-MM-yyyy HH:mm:ss', 'en');
   }
 }

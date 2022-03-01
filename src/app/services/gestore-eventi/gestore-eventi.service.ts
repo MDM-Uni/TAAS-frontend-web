@@ -5,6 +5,7 @@ import {Evento} from "../../models/evento";
 import {map, Observable, tap} from "rxjs";
 import {GestoreAnimaliService} from "../gestore-animali/gestore-animali.service";
 import {Animale} from "../../models/animale";
+import {formatDate} from '@angular/common';
 
 type VisitaDTO = { tipoVisita: string, data: Date, durataInMinuti: number, note: string, id: number, idAnimale: number };
 

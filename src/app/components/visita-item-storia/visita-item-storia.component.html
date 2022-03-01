@@ -1,6 +1,6 @@
 <li class="list-group-item">
   <span>
-{{visita.data}}<br/>
+{{visita.dataFormattata}}<br/>
 {{visita.animale.nome}} deve effettuare una visita per {{visita.tipoVisita}}. Dovrà recarsi in ospedale per la durata di {{visita.durataInMinuti}} minuti.<br/>
 Note: {{visita.note}}
     <button class="btn btn-primary float-end" (click)="deleteVisita(visita)">
