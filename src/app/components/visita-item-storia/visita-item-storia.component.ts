@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Visita} from "../../models/visita";
 import {GestoreEventiService} from "../../services/gestore-eventi/gestore-eventi.service";
 
@@ -9,6 +9,7 @@ import {GestoreEventiService} from "../../services/gestore-eventi/gestore-eventi
 })
 export class VisitaItemStoriaComponent implements OnInit {
   @Input() visita!: Visita;
+  @Output() visitaEliminataEvent = new EventEmitter<Visita>();
 
   constructor(
     private gestoreEventiService: GestoreEventiService
@@ -18,6 +19,6 @@ export class VisitaItemStoriaComponent implements OnInit {
   }
 
   deleteVisita(visita: Visita) {
-    this.gestoreEventiService.deleteVisita(visita.id);
+    this.gestoreEventiService.deleteVisita(visita);
   }
 }

@@ -38,7 +38,7 @@
 <div class="row">
   <div class="col">
     <ol class="list-group">
-      <app-visita-item-storia *ngFor="let evento of eventi" [visita]="evento"></app-visita-item-storia>
+      <app-visita-item-storia *ngFor="let evento of eventi" [visita]="evento" (visitaEliminataEvent)="handleVisitaEliminata($event)"></app-visita-item-storia>
     </ol>
   </div>
 </div>

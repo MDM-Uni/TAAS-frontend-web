@@ -37,12 +37,12 @@ export class GestoreEventiService {
     );
   }
 
-  deleteVisita(id: number) {
-    this.http.delete("http://localhost:8080/ospedale/deleteVisita/" + id).subscribe({
+  deleteVisita(visitaDaEliminare: Visita) {
+    this.http.post("http://localhost:8080/ospedale/deleteVisita", visitaDaEliminare).subscribe({
       next: (_: any) => {
         console.log("Visita eliminata con successo");
         this.visite = this.visite.pipe(
-          map((visite) => visite.filter((visita) => visita.id !== id))
+          map((visite) => visite.filter((visita) => visita.id !== visitaDaEliminare.id))
         );
       },
       error: (error: any) => {

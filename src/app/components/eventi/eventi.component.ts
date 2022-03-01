@@ -61,11 +61,17 @@ export class EventiComponent implements OnInit, OnDestroy, OnChanges {
     if (this.filterForm.get("tipoEvento")!.value != "visita") {
       this.filterForm.setControl("tipoVisita", new FormControl(""));
     }
-    this.eventiSub = this.gestoreEventiService.getVisite().subscribe({
-      next: (visite: Visita[]) => {
-        this.eventi = visite;
-      }
-    });
+    // this.eventiSub = this.gestoreEventiService.getVisite().subscribe({
+    //   next: (visite: Visita[]) => {
+    //     this.eventi = visite;
+    //   }
+    // });
   }
 
+  handleVisitaEliminata(visita: Visita) {
+    let index = this.eventi.indexOf(visita);
+    if (index!=-1) {
+      this.eventi.splice(index,1);
+    }
+  }
 }
