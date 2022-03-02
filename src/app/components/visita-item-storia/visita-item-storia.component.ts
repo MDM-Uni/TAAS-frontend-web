@@ -19,6 +19,6 @@ export class VisitaItemStoriaComponent implements OnInit {
   }
 
   deleteVisita(visita: Visita) {
-    this.gestoreEventiService.deleteVisita(visita);
+    this.visitaEliminataEvent.emit(visita);
   }
 }

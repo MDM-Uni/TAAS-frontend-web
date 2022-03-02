@@ -69,9 +69,14 @@ export class EventiComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   handleVisitaEliminata(visita: Visita) {
+    console.log("Sto eliminando la visita");
+    //elimino persistente
+    this.gestoreEventiService.deleteVisita(visita);
+    //elimino localmente
     let index = this.eventi.indexOf(visita);
     if (index!=-1) {
-      this.eventi.splice(index,1);
+      let eliminato = this.eventi.splice(index,1);
+      console.log("Eliminata la visita: " + eliminato);
     }
   }
 }
