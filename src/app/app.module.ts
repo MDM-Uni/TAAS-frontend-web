@@ -17,6 +17,11 @@ import { RouterModule } from '@angular/router';
 import { DettagliAnimaleComponent } from './dettagli-animale/dettagli-animale.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AggiungiAnimaleComponent } from './aggiungi-animale/aggiungi-animale.component';
+import { DatePipe } from '@angular/common';
+import {MatSliderModule} from "@angular/material/slider";
+import {MatDatepicker, MatDatepickerModule} from "@angular/material/datepicker";
+import {MatNativeDateModule} from "@angular/material/core";
+import {MatInputModule} from "@angular/material/input";
 
 @NgModule({
   declarations: [
@@ -34,8 +39,12 @@ import { AggiungiAnimaleComponent } from './aggiungi-animale/aggiungi-animale.co
     AppRoutingModule,
     RouterModule,
     NgbModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
   providers: [
+    DatePipe,
     {
     provide: "SocialAuthServiceConfig",
     useValue: {
