@@ -8,7 +8,7 @@ import {Animale} from "../../models/animale";
 import {formatDate} from '@angular/common';
 import {HotToastService} from "@ngneat/hot-toast";
 
-type VisitaDTO = { tipoVisita: string, data: Date, durataInMinuti: number, note: string, id: number, idAnimale: number };
+type VisitaDTO = { tipoVisita: string, data: string, durataInMinuti: number, note: string, id: number, idAnimale: number };
 
 @Injectable({
   providedIn: 'root'
@@ -35,7 +35,17 @@ export class GestoreEventiService {
         console.log("Visita inviata con successo");
         this.visite = this.visite.pipe(
           map(visite => {
-            return [...visite, visita];
+            //inserisco nel posto giusto la visita
+            let i = 0;
+            let cont = true;
+            while (cont && i < visite.length) {
+              if (visita.data > visite[i].data) {
+                visite = visite.splice(i, 0, visita);
+                cont=false;
+              }
+              i++;
+            }
+            return visite;
           }),
         )
       },
@@ -84,15 +94,29 @@ export class GestoreEventiService {
       tap(visite => console.log("Visite ricevute: " + visite.length)),
       map(visite => visite.filter(visita => this.serviceAnimali.getAnimale(visita.idAnimale))),
       tap(visite => console.log("Visite filtrate: " + visite.length)),
+      //trasforma da tipo VisitaDTO[] a Visita[]
       map(visite => {
         return visite
           .filter(visita => this.serviceAnimali.getAnimale(visita.idAnimale))
-          .map((visita) => {
+          .map((visita:VisitaDTO) => {
             let animale: Animale = this.serviceAnimali.getAnimale(visita.idAnimale) as Animale;
-            return new Visita(visita.tipoVisita, visita.data, visita.durataInMinuti, visita.note, visita.id, animale);
+            return new Visita(visita.tipoVisita, new Date(visita.data), visita.durataInMinuti, visita.note, visita.id, animale);
           });
       }),
       tap(visite => console.log("Visite trasformate da VisitaDTO[] a Visita[]: " + visite.length)),
+      tap(visite => visite.forEach(visita => {
+        console.log("Visite: ");
+        console.log(visita.data.getTime());
+      })),
+      //ordino le visite per data in ordine decrescente
+      map(visite => {
+        visite.sort((a:Visita, b:Visita) => (b.data.getTime() - a.data.getTime()));
+        return visite;
+      }),
+      tap(visite => {
+        console.log("Visite ordinate:");
+        visite.forEach(visita => console.log(visita));
+      }),
     );
     return this.visite;
   }
