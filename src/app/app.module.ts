@@ -9,13 +9,15 @@ import {HttpClientModule} from "@angular/common/http";
 import { EventiComponent } from './components/eventi/eventi.component';
 import { VisitaItemStoriaComponent } from './components/visita-item-storia/visita-item-storia.component';
 import { HotToastModule } from '@ngneat/hot-toast';
+import { NegozioHomepageComponent } from './negozio/component/negozio-homepage/negozio-homepage.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BoxVisitaPrenComponent,
     EventiComponent,
-    VisitaItemStoriaComponent
+    VisitaItemStoriaComponent,
+    NegozioHomepageComponent
   ],
   imports: [
     BrowserModule,
