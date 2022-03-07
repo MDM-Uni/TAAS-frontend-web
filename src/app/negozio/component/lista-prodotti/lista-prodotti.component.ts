@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import {ProdottiService} from "../../service/prodotti.service";
 
 @Component({
-  selector: 'app-negozio-homepage',
-  templateUrl: './negozio-homepage.component.html',
-  styleUrls: ['./negozio-homepage.component.css']
+  selector: 'app-lista-prodotti',
+  templateUrl: './lista-prodotti.component.html',
+  styleUrls: ['./lista-prodotti.component.css']
 })
-export class NegozioHomepageComponent implements OnInit {
+export class ListaProdottiComponent implements OnInit {
   prodotti
   service
 
