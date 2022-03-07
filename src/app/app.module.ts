@@ -10,6 +10,7 @@ import { EventiComponent } from './components/eventi/eventi.component';
 import { VisitaItemStoriaComponent } from './components/visita-item-storia/visita-item-storia.component';
 import { HotToastModule } from '@ngneat/hot-toast';
 import { ListaProdottiComponent } from './negozio/component/lista-prodotti/lista-prodotti.component';
+import { NegozioComponent } from './negozio/component/negozio/negozio.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { ListaProdottiComponent } from './negozio/component/lista-prodotti/lista
     BoxVisitaPrenComponent,
     EventiComponent,
     VisitaItemStoriaComponent,
-    ListaProdottiComponent
+    ListaProdottiComponent,
+    NegozioComponent
   ],
   imports: [
     BrowserModule,
