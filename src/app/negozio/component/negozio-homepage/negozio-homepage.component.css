@@ -1,0 +1,14 @@
+.rotate {
+  transition: transform .2s ease-in-out;
+}
+.rotate-div:hover .rotate {
+  transform: scale(1.01) rotate(5deg);
+}
+
+.rotate-div {
+  transition: transform .2s ease-in-out;
+}
+
+.rotate-div:hover {
+  transform: scale(1.01);
+}
