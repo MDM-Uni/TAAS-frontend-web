@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {Animale} from "../animale";
 import {Utente} from "../utente";
@@ -12,6 +12,7 @@ import {UtenteService} from "../utente.service";
 export class AggiungiAnimaleComponent implements OnInit {
 
   @Input() utenteCorrente: Utente;
+  @Output() addA = new EventEmitter<Utente>();
   private closeResult: string;
 
   constructor(private modalService: NgbModal,
@@ -46,10 +47,15 @@ export class AggiungiAnimaleComponent implements OnInit {
     let patologie: Array<string> = (<HTMLInputElement>document.getElementById("patologie")).value.split(",");
     let peloLungo: boolean = (<HTMLInputElement>document.getElementById("peloLungo")).checked;
     let animale: Animale = new Animale(nome,data,patologie,razza,peso,peloLungo);
-    this.utenteService.addAnimal(this.utenteCorrente,animale).subscribe(data => {
-      this.utenteCorrente.animali.push(animale);
-      window.location.reload();
-    })
+    this.utenteService.addAnimal(this.utenteCorrente,animale).subscribe(
+      (response) => {
+        this.addA.emit(response)
+        this.modalService.dismissAll()
+      },
+      (err) => {
+        alert(err.message);
+      }
+    )
   }
 
 }

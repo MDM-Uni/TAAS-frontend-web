@@ -18,7 +18,7 @@ export class UtenteService {
     return this.http.get<Utente>(this.apiServerUrl +'/user/' + utente.email + '/' + utente.nome);
   }
 
-  public updateAnimal(utente: Utente,animale: Animale, animaleAggiornato: Animale) : Observable<Object>{
+  public updateAnimal(utente: Utente,animale: Animale, animaleAggiornato: Animale) : Observable<Animale>{
     return this.http.put<Animale>(this.apiServerUrl + '/updateAnimal/' + utente.id + '/' + animale.id, animaleAggiornato);
   }
 

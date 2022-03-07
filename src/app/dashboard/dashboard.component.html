@@ -64,14 +64,14 @@
                           (click)="onSelect(animale)">
                         <td>{{animale?.nome}}</td>
                         <td>
-                          <app-dettagli-animale [animaleDaVisualizzare]="animaleSelezionato" [utenteCorrente]="utente"></app-dettagli-animale>
+                          <app-dettagli-animale (updateA)="updateAnimalD($event)" [animaleDaVisualizzare]="animaleSelezionato" [utenteCorrente]="utente"></app-dettagli-animale>
                           <button (click)="deleteAnimal(animale)" type="button" class="btn btn-danger">Elimina</button>
                         </td>
                         <hr>
                       </tr>
                     </tbody>
                   </table>
-                  <app-aggiungi-animale [utenteCorrente]="utente"></app-aggiungi-animale>
+                  <app-aggiungi-animale (addA)="addAnimalD($event)" [utenteCorrente]="utente"></app-aggiungi-animale>
                 </div>
               </div>
             </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Router} from "@angular/router";
 import {UtenteService} from "../utente.service";
 import {Animale} from "../animale";
@@ -16,19 +16,20 @@ export class DashboardComponent implements OnInit {
   public utente : Utente;
   public animaleSelezionato: Animale;
   public animali: Animale[];
-  display = false;
+
+  @Input() updateAnimal : EventEmitter<Animale> = new EventEmitter<Animale>();
+  @Input() addA : EventEmitter<Utente> = new EventEmitter<Utente>();
+
 
   constructor(
     private router: Router,
     private utenteService: UtenteService,
-    private modalService: NgbModal,
   ) { }
 
   ngOnInit(): void {
     const storage = localStorage.getItem('auth');
     if(storage){
       this.userDetails = JSON.parse(storage);
-      console.log(this.userDetails);
       let user = new Utente(0,this.userDetails.name,this.userDetails.email,this.animali);
       this.getUser(user);
     } else { this.signOut();}
@@ -50,23 +51,10 @@ export class DashboardComponent implements OnInit {
     )
   }
 
-  public addAnimal(animale: Animale): void {
-    this.utenteService.addAnimal(this.utente,animale).subscribe(
-      (response) => {
-        this.utente = response;
-      },
-      (err) => {
-        alert(err.message);
-      }
-    )
-  }
-
   public deleteAnimal(animale: Animale): void {
     this.utenteService.deleteAnimal(this.utente,animale).subscribe(data => {
-        this.utente.animali.forEach((element,index) => {
-          if(element.id === animale.id) delete this.utente.animali[index];
-          window.location.reload();
-        })
+        let index = this.utente.animali.indexOf(animale)
+        this.utente.animali.splice(index,1)
       },
         err => {console.log(err)})
   }
@@ -75,5 +63,14 @@ export class DashboardComponent implements OnInit {
     this.animaleSelezionato = animale;
   }
 
+  updateAnimalD(event: Animale){
+    let index = this.utente.animali.indexOf(this.animaleSelezionato)
+    this.utente.animali.splice(index,1)
+    this.utente.animali.push(event)
+  }
+
+  addAnimalD(event: Utente){
+    this.utente.animali = event.animali;
+  }
 
 }

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { Animale } from '../animale';
 import { Utente } from '../utente';
@@ -6,6 +6,7 @@ import {UtenteService} from "../utente.service";
 import {HttpClient} from "@angular/common/http";
 import { formatDate } from "@angular/common";
 import { DatePipe } from '@angular/common'
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-dettagli-animale',
@@ -18,12 +19,13 @@ export class DettagliAnimaleComponent implements OnInit {
 
   @Input() animaleDaVisualizzare: Animale;
   @Input() utenteCorrente: Utente;
-  @Input() azione: String;
+
+  @Output() updateA = new EventEmitter<Animale>();
 
   constructor(
     private modalService: NgbModal,
     private utenteService: UtenteService,
-    private datePipe: DatePipe
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -51,20 +53,15 @@ export class DettagliAnimaleComponent implements OnInit {
     let nome: string = (<HTMLInputElement>document.getElementById("nome")).value;
     let razza: string = (<HTMLInputElement>document.getElementById("razza")).value;
     let peso: number = Number((<HTMLInputElement>document.getElementById("peso")).value)
-    let data: Date = new Date((<HTMLInputElement>document.getElementById("data")).value);
+    let data: Date = new Date((<HTMLInputElement>document.querySelector('input[id="data"]')).value);
     let patologie: Array<string> = (<HTMLInputElement>document.getElementById("patologie")).value.split(",");
     let peloLungo: boolean = (<HTMLInputElement>document.getElementById("pelolungo")).checked;
-    let animale: Animale = new Animale(nome,data,patologie,razza,peso,peloLungo);
+    const animale: Animale = new Animale(nome,data,patologie,razza,peso,peloLungo);
 
     this.utenteService.updateAnimal(this.utenteCorrente,this.animaleDaVisualizzare,animale).subscribe(
-      (responseanimale) => {
-        this.utenteCorrente.animali.forEach((element,index) => {
-          if(element.id === animale.id) delete this.utenteCorrente.animali[index];
-        })
-        if (responseanimale instanceof Animale) {
-          this.utenteCorrente.animali.push(responseanimale);
-        }
-        window.location.reload();
+      (response) => {
+        this.updateA.emit(response)
+        this.modalService.dismissAll()
       },
       (err) => {
         alert(err.message);
