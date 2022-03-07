@@ -1,14 +1,35 @@
-<div class="list-group" *ngFor="let prodotto of prodotti | async">
-  <a href="#" class="list-group-item list-group-item-action rotate-div">
-    <div class="row">
-      <div class="col-sm-4">
-        <img height="150px" class="mx-lg-5 m-3 rotate" src="{{getUrlImmagineProdotto(prodotto.id)}}">
+<!-- lista prodotti  -->
+<div *ngIf="LIST_MODE">
+  <div class="list-group" *ngFor="let prodotto of prodotti | async">
+    <a href="#" class="list-group-item list-group-item-action list-item-hover">
+      <div class="row">
+        <div class="col-sm-4">
+          <img height="150px" class="mx-lg-5 m-3 image-hover" src="{{getUrlImmagineProdotto(prodotto.id)}}" alt="Immagine prodotto '{{prodotto.nome}}'">
+        </div>
+        <div class="col">
+          <h5 class="py-3">{{prodotto.nome}}</h5>
+          <small>{{prodotto.categoria}}</small>
+          <h6 class="p-1">€ {{prodotto.prezzo}}</h6>
+        </div>
       </div>
-      <div class="col">
-        <h5 class="py-3">{{prodotto.nome}}</h5>
-        <small>{{prodotto.categoria}}</small>
-        <h6 class="p-1">€ {{prodotto.prezzo}}</h6>
+    </a>
+  </div>
+</div>
+
+<!--------------------------------------------------------------------------------------------------------------------->
+
+<!-- cards prodotti -->
+<div *ngIf="!LIST_MODE">
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+    <div class="col" *ngFor="let prodotto of prodotti | async">
+      <div href="#" class="card list-item-hover card-hover">
+        <img height="150px" class="mx-lg-5 m-3 image-hover" src="{{getUrlImmagineProdotto(prodotto.id)}}" alt="Immagine prodotto '{{prodotto.nome}}'">
+        <div class="card-body">
+          <h5 class="card-title">{{prodotto.nome}}</h5>
+          <small>{{prodotto.categoria}}</small>
+          <h6 class="p-1">€ {{prodotto.prezzo}}</h6>
+        </div>
       </div>
     </div>
-  </a>
+  </div>
 </div>

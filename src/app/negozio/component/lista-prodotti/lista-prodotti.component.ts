@@ -7,6 +7,8 @@ import {ProdottiService} from "../../service/prodotti.service";
   styleUrls: ['./lista-prodotti.component.css']
 })
 export class ListaProdottiComponent implements OnInit {
+  LIST_MODE = false
+
   prodotti
   service
 

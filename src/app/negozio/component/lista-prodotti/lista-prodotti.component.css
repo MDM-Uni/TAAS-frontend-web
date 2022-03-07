@@ -1,14 +1,28 @@
-.rotate {
+.image-hover {
   transition: transform .2s ease-in-out;
 }
-.rotate-div:hover .rotate {
+
+.list-item-hover:hover .image-hover {
   transform: scale(1.01) rotate(5deg);
 }
 
-.rotate-div {
-  transition: transform .2s ease-in-out;
+.list-item-hover {
+  transition: transform .1s ease-in-out;
 }
 
-.rotate-div:hover {
+.list-item-hover:hover {
   transform: scale(1.01);
+}
+
+.card-hover {
+  transition: transform .1s ease-in-out;
+}
+
+.card-hover:hover {
+  transform: scale(1.1);
+  background-color: #f8f9fa;
+}
+
+.card img {
+  object-fit: scale-down;
 }
