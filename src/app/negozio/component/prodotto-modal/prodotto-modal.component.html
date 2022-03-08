@@ -6,17 +6,29 @@
         <button type="button" class="close btn btn-close" (click)="closeModal()" data-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body row">
-        <div class="col-6 text-center g-4">
-          <img height="400px" class="m-2" src="{{getUrlImmagineProdotto(prodotto?.id)}}" alt="Immagine prodotto '{{prodotto?.nome}}'">
+        <div class="col-6 text-center">
+          <img height="400px" class="m-2 py-5" src="{{getUrlImmagineProdotto(prodotto?.id)}}" alt="Immagine prodotto '{{prodotto?.nome}}'">
         </div>
         <div class="col">
           <h4 class="modal-title">{{prodotto?.nome}}</h4>
           <small>{{prodotto?.categoria}}</small>
           <p class="h4"><strong>€ {{prodotto?.prezzo}}</strong></p>
+          <hr class="me-5">
+          <div class="btn-toolbar">
+            <div class="input-group me-3" style="width: 130px">
+              <div class="input-group-prepend">
+                <button class="btn btn-outline-danger" (click)="decrementaQuantita()" type="button"><i class="fas fa-minus"></i></button>
+              </div>
+              <input [(ngModel)]="quantita" readonly type="number" value="0" class="form-control text-center" placeholder="quantità" aria-label="quantità" aria-describedby="basic-addon2">
+              <div class="input-group-append">
+                <button class="btn btn-outline-success" (click)="incrementaQuantita()" type="button"><i class="fas fa-plus"></i></button>
+              </div>
+            </div>
+            <div class="btn-group">
+              <button type="button" class="btn btn-primary">Aggiungi al carrello</button>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Aggiungi al carrello</button>
       </div>
     </div>
   </div>

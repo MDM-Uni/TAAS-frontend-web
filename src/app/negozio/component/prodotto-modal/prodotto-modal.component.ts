@@ -12,6 +12,7 @@ export class ProdottoModalComponent implements OnInit {
   prodotto: Prodotto | undefined
   private modal: any
   private service
+  quantita = 0
 
   constructor(service: ProdottiService) {
     this.service = service
@@ -22,6 +23,7 @@ export class ProdottoModalComponent implements OnInit {
   }
 
   openModal(prodotto: Prodotto) {
+    this.quantita = 0
     this.prodotto = prodotto
     this.modal?.show()
   }
@@ -34,5 +36,14 @@ export class ProdottoModalComponent implements OnInit {
 
   getUrlImmagineProdotto(id: number | undefined) {
     return this.service.getUrlImmagineProdotto(id!)
+  }
+
+  incrementaQuantita() {
+    this.quantita++
+  }
+
+  decrementaQuantita() {
+    if (this.quantita > 0)
+      this.quantita--
   }
 }
