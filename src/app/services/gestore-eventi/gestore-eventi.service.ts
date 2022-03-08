@@ -24,7 +24,7 @@ export class GestoreEventiService {
   ) { }
 
   postVisita(visita: Visita) {
-    this.http.post("http://localhost:8080/ospedale/pushVisita", visita).pipe(
+    this.http.post("http://localhost:8081/ospedale/pushVisita", visita).pipe(
       this.toast.observe({
          loading: 'Sto verificando la disponibilità...',
          success: 'Visita registrata con successo!',
@@ -57,7 +57,7 @@ export class GestoreEventiService {
   }
 
   deleteVisita(visitaDaEliminare: Visita) {
-    this.http.post("http://localhost:8080/ospedale/deleteVisita", visitaDaEliminare).pipe(
+    this.http.post("http://localhost:8081/ospedale/deleteVisita", visitaDaEliminare).pipe(
       this.toast.observe({
          loading: 'Sto eliminando la visita...',
          success: 'Visita eliminata con successo!',
@@ -80,7 +80,7 @@ export class GestoreEventiService {
   getVisite(idAnimale?: number, tipoVisita?: string): Observable<Visita[]> {
     //creo l'url corretto
     let params = new HttpParams()
-    let baseURL: string = "http://localhost:8080/ospedale/getVisite";
+    let baseURL: string = "http://localhost:8081/ospedale/getVisite";
     if (idAnimale)
       params = params.set("idAnimale", idAnimale)
     if (tipoVisita)
