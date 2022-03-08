@@ -12,7 +12,7 @@ export class ListaProdottiComponent implements OnInit {
   LIST_MODE = false
 
   prodotti
-  service
+  private service
 
   @ViewChild(ProdottoModalComponent) modalComponent: ProdottoModalComponent | undefined
 

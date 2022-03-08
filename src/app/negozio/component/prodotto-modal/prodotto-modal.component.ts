@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Modal} from "bootstrap";
 import {Prodotto} from "../../model/prodotto";
+import {ProdottiService} from "../../service/prodotti.service";
 
 @Component({
   selector: 'app-prodotto-modal',
@@ -8,10 +9,13 @@ import {Prodotto} from "../../model/prodotto";
   styleUrls: ['./prodotto-modal.component.css']
 })
 export class ProdottoModalComponent implements OnInit {
-  modal: any
   prodotto: Prodotto | undefined
+  private modal: any
+  private service
 
-  constructor() { }
+  constructor(service: ProdottiService) {
+    this.service = service
+  }
 
   ngOnInit(): void {
     this.modal = new Modal(document.getElementById("modalDettagliProdotto") as Element)
@@ -28,4 +32,7 @@ export class ProdottoModalComponent implements OnInit {
   }
 
 
+  getUrlImmagineProdotto(id: number | undefined) {
+    return this.service.getUrlImmagineProdotto(id!)
+  }
 }
