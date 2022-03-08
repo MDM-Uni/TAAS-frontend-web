@@ -12,10 +12,12 @@
 
 .list-item-hover:hover {
   transform: scale(1.01);
+  cursor: pointer;
 }
 
 .card-hover {
   transition: transform .1s ease-in-out;
+  cursor: pointer;
 }
 
 .card-hover:hover {

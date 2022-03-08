@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ProdottiService} from "../../service/prodotti.service";
+import {ProdottoModalComponent} from "../prodotto-modal/prodotto-modal.component";
+import {Prodotto} from "../../model/prodotto";
 
 @Component({
   selector: 'app-lista-prodotti',
@@ -12,6 +14,8 @@ export class ListaProdottiComponent implements OnInit {
   prodotti
   service
 
+  @ViewChild(ProdottoModalComponent) modalComponent: ProdottoModalComponent | undefined
+
   constructor(service: ProdottiService) {
     this.service = service
     this.prodotti = service.getProdotti()
@@ -22,5 +26,9 @@ export class ListaProdottiComponent implements OnInit {
 
   getUrlImmagineProdotto(id: number): string {
     return this.service.getUrlImmagineProdotto(id)
+  }
+
+  openModal(prodotto: Prodotto) {
+    this.modalComponent?.openModal(prodotto)
   }
 }
