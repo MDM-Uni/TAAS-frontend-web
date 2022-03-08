@@ -1,0 +1,17 @@
+<div class="modal" id="modalDettagliProdotto" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{prodotto?.nome}}</h5>
+        <button type="button" class="close btn btn-close" (click)="closeModal()" data-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <small>{{prodotto?.categoria}}</small>
+        <div><strong>€ {{prodotto?.prezzo}}</strong></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Aggiungi al carrello</button>
+      </div>
+    </div>
+  </div>
+</div>
