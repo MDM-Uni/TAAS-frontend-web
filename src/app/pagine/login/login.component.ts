@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {FacebookLoginProvider, GoogleLoginProvider, SocialAuthService} from "angularx-social-login";
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
-import { Utente } from '../utente';
-import { UtenteService } from '../utente.service';
-import {Animale} from "../animale";
+import { Utente } from '../../model/utente';
+import { UtenteService } from '../../service/utente.service';
+import {Animale} from "../../model/animale";
 
 @Component({
   selector: 'app-login',
@@ -19,7 +19,6 @@ export class LoginComponent implements OnInit {
   constructor(
     private socialAuthService: SocialAuthService,
     private router: Router,
-    private utenteService: UtenteService
   ) { }
 
   ngOnInit(): void {
@@ -29,7 +28,7 @@ export class LoginComponent implements OnInit {
     this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID).then(data => {
       localStorage.setItem("auth", JSON.stringify(data));
       console.log(localStorage.getItem("auth"));
-      this.router.navigate(['/dashboard']).then();
+      this.router.navigate(['/dashboard']);
     });
   }
 
@@ -40,7 +39,7 @@ export class LoginComponent implements OnInit {
   loginWithFacebook(): void {
     this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID).then(data => {
       localStorage.setItem("auth", JSON.stringify(data));
-      this.router.navigate(['/dashboard']).then();
+      this.router.navigate(['/dashboard']);
     })
   }
 

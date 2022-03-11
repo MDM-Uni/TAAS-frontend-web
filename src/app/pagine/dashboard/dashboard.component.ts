@@ -1,8 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Router} from "@angular/router";
-import {UtenteService} from "../utente.service";
-import {Animale} from "../animale";
-import {Utente} from "../utente";
+import {UtenteService} from "../../service/utente.service";
+import {Animale} from "../../model/animale";
+import {Utente} from "../../model/utente";
 import {ModalDismissReasons, NgbModal, NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({

@@ -9,19 +9,16 @@ import {
 } from 'angularx-social-login';
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './pagine/login/login.component';
 import {HttpClientModule} from "@angular/common/http";
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardComponent } from './pagine/dashboard/dashboard.component';
 import { AppRoutingModule } from './app-routing.module';
 import { RouterModule } from '@angular/router';
-import { DettagliAnimaleComponent } from './dettagli-animale/dettagli-animale.component';
+import { DettagliAnimaleComponent } from './pagine/dettagli-animale/dettagli-animale.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { AggiungiAnimaleComponent } from './aggiungi-animale/aggiungi-animale.component';
+import { AggiungiAnimaleComponent } from './pagine/aggiungi-animale/aggiungi-animale.component';
 import { DatePipe } from '@angular/common';
-import {MatSliderModule} from "@angular/material/slider";
-import {MatDatepicker, MatDatepickerModule} from "@angular/material/datepicker";
-import {MatNativeDateModule} from "@angular/material/core";
-import {MatInputModule} from "@angular/material/input";
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +26,8 @@ import {MatInputModule} from "@angular/material/input";
     LoginComponent,
     DashboardComponent,
     DettagliAnimaleComponent,
-    AggiungiAnimaleComponent
+    AggiungiAnimaleComponent,
+    SidebarComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,9 +37,6 @@ import {MatInputModule} from "@angular/material/input";
     AppRoutingModule,
     RouterModule,
     NgbModule,
-    MatInputModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
   ],
   providers: [
     DatePipe,

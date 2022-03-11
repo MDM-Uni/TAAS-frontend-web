@@ -1,8 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {Animale} from "../animale";
-import {Utente} from "../utente";
-import {UtenteService} from "../utente.service";
+import {Animale} from "../../model/animale";
+import {Utente} from "../../model/utente";
+import {UtenteService} from "../../service/utente.service";
 
 @Component({
   selector: 'app-aggiungi-animale',
