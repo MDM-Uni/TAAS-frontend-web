@@ -9,6 +9,7 @@ import {HttpClientModule} from "@angular/common/http";
 import { EventiComponent } from './ospedale/components/eventi/eventi.component';
 import { VisitaItemStoriaComponent } from './ospedale/components/visita-item-storia/visita-item-storia.component';
 import { HotToastModule } from '@ngneat/hot-toast';
+import {DatePipe} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import { HotToastModule } from '@ngneat/hot-toast';
     FormsModule,
     HotToastModule.forRoot()
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
