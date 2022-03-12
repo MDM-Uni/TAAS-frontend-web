@@ -39,7 +39,7 @@ export class BoxVisitaPrenComponent implements OnInit, OnDestroy {
   //invia richiesta di aggiunta visita
   onSubmit() {
     let visita = this.postVisitaForm.value;
-    console.log("Visita da inviare", visita);
+    // console.log("Visita da inviare", visita);
     let risultato = this.visiteService.postVisita(this.postVisitaForm.value);
     risultato = risultato.pipe(
       this.toast.observe({
@@ -49,7 +49,8 @@ export class BoxVisitaPrenComponent implements OnInit, OnDestroy {
       })
     );
     risultato.pipe(
-      tap((id) => console.log("Visita aggiunta con id: ", id))
+      map((id) => visita.id=id),
+      //tap((id) => console.log("Visita aggiunta con id: ", id))
     ).subscribe();
     this.eventoAggiuntoEmitter.emit(visita);
   }

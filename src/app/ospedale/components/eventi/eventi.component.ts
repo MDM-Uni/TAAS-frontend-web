@@ -42,9 +42,9 @@ export class EventiComponent implements OnInit, OnDestroy, OnChanges {
   trasformArrayVisite(obsVisite: Observable<VisitaDTO[]>): Observable<Visita[]> {
     //aggiungo alle visite le informazioni sugli animali
     this.eventi = obsVisite.pipe(
-      tap(visite => console.log("Visite ricevute: " + visite.length)),
+      // tap(visite => console.log("Visite ricevute: " + visite.length)),
       map(visite => visite.filter(visita => this.serviceAnimali.getAnimale(visita.idAnimale))),
-      tap(visite => console.log("Visite filtrate: " + visite.length)),
+      // tap(visite => console.log("Visite filtrate: " + visite.length)),
       //trasforma da tipo VisitaDTO[] a Visita[]
       map(visite => {
         return visite
@@ -54,20 +54,20 @@ export class EventiComponent implements OnInit, OnDestroy, OnChanges {
             return new Visita(visita.tipoVisita, new Date(visita.data), visita.durataInMinuti, visita.note, visita.id, animale);
           });
       }),
-      tap(visite => console.log("Visite trasformate da VisitaDTO[] a Visita[]: " + visite.length)),
-      tap(visite => visite.forEach(visita => {
-        console.log("Visite: ");
-        console.log(visita.data.getTime());
-      })),
+      // tap(visite => console.log("Visite trasformate da VisitaDTO[] a Visita[]: " + visite.length)),
+      // tap(visite => visite.forEach(visita => {
+      //   console.log("Visite: ");
+      //   console.log(visita.data.getTime());
+      // })),
       //ordino le visite per data in ordine decrescente
       map(visite => {
         visite.sort((a:Visita, b:Visita) => (b.data.getTime() - a.data.getTime()));
         return visite;
       }),
-      tap(visite => {
-        console.log("Visite ordinate:");
-        visite.forEach(visita => console.log(visita));
-      }),
+      // tap(visite => {
+      //   console.log("Visite ordinate:");
+      //   visite.forEach(visita => console.log(visita));
+      // }),
     );
     return this.eventi;
   }
@@ -88,7 +88,7 @@ export class EventiComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   handleVisitaEliminata(visita: Visita) {
-    console.log("Sto eliminando la visita");
+    // console.log("Sto eliminando la visita");
     //elimino persistente
     let res = this.gestoreEventiService.deleteVisita(visita);
     res.pipe(
@@ -99,7 +99,7 @@ export class EventiComponent implements OnInit, OnDestroy, OnChanges {
       })
     ).subscribe({
       next: (_: any) => {
-        console.log("Visita eliminata con successo");
+        // console.log("Visita eliminata con successo");
         this.eventi = this.eventi.pipe(
           map((visite) => visite.filter((visita_) => visita_.id !== visita.id))
         );
