@@ -2,9 +2,10 @@ import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core'
 import {FormBuilder} from "@angular/forms";
 import {GestoreAnimaliService} from "../../services/gestore-animali/gestore-animali.service";
 import {GestoreEventiService} from "../../services/gestore-eventi/gestore-eventi.service";
-import {Observable} from "rxjs";
+import {map, Observable, tap} from "rxjs";
 import {Animale} from "../../models/animale";
 import {Visita} from "../../models/visita";
+import {HotToastService} from "@ngneat/hot-toast";
 
 @Component({
   selector: 'app-box-visita-pren',
@@ -27,7 +28,8 @@ export class BoxVisitaPrenComponent implements OnInit, OnDestroy {
   constructor(
     private formBuilder: FormBuilder,
     private animaliService: GestoreAnimaliService,
-    private visiteService: GestoreEventiService
+    private visiteService: GestoreEventiService,
+    private toast: HotToastService
 ) {}
 
   ngOnInit(): void {
@@ -38,7 +40,17 @@ export class BoxVisitaPrenComponent implements OnInit, OnDestroy {
   onSubmit() {
     let visita = this.postVisitaForm.value;
     console.log("Visita da inviare", visita);
-    this.visiteService.postVisita(this.postVisitaForm.value);
+    let risultato = this.visiteService.postVisita(this.postVisitaForm.value);
+    risultato = risultato.pipe(
+      this.toast.observe({
+         loading: 'Sto verificando la disponibilità...',
+         success: 'Visita registrata con successo!',
+         error: 'Qualcosa è andato storto!'
+      })
+    );
+    risultato.pipe(
+      tap((id) => console.log("Visita aggiunta con id: ", id))
+    ).subscribe();
     this.eventoAggiuntoEmitter.emit(visita);
   }
 
