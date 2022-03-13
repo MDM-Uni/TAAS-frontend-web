@@ -9,16 +9,16 @@ import {
 } from 'angularx-social-login';
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './pagine/login/login.component';
+import { LoginComponent } from './utente/component/login/login.component';
 import {HttpClientModule} from "@angular/common/http";
-import { DashboardComponent } from './pagine/dashboard/dashboard.component';
+import { DashboardComponent } from './utente/component/dashboard/dashboard.component';
 import { AppRoutingModule } from './app-routing.module';
 import { RouterModule } from '@angular/router';
-import { DettagliAnimaleComponent } from './pagine/dettagli-animale/dettagli-animale.component';
+import { DettagliAnimaleComponent } from './utente/component/dettagli-animale/dettagli-animale.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { AggiungiAnimaleComponent } from './pagine/aggiungi-animale/aggiungi-animale.component';
+import { AggiungiAnimaleComponent } from './utente/component/aggiungi-animale/aggiungi-animale.component';
 import { DatePipe } from '@angular/common';
-import { SidebarComponent } from './sidebar/sidebar.component';
+import { SidebarComponent } from './generale/component/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
