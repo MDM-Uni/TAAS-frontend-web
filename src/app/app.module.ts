@@ -11,13 +11,15 @@ import { VisitaItemStoriaComponent } from './ospedale/components/visita-item-sto
 import { HotToastModule } from '@ngneat/hot-toast';
 import {DatePipe} from "@angular/common";
 import {googleCalendarEventUrl} from "google-calendar-url";
+import { BoxAggiuntaEventoPersComponent } from './ospedale/components/box-aggiunta-evento-pers/box-aggiunta-evento-pers.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BoxVisitaPrenComponent,
     EventiComponent,
-    VisitaItemStoriaComponent
+    VisitaItemStoriaComponent,
+    BoxAggiuntaEventoPersComponent
   ],
   imports: [
     BrowserModule,
