@@ -1,4 +1,4 @@
-<li class="list-group-item">
+<li class="list-group-item p-3" >
   <div>
     <div>
       {{visita.dataFormattata}}
@@ -9,11 +9,11 @@
     <div *ngIf="visita.note">
       Note: {{visita.note}}
     </div>
-    <div>
-      <button class="btn btn-secondary float-end" (click)="mostraAggiuntaVisitaCalendario(visita)">
+    <div class="justify-content-end d-flex">
+      <button class="btn btn-secondary m-2" (click)="mostraAggiuntaVisitaCalendario(visita)">
         <i class="fa fa-calendar"></i>
       </button>
-      <button class="btn btn-primary float-end" (click)="deleteVisita(visita)">
+      <button class="btn btn-primary m-2" (click)="deleteVisita(visita)">
         <i class="fa fa-trash"></i>
         Disdici
       </button>
