@@ -41,7 +41,7 @@
   <div class="col">
     <!--form aggiunta evento personalizzato-->
     <app-box-aggiunta-evento-pers></app-box-aggiunta-evento-pers>
-    <div *ngFor="let evento of eventi | async">
-    </div>
+    <app-card-evento *ngFor="let evento of eventi | async">
+    </app-card-evento>
   </div>
 </div>

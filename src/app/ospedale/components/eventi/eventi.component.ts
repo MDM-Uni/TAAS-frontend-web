@@ -37,7 +37,9 @@ export class EventiComponent implements OnInit, OnDestroy, OnChanges {
   ngOnInit(): void {
     this.animali = this.animaliService.getAnimali();
     let visite = this.gestoreEventiService.getVisite();
-    this.eventi = this.trasformArrayVisite(visite);
+    let visiteTrasformate = this.trasformArrayVisite(visite);
+    this.eventi = this.addEventoPersonalizzato(visiteTrasformate);
+
   }
 
   trasformArrayVisite(obsVisite: Observable<VisitaDTO[]>): Observable<Visita[]> {
@@ -77,22 +79,35 @@ export class EventiComponent implements OnInit, OnDestroy, OnChanges {
   onSubmitFilterForm() {
     let visite_dto = this.gestoreEventiService.getVisite(this.filterForm.get("idAnimale")!.value, this.filterForm.get("tipoVisita")!.value);
     let visiteTrasformate = this.trasformArrayVisite(visite_dto);
-    this.eventi = visiteTrasformate.pipe(
+    this.eventi = this.addEventoPersonalizzato(visiteTrasformate);
+  }
+
+  private addEventoPersonalizzato(visiteTrasformate: Observable<Visita[]>) {
+    return visiteTrasformate.pipe(
+      tap(visite => console.log("Visite trasformate: " + visite.length)),
       map(visite => {
-        let eventi:Evento[] = [];
-        eventi.push(...eventi);
+        let eventi: Evento[] = [];
+        eventi.push(...visite);
         return eventi;
       }),
-      tap((eventi: Evento[]) => console.log( eventi[0] instanceof  Visita)),
-      map((eventi:Evento[]) => {
+      tap(eventi => {
+        console.log("Visite: ");
+        eventi.forEach(evento => console.log(evento));
+      }),
+      tap((eventi: Evento[]) => console.log("Tipo Visita: ",(<Visita>eventi[0]) instanceof  Visita)),
+      map((eventi: Evento[]) => {
         let eventoPers = new EventoPersonalizzato();
-        eventoPers.id=10;
+        eventoPers.id = 10;
         eventoPers.testo = "LEo ha fatto una corsa";
         eventoPers.data = new Date(Date.now());
         eventi.push(eventoPers);
         return eventi;
       }),
-      tap(eventi => console.log((eventi[-1] instanceof EventoPersonalizzato))),
+      tap(eventi => {
+        console.log("Eventi: ");
+        eventi.forEach(evento => console.log(evento));
+      }),
+      tap(eventi => console.log("Tipo EventoPersonalizzato", ((<EventoPersonalizzato>eventi[eventi.length-1]) instanceof EventoPersonalizzato))),
     );
   }
 
