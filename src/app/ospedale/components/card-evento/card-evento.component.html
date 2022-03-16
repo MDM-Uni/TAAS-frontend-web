@@ -1,0 +1,3 @@
+<!--visualizzazione eventi personalizzati-->
+<app-evento-personalizzato *ngIf="isEventoPersonalizzato(evento)" [eventoPersonalizzato]="castToEventoPersonalizzato(evento)"></app-evento-personalizzato>
+<app-visita-item-storia *ngIf="isVisita(evento)" [visita]="castToVisita(evento)" (visitaEliminataEvent)="handleVisitaEliminata($event)"></app-visita-item-storia>
