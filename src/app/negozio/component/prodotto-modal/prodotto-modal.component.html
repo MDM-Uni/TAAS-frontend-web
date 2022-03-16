@@ -7,7 +7,7 @@
       </div>
       <div class="modal-body row">
         <div class="col-6 text-center">
-          <img height="400px" class="m-2 py-5" src="{{getUrlImmagineProdotto(prodotto?.id)}}" alt="Immagine prodotto '{{prodotto?.nome}}'">
+          <img *ngIf="prodotto !== undefined" height="400px" class="m-2 py-5" src="{{getUrlImmagineProdotto(prodotto?.id)}}" alt="Immagine prodotto '{{prodotto?.nome}}'">
         </div>
         <div class="col">
           <h4 class="modal-title">{{prodotto?.nome}}</h4>
@@ -25,7 +25,7 @@
               </div>
             </div>
             <div class="btn-group">
-              <button type="button" class="btn btn-primary">Aggiungi al carrello</button>
+              <button type="button" [disabled]="quantita === 0" (click)="aggiungiAlCarrello()" class="btn btn-primary">Aggiungi al carrello</button>
             </div>
           </div>
         </div>

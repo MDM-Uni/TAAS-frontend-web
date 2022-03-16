@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Modal} from "bootstrap";
 import {Prodotto} from "../../model/prodotto";
 import {ProdottiService} from "../../service/prodotti.service";
+import {CarrelliService} from "../../service/carrelli.service";
 
 @Component({
   selector: 'app-prodotto-modal',
@@ -10,12 +11,15 @@ import {ProdottiService} from "../../service/prodotti.service";
 })
 export class ProdottoModalComponent implements OnInit {
   prodotto: Prodotto | undefined
-  private modal: any
-  private service
   quantita = 0
+  private modal: any
+  private prodottiService: ProdottiService
+  private carrelliService: CarrelliService;
 
-  constructor(service: ProdottiService) {
-    this.service = service
+
+  constructor(prodottiService: ProdottiService, carrelliService: CarrelliService) {
+    this.prodottiService = prodottiService
+    this.carrelliService = carrelliService
   }
 
   ngOnInit(): void {
@@ -33,9 +37,8 @@ export class ProdottoModalComponent implements OnInit {
     this.modal?.hide()
   }
 
-
   getUrlImmagineProdotto(id: number | undefined) {
-    return this.service.getUrlImmagineProdotto(id!)
+    return this.prodottiService.getUrlImmagineProdotto(id!)
   }
 
   incrementaQuantita() {
@@ -45,5 +48,9 @@ export class ProdottoModalComponent implements OnInit {
   decrementaQuantita() {
     if (this.quantita > 0)
       this.quantita--
+  }
+
+  aggiungiAlCarrello() {
+    this.carrelliService.aggiungiAlCarrello(this.prodotto!.id, this.quantita)
   }
 }
