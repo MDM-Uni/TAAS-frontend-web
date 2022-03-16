@@ -7,24 +7,25 @@ export class Prodotto {
   id: number;
   categoria: string;
 
+  constructor(nome: string, prezzo: number, id: number, categoria: string) {
+    this.nome = nome;
+    this.prezzo = prezzo;
+    this.id = id;
+    this.categoria = categoria;
+  }
+
 }
 
 export class Ordine implements Evento{
-  id: number;
-  dataAcquisto: Date;
-  dataConsegna: Date;
+  id?: number;
+  dataAcquisto?: Date;
+  dataConsegna?: Date;
   prodotti: Map<Prodotto, number>
-  animale: Animale;
+  animale?: Animale;
+  data?: Date;
 
   constructor() {
     this.prodotti = new Map<Prodotto, number>();
-  }
-
-  constructor(id: number, dataAcquisto: Date, dataConsegna: Date, prodotti: Map<Prodotto, number>) {
-    this.id = id;
-    this.dataAcquisto = dataAcquisto;
-    this.dataConsegna = dataConsegna;
-    this.prodotti = prodotti;
   }
 
   getNumeroArticoli(): number {

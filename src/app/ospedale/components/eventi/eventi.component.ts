@@ -7,6 +7,7 @@ import {Evento} from "../../models/evento";
 import {Visita} from "../../models/visita";
 import {Animale} from "../../models/animale";
 import {HotToastService} from "@ngneat/hot-toast";
+import {EventoPersonalizzato} from "../../models/evento-personalizzato";
 
 type VisitaDTO = { tipoVisita: string, data: string, durataInMinuti: number, note: string, id: number, idAnimale: number };
 
@@ -22,7 +23,7 @@ export class EventiComponent implements OnInit, OnDestroy, OnChanges {
     "tipoVisita":"",
   });
   animali!: Observable<Animale[]>;
-  eventi!: Observable<Visita[]>;
+  eventi!: Observable<Evento[]>;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -41,7 +42,7 @@ export class EventiComponent implements OnInit, OnDestroy, OnChanges {
 
   trasformArrayVisite(obsVisite: Observable<VisitaDTO[]>): Observable<Visita[]> {
     //aggiungo alle visite le informazioni sugli animali
-    this.eventi = obsVisite.pipe(
+    let visiteTrasformate = obsVisite.pipe(
       // tap(visite => console.log("Visite ricevute: " + visite.length)),
       map(visite => visite.filter(visita => this.serviceAnimali.getAnimale(visita.idAnimale))),
       // tap(visite => console.log("Visite filtrate: " + visite.length)),
@@ -69,13 +70,30 @@ export class EventiComponent implements OnInit, OnDestroy, OnChanges {
       //   visite.forEach(visita => console.log(visita));
       // }),
     );
-    return this.eventi;
+    return visiteTrasformate;
   }
 
   //preme il pulsante di filtro della lista di eventi
   onSubmitFilterForm() {
     let visite_dto = this.gestoreEventiService.getVisite(this.filterForm.get("idAnimale")!.value, this.filterForm.get("tipoVisita")!.value);
-    this.eventi = this.trasformArrayVisite(visite_dto);
+    let visiteTrasformate = this.trasformArrayVisite(visite_dto);
+    this.eventi = visiteTrasformate.pipe(
+      map(visite => {
+        let eventi:Evento[] = [];
+        eventi.push(...eventi);
+        return eventi;
+      }),
+      tap((eventi: Evento[]) => console.log( eventi[0] instanceof  Visita)),
+      map((eventi:Evento[]) => {
+        let eventoPers = new EventoPersonalizzato();
+        eventoPers.id=10;
+        eventoPers.testo = "LEo ha fatto una corsa";
+        eventoPers.data = new Date(Date.now());
+        eventi.push(eventoPers);
+        return eventi;
+      }),
+      tap(eventi => console.log((eventi[-1] instanceof EventoPersonalizzato))),
+    );
   }
 
   ngOnDestroy(): void {
@@ -110,4 +128,5 @@ export class EventiComponent implements OnInit, OnDestroy, OnChanges {
       }
     });
   }
+
 }

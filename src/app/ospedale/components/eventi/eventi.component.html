@@ -39,10 +39,9 @@
 <!-- visualizzazione eventi-->
 <div class="row">
   <div class="col">
-      <!--form aggiunta evento personalizzato-->
-      <app-box-aggiunta-evento-pers></app-box-aggiunta-evento-pers>
-      <!--visualizzazione eventi personalizzati-->
-      <app-evento-personalizzato></app-evento-personalizzato>
-      <app-visita-item-storia *ngFor="let evento of eventi | async" [visita]="evento" (visitaEliminataEvent)="handleVisitaEliminata($event)"></app-visita-item-storia>
+    <!--form aggiunta evento personalizzato-->
+    <app-box-aggiunta-evento-pers></app-box-aggiunta-evento-pers>
+    <div *ngFor="let evento of eventi | async">
+    </div>
   </div>
 </div>

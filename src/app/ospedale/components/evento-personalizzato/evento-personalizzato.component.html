@@ -3,9 +3,9 @@
   <div class="container d-flex flex-row m-3" style="border:none; background:white; height:210px;">
     <img src="assets/cane_che_corre.jpg" style="height:200px; margin-left:-15px;"/>
     <div class="container d-flex flex-column">
-      <p style="font-size:10px; color:#03225C;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed hendrerit
-        adipiscing blandit. Aliquam placerat, velit a fermentum fermentum, mi felis vehicula justo, a dapibus quam augue
-        non massa.</p>
+      <p>{{eventoPersonalizzato.data | date:'dd-MM-yyyy HH:mm:ss': 'en'}}</p>
+      <p>{{eventoPersonalizzato.animale ? eventoPersonalizzato.animale.nome : "Nessun animale"}}</p>
+      <p style="font-size:10px; color:#03225C;">{{eventoPersonalizzato.testo}}</p>
       <div class="btn-danger btn-sm col-2 d-flex flex-row justify-content-center align-content-end" (click)="handleEliminaEventoPersonalizzato()">
         Elimina
       </div>

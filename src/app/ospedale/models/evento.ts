@@ -1,8 +1,9 @@
 import {Animale} from "./animale";
 
 export interface Evento {
-  id: number;
-  animale: Animale;
+  id: number | undefined;
+  animale: Animale | undefined;
+  data: Date|undefined
 
-  getData(): Date;
+  getData(): Date | undefined;
 }

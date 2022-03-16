@@ -13,6 +13,7 @@ import {DatePipe} from "@angular/common";
 import {googleCalendarEventUrl} from "google-calendar-url";
 import { BoxAggiuntaEventoPersComponent } from './ospedale/components/box-aggiunta-evento-pers/box-aggiunta-evento-pers.component';
 import { EventoPersonalizzatoComponent } from './ospedale/components/evento-personalizzato/evento-personalizzato.component';
+import { CardEventoComponent } from './ospedale/components/card-evento/card-evento.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { EventoPersonalizzatoComponent } from './ospedale/components/evento-pers
     EventiComponent,
     VisitaItemStoriaComponent,
     BoxAggiuntaEventoPersComponent,
-    EventoPersonalizzatoComponent
+    EventoPersonalizzatoComponent,
+    CardEventoComponent
   ],
   imports: [
     BrowserModule,
