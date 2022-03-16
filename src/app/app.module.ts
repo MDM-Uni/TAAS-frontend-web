@@ -12,6 +12,7 @@ import { HotToastModule } from '@ngneat/hot-toast';
 import {DatePipe} from "@angular/common";
 import {googleCalendarEventUrl} from "google-calendar-url";
 import { BoxAggiuntaEventoPersComponent } from './ospedale/components/box-aggiunta-evento-pers/box-aggiunta-evento-pers.component';
+import { EventoPersonalizzatoComponent } from './ospedale/components/evento-personalizzato/evento-personalizzato.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { BoxAggiuntaEventoPersComponent } from './ospedale/components/box-aggiun
     BoxVisitaPrenComponent,
     EventiComponent,
     VisitaItemStoriaComponent,
-    BoxAggiuntaEventoPersComponent
+    BoxAggiuntaEventoPersComponent,
+    EventoPersonalizzatoComponent
   ],
   imports: [
     BrowserModule,
