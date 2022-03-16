@@ -16,7 +16,6 @@ export class CardEventoComponent implements OnInit {
   ngOnInit(): void {
   }
 
-
   isEventoPersonalizzato(val: Evento): boolean {return val instanceof EventoPersonalizzato}
   isVisita(val: Evento):boolean {return val instanceof Visita}
 

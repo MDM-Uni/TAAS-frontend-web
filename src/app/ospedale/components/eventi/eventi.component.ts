@@ -39,7 +39,6 @@ export class EventiComponent implements OnInit, OnDestroy, OnChanges {
     let visite = this.gestoreEventiService.getVisite();
     let visiteTrasformate = this.trasformArrayVisite(visite);
     this.eventi = this.addEventoPersonalizzato(visiteTrasformate);
-
   }
 
   trasformArrayVisite(obsVisite: Observable<VisitaDTO[]>): Observable<Visita[]> {
@@ -94,7 +93,7 @@ export class EventiComponent implements OnInit, OnDestroy, OnChanges {
         console.log("Visite: ");
         eventi.forEach(evento => console.log(evento));
       }),
-      tap((eventi: Evento[]) => console.log("Tipo Visita: ",(<Visita>eventi[0]) instanceof  Visita)),
+      tap((eventi: Evento[]) => console.log("Tipo Visita: ",(eventi[0]) instanceof  Visita)),
       map((eventi: Evento[]) => {
         let eventoPers = new EventoPersonalizzato();
         eventoPers.id = 10;
@@ -107,7 +106,12 @@ export class EventiComponent implements OnInit, OnDestroy, OnChanges {
         console.log("Eventi: ");
         eventi.forEach(evento => console.log(evento));
       }),
-      tap(eventi => console.log("Tipo EventoPersonalizzato", ((<EventoPersonalizzato>eventi[eventi.length-1]) instanceof EventoPersonalizzato))),
+      tap(eventi => console.log("Tipo EventoPersonalizzato", ((eventi[eventi.length-1]) instanceof EventoPersonalizzato))),
+      map((eventi: Evento[]) => eventi.sort((a:Evento, b:Evento) => ((b.data ? b.data.getTime() : 0) - (a.data ? a.data.getTime() : 0)))),
+      tap(eventi => {
+        console.log("Eventi sorted: ");
+        eventi.forEach(evento => console.log(evento));
+      }),
     );
   }
 
@@ -142,6 +146,16 @@ export class EventiComponent implements OnInit, OnDestroy, OnChanges {
         console.log(error);
       }
     });
+  }
+  isEventoPersonalizzato(val: Evento): boolean {return val instanceof EventoPersonalizzato}
+  isVisita(val: Evento):boolean {return val instanceof Visita}
+
+  castToEventoPersonalizzato(evento: Evento): EventoPersonalizzato {
+    return evento as EventoPersonalizzato;
+  }
+
+  castToVisita(evento: Evento): Visita {
+    return evento as Visita;
   }
 
 }
