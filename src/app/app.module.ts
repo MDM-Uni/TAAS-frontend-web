@@ -12,6 +12,7 @@ import { HotToastModule } from '@ngneat/hot-toast';
 import { ListaProdottiComponent } from './negozio/component/lista-prodotti/lista-prodotti.component';
 import { NegozioComponent } from './negozio/component/negozio/negozio.component';
 import { ProdottoModalComponent } from './negozio/component/prodotto-modal/prodotto-modal.component';
+import { CarrelloComponent } from './negozio/component/carrello/carrello.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ProdottoModalComponent } from './negozio/component/prodotto-modal/prodo
     VisitaItemStoriaComponent,
     ListaProdottiComponent,
     NegozioComponent,
-    ProdottoModalComponent
+    ProdottoModalComponent,
+    CarrelloComponent
   ],
   imports: [
     BrowserModule,
