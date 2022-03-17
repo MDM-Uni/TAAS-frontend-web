@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Evento} from "../../models/evento";
+import {Evento} from "../../../ospedale/models/evento";
 import {EventoPersonalizzato} from "../../models/evento-personalizzato";
-import {Visita} from "../../models/visita";
+import {Visita} from "../../../ospedale/models/visita";
 
 @Component({
   selector: 'app-card-evento',

@@ -6,14 +6,14 @@ import { BoxVisitaPrenComponent } from './ospedale/components/box-visita-pren/bo
 import {RouterModule} from "@angular/router";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
-import { EventiComponent } from './ospedale/components/eventi/eventi.component';
+import { EventiComponent } from './storia/components/eventi/eventi.component';
 import { VisitaItemStoriaComponent } from './ospedale/components/visita-item-storia/visita-item-storia.component';
 import { HotToastModule } from '@ngneat/hot-toast';
 import {DatePipe} from "@angular/common";
 import {googleCalendarEventUrl} from "google-calendar-url";
-import { BoxAggiuntaEventoPersComponent } from './ospedale/components/box-aggiunta-evento-pers/box-aggiunta-evento-pers.component';
-import { EventoPersonalizzatoComponent } from './ospedale/components/evento-personalizzato/evento-personalizzato.component';
-import { CardEventoComponent } from './ospedale/components/card-evento/card-evento.component';
+import { BoxAggiuntaEventoPersComponent } from './storia/components/box-aggiunta-evento-pers/box-aggiunta-evento-pers.component';
+import { EventoPersonalizzatoComponent } from './storia/components/evento-personalizzato/evento-personalizzato.component';
+import { CardEventoComponent } from './storia/components/card-evento/card-evento.component';
 
 @NgModule({
   declarations: [

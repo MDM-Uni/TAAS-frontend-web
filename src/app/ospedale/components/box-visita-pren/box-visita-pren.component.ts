@@ -6,6 +6,7 @@ import {map, Observable, tap} from "rxjs";
 import {Animale} from "../../models/animale";
 import {Visita} from "../../models/visita";
 import {HotToastService} from "@ngneat/hot-toast";
+import {GestoreVisiteService} from "../../services/gestore-visite/gestore-visite.service";
 
 @Component({
   selector: 'app-box-visita-pren',
@@ -28,7 +29,7 @@ export class BoxVisitaPrenComponent implements OnInit, OnDestroy {
   constructor(
     private formBuilder: FormBuilder,
     private animaliService: GestoreAnimaliService,
-    private visiteService: GestoreEventiService,
+    private visiteService: GestoreVisiteService,
     private toast: HotToastService
 ) {}
 
