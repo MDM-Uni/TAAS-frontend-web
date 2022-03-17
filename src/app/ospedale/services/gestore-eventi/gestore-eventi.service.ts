@@ -17,13 +17,6 @@ import {
   providedIn: 'root'
 })
 export class GestoreEventiService {
-  constructor(
-    private http: HttpClient,
-    private gestoreVisite: GestoreVisiteService,
-    private gestoreEventiPersonalizzati: GestoreEventiPersonalizzatiService,
-  ) { }
-
-
   getEventi(idAnimale?: number): Observable<Evento[]> {
     let eventiPersonalizzati = this.gestoreEventiPersonalizzati.getEventiPersonalizzati(idAnimale);
     let visite = this.gestoreVisite.trasformArrayVisite(this.gestoreVisite.getVisite(idAnimale));
@@ -33,13 +26,28 @@ export class GestoreEventiService {
       map(eventi => {
         return eventi.map(evento => <Evento>evento);
       }),
-      tap(eventi => console.log(eventi.length)),
+      tap(eventi => console.log("Numero eventi: " + eventi.length)),
       reduce((eventi1, eventi2) => {
-        return [...eventi1, ...eventi2]
-          .sort((ev1, ev2) => (ev2.data ? ev2.data.getTime() : 0) - (ev1.data ? ev1.data.getTime() : 0));
+        return [...eventi1, ...eventi2];
       }),
-    );
+      map(eventi => {
+        return eventi.sort((ev1, ev2) => ( (ev2.data ? ev2.data.getTime() : 0) - (ev1.data ? ev1.data.getTime() : 0) ));
+      }),
+      tap(eventi => {
+        console.log("Date eventi ordinati");
+        eventi.forEach(evento => {
+            console.log(evento.data);
+          }
+        );
+      }));
     //todo aggiungere la chiamata a getOrdini
 
   }
+
+
+  constructor(
+    private http: HttpClient,
+    private gestoreVisite: GestoreVisiteService,
+    private gestoreEventiPersonalizzati: GestoreEventiPersonalizzatiService,
+  ) { }
 }

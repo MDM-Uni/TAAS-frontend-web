@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {EventoPersonalizzato} from "../../models/evento-personalizzato";
-import {map, Observable} from "rxjs";
+import {map, Observable, tap} from "rxjs";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {formatDate} from "@angular/common";
 import {Visita} from "../../../ospedale/models/visita";
@@ -64,10 +64,10 @@ export class GestoreEventiPersonalizzatiService {
           return ev;
         });
     }),
-    // tap(evPersonalizzati => console.log("Visite trasformate da VisitaDTO[] a EventoPersonalizzato[]: " + evPersonalizzati.length)),
+    // tap(evPersonalizzati => console.log("Eventi trasformati: " + evPersonalizzati.length)),
     // tap(evPersonalizzati => evPersonalizzati.forEach(evPers => {
-    //   console.log("Visite: ");
-    //   console.log(evPers.data.getTime());
+    //   console.log("Eventi data: ");
+    //   console.log(evPers.data!.getTime());
     // })),
     //ordino le evPersonalizzati per data in ordine decrescente
     map(evPersonalizzati => {
@@ -76,7 +76,7 @@ export class GestoreEventiPersonalizzatiService {
       return evPersonalizzati;
     }),
     // tap(evPersonalizzati => {
-    //   console.log("Visite ordinate:");
+    //   console.log("Eventi ordinati:");
     //   evPersonalizzati.forEach(evPers => console.log(evPers));
     // }),
   );
