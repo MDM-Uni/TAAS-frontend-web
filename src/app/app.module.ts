@@ -13,6 +13,7 @@ import { ListaProdottiComponent } from './negozio/component/lista-prodotti/lista
 import { NegozioComponent } from './negozio/component/negozio/negozio.component';
 import { ProdottoModalComponent } from './negozio/component/prodotto-modal/prodotto-modal.component';
 import { CarrelloComponent } from './negozio/component/carrello/carrello.component';
+import { CarrelloItemComponent } from './negozio/component/carrello-item/carrello-item.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { CarrelloComponent } from './negozio/component/carrello/carrello.compone
     ListaProdottiComponent,
     NegozioComponent,
     ProdottoModalComponent,
-    CarrelloComponent
+    CarrelloComponent,
+    CarrelloItemComponent
   ],
   imports: [
     BrowserModule,

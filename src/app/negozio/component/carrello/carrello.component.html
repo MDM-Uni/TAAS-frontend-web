@@ -3,8 +3,13 @@
     <h4 class="card-title">Il tuo carrello <i class="fas fa-shopping-cart"></i></h4>
   </div>
 
-
-  <div class="card-body">
+  <div *ngIf="carrello === undefined || carrello.numeroArticoli == 0" class="card-body">
     Nessun prodotto
+  </div>
+
+  <div *ngIf="carrello !== undefined && carrello.numeroArticoli > 0" class="card-body">
+    <div class="list-group" *ngFor="let prodQuant of carrello.prodotti">
+      <app-carrello-item [callbackRimuoviProdotto]="rimuoviProdotto(prodQuant)" [idCarrello]="carrello.id" [prodQuant]="prodQuant"></app-carrello-item>
+    </div>
   </div>
 </div>

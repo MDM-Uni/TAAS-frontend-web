@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {Carrello} from "../../model/carrello";
+import {Carrello, ProdottoQuantita} from "../../model/carrello";
+import {CarrelliService} from "../../service/carrelli.service";
+import {environment} from "../../../../environments/environment";
 
 @Component({
   selector: 'app-carrello',
@@ -9,9 +11,17 @@ import {Carrello} from "../../model/carrello";
 export class CarrelloComponent implements OnInit {
   carrello: Carrello | undefined
 
-  constructor() { }
+  constructor(carrelliService: CarrelliService) {
+    carrelliService.getCarrello(environment.mockUser).subscribe((carrello) => this.carrello = carrello)
+  }
 
   ngOnInit(): void {
   }
 
+  rimuoviProdotto(prodQuant: ProdottoQuantita) {
+    return () => {
+      let index = this.carrello!.prodotti.indexOf(prodQuant)
+      this.carrello?.prodotti.splice(index, 1)
+    }
+  }
 }
