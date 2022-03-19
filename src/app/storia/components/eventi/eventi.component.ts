@@ -1,7 +1,7 @@
 import {Component, OnChanges, OnDestroy, OnInit, Optional, SimpleChanges} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {GestoreAnimaliService} from "../../../ospedale/services/gestore-animali/gestore-animali.service";
-import {GestoreEventiService} from "../../../ospedale/services/gestore-eventi/gestore-eventi.service";
+import {GestoreEventiService} from "../../services/gestore-eventi/gestore-eventi.service";
 import {map, Observable, of, Subscription, tap} from "rxjs";
 import {Evento} from "../../../ospedale/models/evento";
 import {Visita} from "../../../ospedale/models/visita";

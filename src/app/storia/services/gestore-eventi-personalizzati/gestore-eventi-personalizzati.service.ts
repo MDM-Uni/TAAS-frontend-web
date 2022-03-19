@@ -41,10 +41,10 @@ export class GestoreEventiPersonalizzatiService {
   getEventiPersonalizzati(idAnimale?: number): Observable<EventoPersonalizzato[]> {
     let url = `${GestoreEventiPersonalizzatiService.basicUrl}/getStoria`;
     if (idAnimale) url += `/${idAnimale}`;
-    return this.trasformArrayEventiPersonalizzati(this.http.get<EventoPersonalizzatoDTO[]>(url));
+    return this.trasformaArrayEventiPersonalizzati(this.http.get<EventoPersonalizzatoDTO[]>(url));
   }
 
-  trasformArrayEventiPersonalizzati(obsVisite: Observable<EventoPersonalizzatoDTO[]>): Observable<EventoPersonalizzato[]> {
+  trasformaArrayEventiPersonalizzati(obsVisite: Observable<EventoPersonalizzatoDTO[]>): Observable<EventoPersonalizzato[]> {
   //aggiungo alle evPersonalizzati le informazioni sugli animali
   return obsVisite.pipe(
     // tap(evPersonalizzati => console.log("Visite ricevute: " + evPersonalizzati.length)),
@@ -72,7 +72,7 @@ export class GestoreEventiPersonalizzatiService {
     //ordino le evPersonalizzati per data in ordine decrescente
     map(evPersonalizzati => {
       evPersonalizzati.sort((a: EventoPersonalizzato, b: EventoPersonalizzato) =>
-        ((b.data ? b.data.getTime() : 0) - (a.data ? a.data.getTime() : 0)));
+        ((b.data?.getTime() ?? 0) - (a.data?.getTime() ?? 0)));
       return evPersonalizzati;
     }),
     // tap(evPersonalizzati => {

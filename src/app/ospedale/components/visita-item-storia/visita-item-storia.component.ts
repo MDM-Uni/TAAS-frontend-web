@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Visita} from "../../models/visita";
-import {GestoreEventiService} from "../../services/gestore-eventi/gestore-eventi.service";
+import {GestoreEventiService} from "../../../storia/services/gestore-eventi/gestore-eventi.service";
 import {googleCalendarEventUrl} from "google-calendar-url"
 import { DatePipe } from '@angular/common'
 

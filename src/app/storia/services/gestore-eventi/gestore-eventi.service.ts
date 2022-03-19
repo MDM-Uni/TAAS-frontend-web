@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
-import {Visita} from "../../models/visita";
+import {Visita} from "../../../ospedale/models/visita";
 import {HttpClient, HttpParams} from "@angular/common/http";
-import {Evento} from "../../models/evento";
+import {Evento} from "../../../ospedale/models/evento";
 import {concatAll, map, Observable, of, reduce, tap} from "rxjs";
-import {GestoreAnimaliService} from "../gestore-animali/gestore-animali.service";
-import {Animale} from "../../models/animale";
+import {GestoreAnimaliService} from "../../../ospedale/services/gestore-animali/gestore-animali.service";
+import {Animale} from "../../../ospedale/models/animale";
 import {formatDate} from '@angular/common';
 import {HotToastService} from "@ngneat/hot-toast";
-import {GestoreVisiteService} from "../gestore-visite/gestore-visite.service";
+import {GestoreVisiteService} from "../../../ospedale/services/gestore-visite/gestore-visite.service";
 import {
   GestoreEventiPersonalizzatiService
-} from "../../../storia/services/gestore-eventi-personalizzati/gestore-eventi-personalizzati.service";
+} from "../gestore-eventi-personalizzati/gestore-eventi-personalizzati.service";
 
 
 @Injectable({
@@ -19,7 +19,7 @@ import {
 export class GestoreEventiService {
   getEventi(idAnimale?: number): Observable<Evento[]> {
     let eventiPersonalizzati = this.gestoreEventiPersonalizzati.getEventiPersonalizzati(idAnimale);
-    let visite = this.gestoreVisite.trasformArrayVisite(this.gestoreVisite.getVisite(idAnimale));
+    let visite = this.gestoreVisite.trasformaArrayVisite(this.gestoreVisite.getVisite(idAnimale));
 
     return of(eventiPersonalizzati, visite).pipe(
       concatAll(),
@@ -31,12 +31,12 @@ export class GestoreEventiService {
       }),
       tap(eventi => console.log("Numero eventi: " + eventi.length)),
       map(eventi => {
-        return eventi.sort((ev1, ev2) => ( (ev2.data ? ev2.data.getTime() : 0) - (ev1.data ? ev1.data.getTime() : 0) ));
+        return eventi.sort((ev1, ev2) => ( (ev2.data?.getTime() ?? 0) - (ev1.data?.getTime() ?? 0) ));
       }),
       tap(eventi => {
         console.log("Date eventi ordinati");
         eventi.forEach(evento => {
-            console.log(evento.data ? evento.data : 0);
+            console.log(evento.data?.getTime() ?? 0);
           }
         );
       }));

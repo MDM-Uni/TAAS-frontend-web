@@ -1,7 +1,7 @@
 import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {FormBuilder} from "@angular/forms";
 import {GestoreAnimaliService} from "../../services/gestore-animali/gestore-animali.service";
-import {GestoreEventiService} from "../../services/gestore-eventi/gestore-eventi.service";
+import {GestoreEventiService} from "../../../storia/services/gestore-eventi/gestore-eventi.service";
 import {map, Observable, tap} from "rxjs";
 import {Animale} from "../../models/animale";
 import {Visita} from "../../models/visita";

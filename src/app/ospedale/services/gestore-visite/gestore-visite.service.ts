@@ -40,7 +40,7 @@ export class GestoreVisiteService {
     return this.http.get<VisitaDTO[]>(fullURL);
   }
 
-  trasformArrayVisite(obsVisite: Observable<VisitaDTO[]>): Observable<Visita[]> {
+  trasformaArrayVisite(obsVisite: Observable<VisitaDTO[]>): Observable<Visita[]> {
     //aggiungo alle visite le informazioni sugli animali
     return obsVisite.pipe(
       // tap(visite => console.log("Visite ricevute: " + visite.length)),
