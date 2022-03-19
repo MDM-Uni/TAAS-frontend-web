@@ -1,7 +1,7 @@
 <li class="list-group-item p-3">
 
   <div class="container d-flex flex-row m-3" style="border:none; background:white; height:210px;">
-    <img *ngIf="eventoPersonalizzato.haImmagine" [src]="eventoPersonalizzato.immagine" style="height:200px; margin-left:-15px;" alt="immagine dell'evento personalizzato"/>
+    <img *ngIf="eventoPersonalizzato.haImmagine" [src]="eventoPersonalizzato.urlImmagine" style="height:200px; margin-left:-15px;" alt="immagine dell'evento personalizzato"/>
     <div class="container d-flex flex-column">
       <p>{{eventoPersonalizzato.data | date:'dd-MM-yyyy HH:mm:ss': 'en'}}</p>
       <p>{{eventoPersonalizzato.animale ? eventoPersonalizzato.animale.nome : "Nessun animale"}}</p>

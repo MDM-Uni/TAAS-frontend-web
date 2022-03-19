@@ -76,28 +76,7 @@ export class GestoreEventiPersonalizzatiService {
             ev.data = new Date(eventoPersonalizzatoDTO.data);
             ev.testo = eventoPersonalizzatoDTO.testo;
             ev.animale = animale;
-            this.getImmagineEvPers(eventoPersonalizzatoDTO.id).subscribe({
-              next: (immagine) => {
-                if (immagine) {
-                  console.log("Creo url immagine da visualizzare");
-                  let objectURL = URL.createObjectURL(immagine);
-                  ev.immagine = this.sanitizer.bypassSecurityTrustUrl(objectURL);
-                  ev.haImmagine = true;
-                } else {
-                  ev.haImmagine = false;
-                }
-              },
-              error: (err) => {
-                if (err.status==404) {
-                  console.log("Nessuna immagine per l'evento personalizzato");
-                  ev.haImmagine = false;
-                  ev.immagine = null;
-                } else {
-                  ev.haImmagine = false;
-                  console.error(err);
-                }
-              }
-            });
+            this.setImmagineEvPers(ev);
             return ev;
           });
       }),
@@ -129,11 +108,29 @@ export class GestoreEventiPersonalizzatiService {
     return url;
   }
 
-  getImmagineEvPers(idEv: number | undefined): Observable<Blob | null> {
+  setImmagineEvPers(ev: EventoPersonalizzato) {
+    let idEv = ev.id;
     let url = this.getUrlImmagineEvPers(idEv);
-    if (url===null) {
-      return of(null);
+    if (url) {
+      this.http.get(url, {responseType: 'blob'}).subscribe({
+        next: (immagine) => {
+          console.log("Creo url immagine da visualizzare");
+          let objectURL = URL.createObjectURL(immagine);
+          ev.urlImmagine = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+          ev.haImmagine = true;
+
+        },
+        error: (err) => {
+          if (err.status == 404) {
+            console.log("Nessuna immagine per l'evento personalizzato");
+            ev.haImmagine = false;
+            ev.urlImmagine = null;
+          } else {
+            ev.haImmagine = false;
+            console.error(err);
+          }
+        }
+      });
     }
-    return this.http.get(url, {responseType: 'blob'});
   }
 }

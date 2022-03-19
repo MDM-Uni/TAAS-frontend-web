@@ -7,8 +7,7 @@ export class EventoPersonalizzato implements Evento {
   data?: Date;
   id?: number;
   testo?: string;
-  urlImmagine?: string | null;
-  immagine?: SafeUrl | null;
+  urlImmagine?: SafeUrl | null;
   haImmagine: boolean = false;
 
 
