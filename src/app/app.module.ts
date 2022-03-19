@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import {
   FacebookLoginProvider,
@@ -9,12 +8,12 @@ import {
 } from 'angularx-social-login';
 
 import { AppComponent } from './app.component';
-import { BoxVisitaPrenComponent } from './components/box-visita-pren/box-visita-pren.component';
+import { BoxVisitaPrenComponent } from './ospedale/components/box-visita-pren/box-visita-pren.component';
 import {RouterModule} from "@angular/router";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
-import { EventiComponent } from './components/eventi/eventi.component';
-import { VisitaItemStoriaComponent } from './components/visita-item-storia/visita-item-storia.component';
+import { EventiComponent } from './ospedale/components/eventi/eventi.component';
+import { VisitaItemStoriaComponent } from './ospedale/components/visita-item-storia/visita-item-storia.component';
 import { HotToastModule } from '@ngneat/hot-toast';
 import { ListaProdottiComponent } from './negozio/component/lista-prodotti/lista-prodotti.component';
 import { NegozioComponent } from './negozio/component/negozio/negozio.component';
@@ -29,6 +28,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AggiungiAnimaleComponent } from './pagine/aggiungi-animale/aggiungi-animale.component';
 import { DatePipe } from '@angular/common';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { OrdineComponent } from './negozio/component/ordine/ordine.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +41,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     ProdottoModalComponent,
     CarrelloComponent,
     CarrelloItemComponent,
+    OrdineComponent,
     LoginComponent,
     DashboardComponent,
     DettagliAnimaleComponent,
