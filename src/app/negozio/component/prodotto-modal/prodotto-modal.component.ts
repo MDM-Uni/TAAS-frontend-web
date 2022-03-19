@@ -3,6 +3,8 @@ import {Modal} from "bootstrap";
 import {Prodotto} from "../../model/prodotto";
 import {ProdottiService} from "../../service/prodotti.service";
 import {CarrelliService} from "../../service/carrelli.service";
+import {Carrello} from "../../model/carrello";
+import {environment} from "../../../../environments/environment";
 
 @Component({
   selector: 'app-prodotto-modal',
@@ -11,6 +13,7 @@ import {CarrelliService} from "../../service/carrelli.service";
 })
 export class ProdottoModalComponent implements OnInit {
   prodotto: Prodotto | undefined
+  carrello: Carrello | undefined
   quantita = 0
   private modal: any
   private prodottiService: ProdottiService
@@ -29,6 +32,8 @@ export class ProdottoModalComponent implements OnInit {
   openModal(prodotto: Prodotto) {
     this.quantita = 0
     this.prodotto = prodotto
+    this.carrelliService.getCarrello(environment.mockUser)
+      .subscribe((carrello) => this.carrello = carrello)
     this.modal?.show()
   }
 
@@ -51,6 +56,7 @@ export class ProdottoModalComponent implements OnInit {
   }
 
   aggiungiAlCarrello() {
-    this.carrelliService.aggiungiAlCarrello(this.prodotto!.id, this.quantita)
+    this.carrelliService.aggiungiAlCarrello(this.carrello!.id, this.prodotto!.id, this.quantita)
+      .subscribe((carrello) => window.alert(carrello))
   }
 }

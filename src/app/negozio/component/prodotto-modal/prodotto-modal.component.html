@@ -5,9 +5,9 @@
         <div class="modal-title">Acquista prodotto</div>
         <button type="button" class="close btn btn-close" (click)="closeModal()" data-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body row">
-        <div class="col-6 text-center">
-          <img *ngIf="prodotto !== undefined" height="400px" class="m-2 py-5" src="{{getUrlImmagineProdotto(prodotto?.id)}}" alt="Immagine prodotto '{{prodotto?.nome}}'">
+      <div class="modal-body row row-cols-1 row-cols-lg-2 justify-content-center justify-content-evenly">
+        <div class="col-6 text-center w-auto">
+          <img *ngIf="prodotto !== undefined" class="m-2 py-5 h-auto" style="max-height: 400px" src="{{getUrlImmagineProdotto(prodotto?.id)}}" alt="Immagine prodotto '{{prodotto?.nome}}'">
         </div>
         <div class="col">
           <h4 class="modal-title">{{prodotto?.nome}}</h4>
