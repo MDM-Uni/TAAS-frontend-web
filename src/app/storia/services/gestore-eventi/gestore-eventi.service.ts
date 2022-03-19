@@ -17,6 +17,7 @@ import {
   providedIn: 'root'
 })
 export class GestoreEventiService {
+
   getEventi(idAnimale?: number): Observable<Evento[]> {
     let eventiPersonalizzati = this.gestoreEventiPersonalizzati.getEventiPersonalizzati(idAnimale);
     let visite = this.gestoreVisite.trasformaArrayVisite(this.gestoreVisite.getVisite(idAnimale));
@@ -29,19 +30,19 @@ export class GestoreEventiService {
       reduce((eventi1, eventi2) => {
         return [...eventi1, ...eventi2];
       }),
-      tap(eventi => console.log("Numero eventi: " + eventi.length)),
+      // tap(eventi => console.log("Numero eventi: " + eventi.length)),
       map(eventi => {
         return eventi.sort((ev1, ev2) => ( (ev2.data?.getTime() ?? 0) - (ev1.data?.getTime() ?? 0) ));
       }),
-      tap(eventi => {
-        console.log("Date eventi ordinati");
-        eventi.forEach(evento => {
-            console.log(evento.data?.getTime() ?? 0);
-          }
-        );
-      }));
+      // tap(eventi => {
+      //   console.log("Date eventi ordinati");
+      //   eventi.forEach(evento => {
+      //       console.log(evento.data?.getTime() ?? 0);
+      //     }
+      //   );
+      // })
+    );
     //todo aggiungere la chiamata a getOrdini
-
   }
 
 

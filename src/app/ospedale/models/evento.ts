@@ -1,9 +1,9 @@
 import {Animale} from "./animale";
 
 export interface Evento {
-  id: number | undefined;
-  animale: Animale | undefined;
-  data: Date|undefined
+  id?: number;
+  animale?: Animale;
+  data?: Date;
 
   getData(): Date | undefined;
 }

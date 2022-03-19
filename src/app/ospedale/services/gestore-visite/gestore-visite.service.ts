@@ -60,6 +60,7 @@ export class GestoreVisiteService {
       //   console.log("Visite: ");
       //   console.log(visita.data.getTime());
       // })),
+
       //ordino le visite per data in ordine decrescente
       map(visite => {
         visite.sort((a: Visita, b: Visita) => (b.data.getTime() - a.data.getTime()));
