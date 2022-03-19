@@ -48,6 +48,10 @@ export class GestoreEventiPersonalizzatiService {
     return this.trasformaArrayEventiPersonalizzati(this.http.get<EventoPersonalizzatoDTO[]>(url));
   }
 
+  deleteEventoPersonalizzato(evento: EventoPersonalizzato): Observable<void> {
+    return this.http.post<void>(`${GestoreEventiPersonalizzatiService.basicUrl}/deleteEventoPersonalizzato`, evento);
+  }
+
   trasformaArrayEventiPersonalizzati(obsVisite: Observable<EventoPersonalizzatoDTO[]>): Observable<EventoPersonalizzato[]> {
     //aggiungo alle evPersonalizzati le informazioni sugli animali
     return obsVisite.pipe(

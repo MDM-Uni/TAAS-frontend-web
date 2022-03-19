@@ -14,6 +14,7 @@ import {
 export class EventoPersonalizzatoComponent implements OnInit {
   @Input() eventoPersonalizzato!: EventoPersonalizzato;
   @Output() eventoPersonalizzatoEliminatoEvent = new EventEmitter<EventoPersonalizzato>();
+
   constructor(
     public gestoreEventiService: GestoreEventiService,
     public datePipe: DatePipe,

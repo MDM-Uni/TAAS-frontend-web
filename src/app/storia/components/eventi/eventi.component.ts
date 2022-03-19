@@ -9,6 +9,9 @@ import {Animale} from "../../../ospedale/models/animale";
 import {HotToastService} from "@ngneat/hot-toast";
 import {EventoPersonalizzato} from "../../models/evento-personalizzato";
 import {GestoreVisiteService} from "../../../ospedale/services/gestore-visite/gestore-visite.service";
+import {
+  GestoreEventiPersonalizzatiService
+} from "../../services/gestore-eventi-personalizzati/gestore-eventi-personalizzati.service";
 
 type VisitaDTO = { tipoVisita: string, data: string, durataInMinuti: number, note: string, id: number, idAnimale: number };
 
@@ -28,16 +31,16 @@ export class EventiComponent implements OnInit, OnDestroy, OnChanges {
 
   constructor(
     private formBuilder: FormBuilder,
-    private animaliService: GestoreAnimaliService,
     private gestoreEventiService: GestoreEventiService,
     private gestoreVisiteService: GestoreVisiteService,
-    private serviceAnimali: GestoreAnimaliService,
+    private gestoreAnimaliService: GestoreAnimaliService,
+    private gestoreEventiPersonalizzati: GestoreEventiPersonalizzatiService,
     private toast: HotToastService
 ) {
   }
 
   ngOnInit(): void {
-    this.animali = this.animaliService.getAnimali();
+    this.animali = this.gestoreAnimaliService.getAnimali();
     // this.animali.subscribe((animali) => {
     //   if (animali.length > 0) {
     //     let formControlIdAnimale = this.filterForm.get("idAnimale");
@@ -123,6 +126,30 @@ export class EventiComponent implements OnInit, OnDestroy, OnChanges {
       },
       error: (error: any) => {
         console.log("Errore nell'eliminazione della visita");
+        console.log(error);
+      }
+    });
+  }
+
+  handleEventoPersonalizzatoEliminato(evento: EventoPersonalizzato) {
+    console.log("Sto eliminando l'evento personalizzato");
+    //elimino persistente
+    let res = this.gestoreEventiPersonalizzati.deleteEventoPersonalizzato(evento);
+    res.pipe(
+      this.toast.observe({
+         loading: 'Sto eliminando l\'evento ...',
+         success: 'Evento eliminato con successo!',
+         error: 'Qualcosa è andato storto!'
+      })
+    ).subscribe({
+      next: (_: any) => {
+        // console.log("Evento eliminato con successo");
+        this.eventi = this.eventi.pipe(
+          map((eventi) => eventi.filter((evento_) => evento_.id !== evento.id))
+        );
+      },
+      error: (error: any) => {
+        console.log("Errore nell'eliminazione dell\'evento");
         console.log(error);
       }
     });
