@@ -1,0 +1,84 @@
+<div class="container">
+  <div class="main-body">
+
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="main-breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="../../../index.html">Home</a></li>
+        <li class="breadcrumb-item"><a href="javascript:void(0)">User</a></li>
+        <li class="breadcrumb-item active" aria-current="page">User Profile</li>
+      </ol>
+    </nav>
+    <!-- /Breadcrumb -->
+
+    <div class="row gutters-sm">
+      <div class="col-md-4 mb-3">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex flex-column align-items-center text-center">
+              <img [src]="userDetails?.photoUrl" alt="Admin" class="rounded-circle" width="150">
+              <div class="mt-3">
+                <h4 style="font-size:15px">PetLife VIP</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-3">
+                <h2 class="mb-0" style="font-size:15px">Nome</h2>
+              </div>
+              <div class="col-sm-9 text-secondary" style="padding-top:5px">
+                {{utente?.nome}}
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <h2 class="mb-0" style="font-size:15px">Email</h2>
+              </div>
+              <div class="col-sm-9 text-secondary" style="padding-top:5px">
+                {{utente?.email}}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row gutters-sm">
+          <div class="col-sm-6 mb-3">
+            <div class="card h-100">
+              <div class="card-body">
+                <div class="list-group">
+                  <table class="table">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th style="font-size:15px" scope="col">Lista animali:</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let animale of utente.animali"
+                          [class.selected]="animale === animaleSelezionato"
+                          (click)="onSelect(animale)">
+                        <td>{{animale?.nome}}</td>
+                        <td>
+                          <app-dettagli-animale (updateA)="updateAnimalD($event)" [animaleDaVisualizzare]="animaleSelezionato" [utenteCorrente]="utente"></app-dettagli-animale>
+                          <button (click)="deleteAnimal(animale)" type="button" class="btn btn-danger">Elimina</button>
+                        </td>
+                        <hr>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <app-aggiungi-animale (addA)="addAnimalD($event)" [utenteCorrente]="utente"></app-aggiungi-animale>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

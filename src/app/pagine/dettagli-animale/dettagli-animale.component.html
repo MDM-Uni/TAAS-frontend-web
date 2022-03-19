@@ -1,0 +1,41 @@
+<button class="btn btn-primary" (click)="open(mymodal)">Modifica</button>
+
+<ng-template #mymodal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Dettagli animale</h4>
+    <button type="button" class="close-button" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label for="nome">Nome</label>
+        <input type="nome" class="form-control" id="nome" value={{animaleDaVisualizzare.nome}}>
+      </div>
+      <div class="form-group"> <!-- Date input -->
+        <label class="control-label" for="data">Data</label>
+        <input class="form-control" id="data" name="date" value='{{animaleDaVisualizzare.dataDiNascita.toString().slice(0,10)}}'>
+      </div>
+      <div class="form-group">
+        <label for="patologie">Patologie</label>
+        <textarea class="form-control" id="patologie" rows="3">{{animaleDaVisualizzare.patologie}}</textarea>
+      </div>
+      <div class="form-group">
+        <label for="razza">Razza</label>
+        <input type="nome" class="form-control" id="razza" value={{animaleDaVisualizzare.razza}}>
+      </div>
+      <div class="form-group">
+        <label for="peso">Peso</label>
+        <input type="nome" class="form-control" id="peso" placeholder="kg" value={{animaleDaVisualizzare.peso}}>
+      </div>
+      <div style="margin-top:10px" class="form-group form-check">
+        <input value="false" type="checkbox" class="form-check-input" id="pelolungo" [checked]="animaleDaVisualizzare.peloLungo">
+        <label class="form-check-label" for="pelolungo">Pelo lungo</label>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="updateAnimal()">Modifica</button>
+  </div>
+</ng-template>
