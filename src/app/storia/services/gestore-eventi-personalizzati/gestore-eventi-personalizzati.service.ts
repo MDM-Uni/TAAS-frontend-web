@@ -29,19 +29,6 @@ export class GestoreEventiPersonalizzatiService {
   ) {
   }
 
-  postEventoPersonalizzato(evento: EventoPersonalizzato): Observable<number> {
-    if (evento.animale) {
-      let params = new HttpParams();
-      if (evento.testo) params.set('testo', evento.testo);
-      if (evento.data) params.set('data', formatDate(evento.data, "yyyy-MM-dd'T'HH:mm", 'en-US'));
-      //todo manca settare immagine
-      let fullUrl = `${GestoreEventiPersonalizzatiService.basicUrl}/pushEventoPersonalizzato/${evento.animale.id}?${params.toString()}`;
-      return this.http.post<number>(fullUrl, null);
-    } else {
-      throw new Error('Nessun animale selezionato');
-    }
-  }
-
   getEventiPersonalizzati(idAnimale?: number): Observable<EventoPersonalizzato[]> {
     let url = `${GestoreEventiPersonalizzatiService.basicUrl}/getStoria`;
     if (idAnimale) url += `/${idAnimale}`;
@@ -53,7 +40,7 @@ export class GestoreEventiPersonalizzatiService {
   }
 
   trasformaArrayEventiPersonalizzati(obsVisite: Observable<EventoPersonalizzatoDTO[]>): Observable<EventoPersonalizzato[]> {
-    //aggiungo alle evPersonalizzati le informazioni sugli animali
+    //aggiungo agli evPersonalizzati le informazioni sugli animali
     return obsVisite.pipe(
       tap(evPersonalizzati => {
         console.log("Eventi Personalizzati ricevuti: ");
@@ -62,17 +49,12 @@ export class GestoreEventiPersonalizzatiService {
       //tolgo eventi a cui non corrispondono un vero animale
       map(evPersonalizzati => evPersonalizzati.filter(evPers => this.serviceAnimale.getAnimale(evPers.idAnimale))),
       tap(evPersonalizzati => {
-        console.log("Visite filtrate: ");
+        console.log("EventiPersDTO filtrati: ");
         console.table(evPersonalizzati);
       }),
       //trasforma da tipo EventoPersonalizzatoDTO[] a EventoPersonalizzato[]
       map(evPersonalizzati => {
         return evPersonalizzati
-          .map(evPer => {
-            console.log("EventoDTO personalizzato: ");
-            console.log(evPer);
-            return evPer
-          })
           .map((eventoPersonalizzatoDTO: EventoPersonalizzatoDTO) => {
             let animale: Animale = this.serviceAnimale.getAnimale(eventoPersonalizzatoDTO.idAnimale) as Animale;
             let ev = new EventoPersonalizzato();
@@ -87,7 +69,7 @@ export class GestoreEventiPersonalizzatiService {
       tap(evPersonalizzati => console.log("Eventi trasformati: " + evPersonalizzati.length)),
       tap(evPersonalizzati => {
         console.log("Eventi trasformati: ");
-        console.log(evPersonalizzati);
+        console.table(evPersonalizzati);
       }),
       //ordino le evPersonalizzati per data in ordine decrescente
       map(evPersonalizzati => {
@@ -114,9 +96,9 @@ export class GestoreEventiPersonalizzatiService {
 
   setImmagineEvPers(ev: EventoPersonalizzato) {
     let idEv = ev.id;
-    let url = this.getUrlImmagineEvPers(idEv);
-    if (url) {
-      this.http.get(url, {responseType: 'blob'}).subscribe({
+    let urlOrNull = this.getUrlImmagineEvPers(idEv);
+    if (urlOrNull) {
+      this.http.get(urlOrNull, {responseType: 'blob'}).subscribe({
         next: (immagine) => {
           console.log("Creo url immagine da visualizzare");
           let objectURL = URL.createObjectURL(immagine);
@@ -135,6 +117,21 @@ export class GestoreEventiPersonalizzatiService {
           }
         }
       });
+    }
+  }
+
+  postEventoPersonalizzato(eventoPer: EventoPersonalizzato, file?: File) {
+    if(eventoPer.animale) {
+      let params = new FormData();
+      if(eventoPer.testo != "") params.append('testo', eventoPer.testo!);
+      if(eventoPer.data) params.append('data', formatDate(eventoPer.data,"yyyy-MM-dd'T'HH:mm", "en-US"));
+      else params.append('data', formatDate(new Date(Date.now()),"yyyy-MM-dd'T'HH:mm", "en-US"));
+      if (eventoPer.haImmagine && file) {
+        params.append('immagine', file);
+      }
+      return this.http.post<number>(`${GestoreEventiPersonalizzatiService.basicUrl}/pushEventoPersonalizzato/${eventoPer.animale!.id}`, params);
+    } else {
+      throw new Error("Non è stato selezionato alcun animale");
     }
   }
 }

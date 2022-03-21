@@ -15,7 +15,7 @@ import {GestoreVisiteService} from "../../services/gestore-visite/gestore-visite
 })
 export class BoxVisitaPrenComponent implements OnInit, OnDestroy {
   animali!: Observable<Animale[]>;
-  @Output('eventoAggiunto') eventoAggiuntoEmitter = new EventEmitter<Visita>();
+  @Output() visitaAggiuntaEmitter = new EventEmitter<Visita>();
 
   postVisitaForm = this.formBuilder.group({
     data:"",
@@ -31,7 +31,7 @@ export class BoxVisitaPrenComponent implements OnInit, OnDestroy {
     private animaliService: GestoreAnimaliService,
     private visiteService: GestoreVisiteService,
     private toast: HotToastService
-) {}
+  ) {}
 
   ngOnInit(): void {
     this.animali = this.animaliService.getAnimali();
@@ -52,8 +52,12 @@ export class BoxVisitaPrenComponent implements OnInit, OnDestroy {
     risultato.pipe(
       map((id) => visita.id=id),
       //tap((id) => console.log("Visita aggiunta con id: ", id))
-    ).subscribe();
-    this.eventoAggiuntoEmitter.emit(visita);
+    ).subscribe({
+      next: (data) => {
+        this.visitaAggiuntaEmitter.emit(visita);
+        this.postVisitaForm.reset();
+      },
+    });
   }
 
   ngOnDestroy(): void {

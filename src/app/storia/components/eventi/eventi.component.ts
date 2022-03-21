@@ -155,6 +155,29 @@ export class EventiComponent implements OnInit, OnDestroy, OnChanges {
     });
   }
 
+  handleEventoPersonalizzatoAggiunto(evento: EventoPersonalizzato) {
+    console.log("Evento personalizzato aggiunto");
+    //insert evento in eventi, order by date
+    this.eventi = this.eventi.pipe(
+      map((eventi) => {
+        for (let i = 0; i < eventi.length; i++) {
+          if (eventi[i].data && eventi[i].data!.getTime() < evento.data!.getTime()) {
+            eventi.splice(i, 0, evento);
+            return eventi;
+          } else {
+            eventi.push(evento)
+          }
+        }
+        return eventi;
+      }),
+      tap(eventi => {
+        console.log("Eventi: ");
+        console.table(eventi);
+      })
+    );
+  }
+
+
   isEventoPersonalizzato(val: Evento): boolean {return val instanceof EventoPersonalizzato}
   isVisita(val: Evento):boolean {return val instanceof Visita}
 
@@ -165,5 +188,6 @@ export class EventiComponent implements OnInit, OnDestroy, OnChanges {
   castToVisita(evento: Evento): Visita {
     return evento as Visita;
   }
+
 
 }

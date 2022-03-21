@@ -1,9 +1,11 @@
 <li class="list-group-item p-3">
-  <div class="input-group g-2">
-    <div class="btn btn-check" type="button">
-      Allega
+  <form method="post" [formGroup]="postEventoForm" (ngSubmit)="handleAggiuntaEventoPersonalizzato()">
+    <div class="input-group g-2" >
+      <input class="form-control" type="file" (change)="onImmagineAggiunta($event)" aria-label="Allega">
+      <input class="form-control flex-row ms-auto" type="text" formControlName="testo">
+      <button class="btn btn-primary flex-row ms-auto" type="submit" >
+        Aggiungi
+      </button>
     </div>
-    <input class="form-control flex-row ms-auto" type="text">
-    <button class="btn btn-primary flex-row ms-auto" type="button" (click)="handleAggiuntaEventoPersonalizzato()">Aggiungi</button>
-  </div>
+  </form>
 </li>

@@ -18,7 +18,7 @@ export class GestoreVisiteService {
     private serviceAnimali: GestoreAnimaliService,
   ) { }
 
-    postVisita(visita: Visita) {
+  postVisita(visita: Visita) {
     return this.http.post<number>(GestoreVisiteService.basicUrl + "/pushVisita", visita);
   }
 
