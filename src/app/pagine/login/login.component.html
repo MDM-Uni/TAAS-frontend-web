@@ -1,19 +1,19 @@
-<div class="container-fluid">
-
-  <div class="custom-card">
-
-    <button class="btn btn-block google-sign-in" (click)="loginWithGoogle()" style="width: 100%">
-      <img [src]="'assets/images/google.svg'" alt="google"/>
-      <span>Accedi con Google</span>
-    </button>
-
-    <div style="padding-top: 20px">
-      <button class="btn btn-block google-sign-in" (click)="loginWithFacebook()" style="width: 100%">
-        <img [src]="'assets/images/facebook.svg'" alt="facebook"/>
-        <span>Accedi con Facebook</span>
+<div class="w-100 h-100 d-flex background-custom" style="position: absolute; background: #F1F1F1FF">
+  <div class="container mt-5 text-center" style="max-width: 500px">
+    <img width="400px" src="assets/images/pet_life_logo_idea_2.png" alt="Logo Pet Life">
+    <h6 class="my-4">Tutto ciò che serve per il tuo amico a quattro zampe</h6>
+    <div class="card p-3">
+      <p class="mb-0">Accedi con un click</p>
+      <hr style="background: #909090">
+      <button type="button" class="btn btn-light" (click)="loginWithGoogle()">
+        <img class="px-4" [src]="'assets/images/google.svg'" alt="google"/>
+        Accedi con Google
+      </button>
+      <button type="button" class="btn btn-light mt-3" (click)="loginWithFacebook()">
+        <img class="px-4" [src]="'assets/images/facebook.svg'" alt="facebook"/>
+        Accedi con Facebook
       </button>
     </div>
-
   </div>
-
 </div>
+
