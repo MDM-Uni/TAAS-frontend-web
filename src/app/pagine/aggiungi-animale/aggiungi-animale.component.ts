@@ -45,7 +45,6 @@ export class AggiungiAnimaleComponent implements OnInit {
     let razza: string = (<HTMLInputElement>document.getElementById("razza")).value;
     let peso: number = Number((<HTMLInputElement>document.getElementById("peso")).value)
     let data: Date = new Date((<HTMLInputElement>document.getElementById("data")).value);
-    this.patologie = this.patologie.filter(item => item !== '');
     //let patologie: Array<string> = (<HTMLInputElement>document.getElementById("patologie")).value.split(",");
     let peloLungo: boolean = (<HTMLInputElement>document.getElementById("peloLungo")).checked;
     let animale: Animale = new Animale(nome,data,this.patologie,razza,peso,peloLungo);

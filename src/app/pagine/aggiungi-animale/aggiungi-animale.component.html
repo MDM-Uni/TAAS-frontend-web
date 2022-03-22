@@ -22,7 +22,7 @@
 
       <div style="margin-top:10px" class="form-inline" *ngFor="let patologia of patologie; let i=index; trackBy: customTrackBy">
         <label>Patologia {{i+1}}: </label>
-        <input style="margin-left:5px" type='text' name='sameName{{i}}' [(ngModel)]='patologie[i]'>
+        <input placeholder="Scrivere la patologia o nessuna" style="margin-left:5px" type='text' name='sameName{{i}}' [(ngModel)]='patologie[i]'>
         <button style="margin-left:10px" (click)="addPatologia()" class="btn btn-primary"><i class="fa fa-fw fa-plus"></i></button>
         <button style="margin-left:5px" (click)="removePatologia(i)" class="btn btn-danger"><i class="fa fa-fw fa-remove"></i></button>
       </div>
