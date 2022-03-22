@@ -14,6 +14,7 @@ export class AggiungiAnimaleComponent implements OnInit {
   @Input() utenteCorrente: Utente;
   @Output() addA = new EventEmitter<Utente>();
   private closeResult: string;
+  patologie = [""];
 
   constructor(private modalService: NgbModal,
               private utenteService: UtenteService) { }
@@ -44,11 +45,13 @@ export class AggiungiAnimaleComponent implements OnInit {
     let razza: string = (<HTMLInputElement>document.getElementById("razza")).value;
     let peso: number = Number((<HTMLInputElement>document.getElementById("peso")).value)
     let data: Date = new Date((<HTMLInputElement>document.getElementById("data")).value);
-    let patologie: Array<string> = (<HTMLInputElement>document.getElementById("patologie")).value.split(",");
+    this.patologie = this.patologie.filter(item => item !== '');
+    //let patologie: Array<string> = (<HTMLInputElement>document.getElementById("patologie")).value.split(",");
     let peloLungo: boolean = (<HTMLInputElement>document.getElementById("peloLungo")).checked;
-    let animale: Animale = new Animale(nome,data,patologie,razza,peso,peloLungo);
+    let animale: Animale = new Animale(nome,data,this.patologie,razza,peso,peloLungo);
     this.utenteService.addAnimal(this.utenteCorrente,animale).subscribe(
       (response) => {
+        this.patologie = [''];
         this.addA.emit(response)
         this.modalService.dismissAll()
       },
@@ -56,6 +59,18 @@ export class AggiungiAnimaleComponent implements OnInit {
         alert(err.message);
       }
     )
+  }
+
+  addPatologia() {
+    this.patologie.push("");
+  }
+
+  removePatologia(i: number) {
+    if(i>0) this.patologie.splice(i,1);
+  }
+
+  customTrackBy(index: number, obj: any): any {
+    return index;
   }
 
 }
