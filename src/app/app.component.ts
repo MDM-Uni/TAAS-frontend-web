@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {StoriaComponent} from "./storia/components/storia/storia.component";
 
 @Component({
   selector: 'app-root',

@@ -1,3 +1,4 @@
+<!--form di filtraggio -->
 <form [formGroup]="filterForm" (ngSubmit)="onSubmitFilterForm()">
   <div class="row" style="margin: 10px;">
     <div class="col-auto flex-shrink-1" style="padding: 5px;">
@@ -35,12 +36,22 @@
   </div>
 </form>
 
+<!-- visualizzazione eventi-->
 <div class="row">
   <div class="col">
-    <div class="card">
-      <ol class="list-group list-group-flush">
-        <app-visita-item-storia *ngFor="let evento of eventi | async" [visita]="evento" (visitaEliminataEvent)="handleVisitaEliminata($event)"></app-visita-item-storia>
-      </ol>
+    <!--form aggiunta evento personalizzato-->
+    <app-box-aggiunta-evento-pers (eventoAggiuntoEmitter)="handleEventoPersonalizzatoAggiunto($event)"></app-box-aggiunta-evento-pers>
+    <div *ngFor="let evento of eventi | async">
+      <!--visualizzazione eventi personalizzati-->
+      <app-evento-personalizzato
+        *ngIf="isEventoPersonalizzato(evento)"
+        [eventoPersonalizzato]="castToEventoPersonalizzato(evento)"
+        (eventoPersonalizzatoEliminatoEvent)="handleEventoPersonalizzatoEliminato($event)"></app-evento-personalizzato>
+      <app-visita-item-storia
+        *ngIf="isVisita(evento)"
+        [visita]="castToVisita(evento)"
+        (visitaEliminataEvent)="handleVisitaEliminata($event)"></app-visita-item-storia>
+
     </div>
   </div>
 </div>
