@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import {
   FacebookLoginProvider,
@@ -9,20 +8,40 @@ import {
 } from 'angularx-social-login';
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './pagine/login/login.component';
+import { BoxVisitaPrenComponent } from './ospedale/components/box-visita-pren/box-visita-pren.component';
+import {RouterModule} from "@angular/router";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
+import { EventiComponent } from './ospedale/components/eventi/eventi.component';
+import { VisitaItemStoriaComponent } from './ospedale/components/visita-item-storia/visita-item-storia.component';
+import { HotToastModule } from '@ngneat/hot-toast';
+import { ListaProdottiComponent } from './negozio/component/lista-prodotti/lista-prodotti.component';
+import { NegozioComponent } from './negozio/component/negozio/negozio.component';
+import { ProdottoModalComponent } from './negozio/component/prodotto-modal/prodotto-modal.component';
+import { CarrelloComponent } from './negozio/component/carrello/carrello.component';
+import { CarrelloItemComponent } from './negozio/component/carrello-item/carrello-item.component';
+import { LoginComponent } from './pagine/login/login.component';
 import { DashboardComponent } from './pagine/dashboard/dashboard.component';
 import { AppRoutingModule } from './app-routing.module';
-import { RouterModule } from '@angular/router';
 import { DettagliAnimaleComponent } from './pagine/dettagli-animale/dettagli-animale.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AggiungiAnimaleComponent } from './pagine/aggiungi-animale/aggiungi-animale.component';
 import { DatePipe } from '@angular/common';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { OrdineComponent } from './negozio/component/ordine/ordine.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    BoxVisitaPrenComponent,
+    EventiComponent,
+    VisitaItemStoriaComponent,
+    ListaProdottiComponent,
+    NegozioComponent,
+    ProdottoModalComponent,
+    CarrelloComponent,
+    CarrelloItemComponent,
+    OrdineComponent,
     LoginComponent,
     DashboardComponent,
     DettagliAnimaleComponent,
@@ -31,12 +50,14 @@ import { SidebarComponent } from './sidebar/sidebar.component';
   ],
   imports: [
     BrowserModule,
-    FormsModule,
     SocialLoginModule,
     HttpClientModule,
     AppRoutingModule,
     RouterModule,
     NgbModule,
+    ReactiveFormsModule,
+    FormsModule,
+    HotToastModule.forRoot()
   ],
   providers: [
     DatePipe,

@@ -1,0 +1,30 @@
+.image-hover {
+  transition: transform .2s ease-in-out;
+}
+
+.list-item-hover:hover .image-hover {
+  transform: scale(1.01) rotate(5deg);
+}
+
+.list-item-hover {
+  transition: transform .1s ease-in-out;
+}
+
+.list-item-hover:hover {
+  transform: scale(1.01);
+  cursor: pointer;
+}
+
+.card-hover {
+  transition: transform .1s ease-in-out;
+  cursor: pointer;
+}
+
+.card-hover:hover {
+  transform: scale(1.1);
+  background-color: #f8f9fa;
+}
+
+.card img {
+  object-fit: scale-down;
+}
