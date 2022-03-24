@@ -17,8 +17,8 @@ Metodo 2: interfaccia IntelliJ
 Procedimento equivalente ai `components`.
 
 ## Versioni
-> Angular CLI: 13.1.2
-> Node: 14.19.0
-> Package Manager: npm 6.14.16
-> Angular: 13.1.1
+> Node: 17.4.x
+> Package Manager: npm 8.3.x
+> Angular: 13.1.x
+> Angular CLI: 13.1.x
 
