@@ -54,9 +54,8 @@ export class DettagliAnimaleComponent implements OnInit {
     let razza: string = (<HTMLInputElement>document.getElementById("razza")).value;
     let peso: number = Number((<HTMLInputElement>document.getElementById("peso")).value)
     let data: Date = new Date((<HTMLInputElement>document.querySelector('input[id="data"]')).value);
-    let patologie: Array<string> = (<HTMLInputElement>document.getElementById("patologie")).value.split(",");
     let peloLungo: boolean = (<HTMLInputElement>document.getElementById("pelolungo")).checked;
-    const animale: Animale = new Animale(nome,data,patologie,razza,peso,peloLungo);
+    const animale: Animale = new Animale(nome,data,this.animaleDaVisualizzare.patologie,razza,peso,peloLungo);
 
     this.utenteService.updateAnimal(this.utenteCorrente,this.animaleDaVisualizzare,animale).subscribe(
       (response) => {
@@ -68,6 +67,18 @@ export class DettagliAnimaleComponent implements OnInit {
       }
     )
 
+  }
+
+  addPatologia() {
+    this.animaleDaVisualizzare.patologie.push("");
+  }
+
+  removePatologia(i: number) {
+    if(i>0) this.animaleDaVisualizzare.patologie.splice(i,1);
+  }
+
+  customTrackBy(index: number, obj: any): any {
+    return index;
   }
 
 }
