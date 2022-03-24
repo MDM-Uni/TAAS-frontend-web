@@ -21,6 +21,6 @@ jobs:
       with:
         node-version: 14.x
         cache: 'npm'
-    - run: npm install
+    - run: npm install --legacy-peer-deps
     - run: npm install -g @angular/cli
     - run: ng build -c development
