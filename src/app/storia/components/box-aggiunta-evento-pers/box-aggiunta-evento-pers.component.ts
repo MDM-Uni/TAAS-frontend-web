@@ -19,7 +19,7 @@ export class BoxAggiuntaEventoPersComponent implements OnInit {
   postEventoForm = this.formBuilder.group({
     data: new Date(Date.now()),
     testo: "",
-    animale: new Animale(2), //todo da metterne uno vero
+    animale: new Animale(38), //todo da metterne uno vero
     haImmagine: false,
     urlImmagine:  null,
   })

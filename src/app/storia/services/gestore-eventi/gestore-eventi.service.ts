@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {Visita} from "../../../ospedale/models/visita";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Evento} from "../../../ospedale/models/evento";
-import {concatAll, map, Observable, of, reduce, tap} from "rxjs";
+import {catchError, concatAll, map, Observable, of, reduce, tap} from "rxjs";
 import {GestoreAnimaliService} from "../../../ospedale/services/gestore-animali/gestore-animali.service";
 import {Animale} from "../../../ospedale/models/animale";
 import {formatDate} from '@angular/common';
@@ -11,6 +11,7 @@ import {GestoreVisiteService} from "../../../ospedale/services/gestore-visite/ge
 import {
   GestoreEventiPersonalizzatiService
 } from "../gestore-eventi-personalizzati/gestore-eventi-personalizzati.service";
+import {onErrorResumeNext} from "rxjs/operators";
 
 
 @Injectable({
@@ -19,11 +20,16 @@ import {
 export class GestoreEventiService {
 
   getEventi(idAnimale?: number): Observable<Evento[]> {
-    let eventiPersonalizzati = this.gestoreEventiPersonalizzati.getEventiPersonalizzati(idAnimale);
-    let visite = this.gestoreVisite.trasformaArrayVisite(this.gestoreVisite.getVisite(idAnimale));
+    let eventiPersonalizzati = this.gestoreEventiPersonalizzati.getEventiPersonalizzati(idAnimale).pipe(
+      catchError(err => of([]))
+    );
+    let visite = this.gestoreVisite.trasformaArrayVisite(this.gestoreVisite.getVisite(idAnimale)).pipe(
+      catchError(err => of([]))
+    );
 
     return of(eventiPersonalizzati, visite).pipe(
       concatAll(),
+      //todo aggiungere la chiamata a getOrdini
       map(eventi => {
         return eventi.map(evento => <Evento>evento);
       }),
@@ -42,7 +48,6 @@ export class GestoreEventiService {
       //   );
       // })
     );
-    //todo aggiungere la chiamata a getOrdini
   }
 
 
