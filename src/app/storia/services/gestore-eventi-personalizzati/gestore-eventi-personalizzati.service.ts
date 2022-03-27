@@ -30,9 +30,12 @@ export class GestoreEventiPersonalizzatiService {
   }
 
   getEventiPersonalizzati(idAnimale?: number): Observable<EventoPersonalizzato[]> {
+    let params = new HttpParams();
     let url = `${GestoreEventiPersonalizzatiService.basicUrl}/getStoria`;
-    if (idAnimale) url += `/${idAnimale}`;
-    return this.trasformaArrayEventiPersonalizzati(this.http.get<EventoPersonalizzatoDTO[]>(url));
+    if (idAnimale) {
+      params.append('idAnimale', idAnimale);
+    }
+    return this.trasformaArrayEventiPersonalizzati(this.http.get<EventoPersonalizzatoDTO[]>(url, {params: params}));
   }
 
   deleteEventoPersonalizzato(evento: EventoPersonalizzato): Observable<void> {
@@ -49,7 +52,7 @@ export class GestoreEventiPersonalizzatiService {
       //tolgo eventi a cui non corrispondono un vero animale
       map(evPersonalizzati => evPersonalizzati.filter(evPers => this.serviceAnimale.getAnimale(evPers.idAnimale))),
       tap(evPersonalizzati => {
-        console.log("EventiPersDTO filtrati: ");
+        console.log("EventiPersDTO filtrati da quelli che non corrispondono con un animale: ");
         console.table(evPersonalizzati);
       }),
       //trasforma da tipo EventoPersonalizzatoDTO[] a EventoPersonalizzato[]

@@ -12,6 +12,8 @@ import {
   GestoreEventiPersonalizzatiService
 } from "../gestore-eventi-personalizzati/gestore-eventi-personalizzati.service";
 import {onErrorResumeNext} from "rxjs/operators";
+import {FormGroup} from "@angular/forms";
+import {EventoPersonalizzato} from "../../models/evento-personalizzato";
 
 
 @Injectable({
@@ -19,13 +21,21 @@ import {onErrorResumeNext} from "rxjs/operators";
 })
 export class GestoreEventiService {
 
-  getEventi(idAnimale?: number): Observable<Evento[]> {
-    let eventiPersonalizzati = this.gestoreEventiPersonalizzati.getEventiPersonalizzati(idAnimale).pipe(
-      catchError(err => of([]))
-    );
-    let visite = this.gestoreVisite.trasformaArrayVisite(this.gestoreVisite.getVisite(idAnimale)).pipe(
-      catchError(err => of([]))
-    );
+  getEventi(filterForm: FormGroup): Observable<Evento[]> {
+    let visite = of(<Visita[]>[]);
+    let eventiPersonalizzati = of(<EventoPersonalizzato[]>[]);
+    let tipoEvento = filterForm.get('tipoEvento')?.value;
+    if (tipoEvento === '' || tipoEvento === 'visita') {
+      visite = this.gestoreVisite.trasformaArrayVisite(this.gestoreVisite.getVisite(filterForm.get('idAnimale')?.value, filterForm.get('tipoVisita')?.value)).pipe(
+        catchError(err => of(<Visita[]>[])),
+      );
+    }
+    if (tipoEvento === '' || tipoEvento === 'evento-personalizzato') {
+      eventiPersonalizzati = this.gestoreEventiPersonalizzati.getEventiPersonalizzati(filterForm.get('idAnimale')?.value).pipe(
+        catchError(err => of(<EventoPersonalizzato[]>[])),
+      );
+    }
+
 
     return of(eventiPersonalizzati, visite).pipe(
       concatAll(),

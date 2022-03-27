@@ -53,14 +53,12 @@ export class EventiComponent implements OnInit, OnDestroy, OnChanges {
     //     this.eventi = of([]);
     //   }
     // });
-    this.eventi = this.gestoreEventiService.getEventi();
+    this.eventi = this.gestoreEventiService.getEventi(this.filterForm);
   }
 
   //preme il pulsante di filtro della lista di eventi
   onSubmitFilterForm() {
-    // let visite_dto = this.gestoreEventiService.getVisite(this.filterForm.get("idAnimale")!.value, this.filterForm.get("tipoVisita")!.value);
-    // let visiteTrasformate = this.gestoreV.tra(visite_dto);
-    // this.eventi = this.addEventoPersonalizzato(visiteTrasformate);
+    this.eventi = this.gestoreEventiService.getEventi(this.filterForm);
   }
 
   //mockup
@@ -103,7 +101,7 @@ export class EventiComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.filterForm.get("tipoEvento")!.value != "visita") {
-      this.filterForm.setControl("tipoVisita", new FormControl(""));
+      this.filterForm.patchValue({"tipoVisita": ""});
     }
   }
 
