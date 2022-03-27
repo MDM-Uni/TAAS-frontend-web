@@ -26,6 +26,8 @@ export class GestoreEventiService {
     let eventiPersonalizzati = of(<EventoPersonalizzato[]>[]);
     let tipoEvento = filterForm.get('tipoEvento')?.value;
     if (tipoEvento === '' || tipoEvento === 'visita') {
+      if (tipoEvento !== 'visita')
+        filterForm.get('tipoVisita')?.setValue('');
       visite = this.gestoreVisite.trasformaArrayVisite(this.gestoreVisite.getVisite(filterForm.get('idAnimale')?.value, filterForm.get('tipoVisita')?.value)).pipe(
         catchError(err => of(<Visita[]>[])),
       );
