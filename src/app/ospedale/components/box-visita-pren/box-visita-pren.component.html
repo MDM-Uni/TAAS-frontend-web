@@ -1,5 +1,10 @@
 <script src="box-visita-pren.component.ts"></script>
-<form method="post" [formGroup]="postVisitaForm" (ngSubmit)="onSubmit()">
+<form method="post" [formGroup]="postVisitaForm" (ngSubmit)="onSubmit()"
+  style="
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+">
   <div class="col">
     <div class="input-group" style="margin: 10px;">
       <span class="input-group-text"><i class="fas fa-dog flex-row ms-auto" style="margin: 10px;transform: scale(1.48);"></i></span>
@@ -12,7 +17,9 @@
 
         </optgroup>
       </select></div>
-    <div class="input-group" style="margin: 10px;"><span class="input-group-text"><label
+    <div class="input-group" style="margin: 10px;">
+      <span class="input-group-text">
+        <label
       class="form-label flex-row ms-auto" style="margin: 10px;">Tipo visita</label></span>
       <select formControlName="tipoVisita" class="form-select flex-row me-auto">
         <option value="VACCINO" selected="">Vaccino</option>

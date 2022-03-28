@@ -1,0 +1,64 @@
+<div style="
+    margin: auto;
+    width: 50%;
+    padding: 10px;">
+<!--form di filtraggio -->
+  <form [formGroup]="filterForm" (ngSubmit)="onSubmitFilterForm()">
+    <div class="row" style="margin: 10px;">
+      <div class="col-auto flex-shrink-1" style="padding: 5px;">
+        <select class="flex-shrink-1" name="nomeAnimaleSelect" formControlName="idAnimale">
+          <optgroup label="I tuoi fedeli animali">
+            <option value=0 selected="">Tutti i tuoi animali</option>
+            <option *ngFor="let animale of animali | async" [ngValue]="animale.id">
+              {{animale.nome}}
+            </option>
+          </optgroup>
+        </select>
+      </div>
+      <div class="col-auto flex-shrink-1" style="padding: 5px;">
+        <select name="tipoEventoSelect" formControlName="tipoEvento">
+          <optgroup label="Tipo di Evento">
+            <option value="" selected="">Tutti gli eventi</option>
+            <option value="visita">Visita</option>
+            <option value="ordine">Ordine</option>
+            <option value="evento-personalizzato">Evento personalizzato</option>
+          </optgroup>
+        </select>
+      </div>
+      <div *ngIf="filterForm.get('tipoEvento')!.value=='visita'" class="col-auto" style="padding: 5px;">
+        <select name="tipoVisitaSelect" formControlName="tipoVisita">
+          <optgroup label="Tipo di Visita">
+            <option value="" selected="">Tutte le visite</option>
+            <option value="vaccino">Vaccino</option>
+            <option value="operazione">Operazione</option>
+            <option value="controllo">Controllo</option>
+          </optgroup>
+        </select>
+      </div>
+      <div class="col" style="padding: 5px;">
+        <button class="btn btn-primary" type="submit">Cerca</button>
+      </div>
+    </div>
+  </form>
+
+  <!-- visualizzazione eventi-->
+  <div class="row">
+    <div class="col">
+      <!--form aggiunta evento personalizzato-->
+      <app-box-aggiunta-evento-pers
+        (eventoAggiuntoEmitter)="handleEventoPersonalizzatoAggiunto($event)"></app-box-aggiunta-evento-pers>
+      <div *ngFor="let evento of eventi | async">
+        <!--visualizzazione eventi personalizzati-->
+        <app-evento-personalizzato
+          *ngIf="isEventoPersonalizzato(evento)"
+          [eventoPersonalizzato]="castToEventoPersonalizzato(evento)"
+          (eventoPersonalizzatoEliminatoEvent)="handleEventoPersonalizzatoEliminato($event)"></app-evento-personalizzato>
+        <app-visita-item-storia
+          *ngIf="isVisita(evento)"
+          [visita]="castToVisita(evento)"
+          (visitaEliminataEvent)="handleVisitaEliminata($event)"></app-visita-item-storia>
+
+      </div>
+    </div>
+  </div>
+</div>
