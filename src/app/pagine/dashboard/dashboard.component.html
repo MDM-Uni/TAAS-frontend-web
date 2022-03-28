@@ -65,7 +65,7 @@
                         <td>{{animale?.nome}}</td>
                         <td>
                           <app-dettagli-animale (updateA)="updateAnimalD($event)" [animaleDaVisualizzare]="animaleSelezionato" [utenteCorrente]="utente"></app-dettagli-animale>
-                          <button (click)="deleteAnimal(animale)" type="button" class="btn btn-danger">Elimina</button>
+                          <button style="margin-left:10px" (click)="deleteAnimal(animale)" type="button" class="btn btn-danger">Elimina</button>
                         </td>
                         <hr>
                       </tr>

@@ -20,8 +20,8 @@
       <div style="margin-top:10px" class="form-inline" *ngFor="let patologia of this.animaleDaVisualizzare.patologie; let i=index; trackBy: customTrackBy">
         <label>Patologia {{i+1}}: </label>
         <input value="{{patologia}}" style="margin-left:5px" type='text' name='sameName{{i}}' [(ngModel)]='animaleDaVisualizzare.patologie[i]'>
-        <button style="margin-left:10px" (click)="addPatologia()" class="btn btn-primary"><i class="fa fa-fw fa-plus"></i></button>
-        <button style="margin-left:5px" (click)="removePatologia(i)" class="btn btn-danger"><i class="fa fa-fw fa-remove"></i></button>
+        <button *ngIf="this.animaleDaVisualizzare.patologie.length-1 == i" style="margin-left:10px" (click)="addPatologia()" class="btn btn-primary"><i class="fa fa-fw fa-plus"></i></button>
+        <button *ngIf="i!==0" style="margin-left:5px" (click)="removePatologia(i)" class="btn btn-danger"><i class="fa fa-fw fa-remove"></i></button>
       </div>
       <div class="form-group">
         <label for="razza">Razza</label>
