@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Carrello, ProdottoQuantita} from "../../model/carrello";
 import {CarrelliService} from "../../service/carrelli.service";
 import {environment} from "../../../../environments/environment";
+import {OrdineModalComponent} from "../ordine-modal/ordine-modal.component";
 
 @Component({
   selector: 'app-carrello',
@@ -10,6 +11,7 @@ import {environment} from "../../../../environments/environment";
 })
 export class CarrelloComponent implements OnInit {
   carrello: Carrello | undefined
+  @ViewChild(OrdineModalComponent) modalComponent: OrdineModalComponent | undefined
 
   constructor(carrelliService: CarrelliService) {
     carrelliService.getCarrello(environment.mockUser).subscribe((carrello) => this.carrello = carrello)
@@ -23,5 +25,9 @@ export class CarrelloComponent implements OnInit {
       let index = this.carrello!.prodotti.indexOf(prodQuant)
       this.carrello?.prodotti.splice(index, 1)
     }
+  }
+
+  openModal() {
+    this.modalComponent?.openModal(this.carrello!)
   }
 }

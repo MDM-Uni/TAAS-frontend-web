@@ -31,6 +31,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { OrdineComponent } from './negozio/component/ordine/ordine.component';
 import "@angular/common/locales/global/it"
 import {IndirizzoPipe} from "./negozio/model/indirizzo";
+import { OrdineModalComponent } from './negozio/component/ordine-modal/ordine-modal.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import {IndirizzoPipe} from "./negozio/model/indirizzo";
     AggiungiAnimaleComponent,
     SidebarComponent,
     IndirizzoPipe,
+    OrdineModalComponent,
   ],
   imports: [
     BrowserModule,
