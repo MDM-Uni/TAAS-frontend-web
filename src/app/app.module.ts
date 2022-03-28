@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {
   FacebookLoginProvider,
@@ -29,6 +29,8 @@ import { AggiungiAnimaleComponent } from './pagine/aggiungi-animale/aggiungi-ani
 import { DatePipe } from '@angular/common';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { OrdineComponent } from './negozio/component/ordine/ordine.component';
+import "@angular/common/locales/global/it"
+import {IndirizzoPipe} from "./negozio/model/indirizzo";
 
 @NgModule({
   declarations: [
@@ -47,6 +49,7 @@ import { OrdineComponent } from './negozio/component/ordine/ordine.component';
     DettagliAnimaleComponent,
     AggiungiAnimaleComponent,
     SidebarComponent,
+    IndirizzoPipe,
   ],
   imports: [
     BrowserModule,
@@ -77,7 +80,7 @@ import { OrdineComponent } from './negozio/component/ordine/ordine.component';
         )
       }]
     } as SocialAuthServiceConfig
-  }],
+  }, { provide: LOCALE_ID, useValue: 'it' }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
