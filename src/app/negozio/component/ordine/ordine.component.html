@@ -3,26 +3,27 @@
     <h4 class="card-title">Il tuoi ordini <i class="fa fa-shopping-bag"></i></h4>
   </div>
 
-  <div class="card-body" *ngIf="ordini?.length === 0">
+  <div class="card-body" *ngIf="animaleOrdineList?.length === 0">
     Nessun ordine
   </div>
 
   <div class="card-body">
-    <div class="list-group" *ngFor="let ordine of ordini; let i=index">
+    <div class="list-group" *ngFor="let animaleOrdine of animaleOrdineList; let i=index">
       <hr class="mt-3" *ngIf="i > 0">
       <div class="d-inline-flex mb-3">
         <h4 class="align-self-end my-0">Ordine</h4>
-        <p class="align-self-end ms-4 mb-0">{{ordine.numeroArticoli}} articoli, totale <strong>€ {{ordine.totale}}</strong></p>
+        <p class="align-self-end ms-4 mb-0">{{animaleOrdine.ordine.numeroArticoli}} articoli, totale <strong>€ {{animaleOrdine.ordine.totale | number}}</strong></p>
       </div>
       <div>
-        <p><strong>Data di acquisto: </strong><span class="mx-2">{{ordine.dataAcquisto | date:'EEEE dd/MM/Y'}}</span></p>
-        <p><strong>Indirizzo di consegna: </strong><span class="mx-2">{{ordine.indirizzoConsegna | indirizzo}}</span></p>
-        <p><strong>Consegnato: </strong><span class="mx-2">{{ordine.dataConsegna === null ? "No" : ordine.dataConsegna | date:'EEEE dd/MM/Y'}}</span></p>
+        <p><strong>Acquistato per: </strong><span class="mx-2">{{animaleOrdine.animale.nome}}</span></p>
+        <p><strong>Data di acquisto: </strong><span class="mx-2">{{animaleOrdine.ordine.dataAcquisto | date:'EEEE dd/MM/Y'}}</span></p>
+        <p><strong>Indirizzo di consegna: </strong><span class="mx-2">{{animaleOrdine.ordine.indirizzoConsegna | indirizzo}}</span></p>
+        <p><strong>Consegnato: </strong><span class="mx-2">{{animaleOrdine.ordine.dataConsegna === null ? "No" : animaleOrdine.ordine.dataConsegna | date:'EEEE dd/MM/Y'}}</span></p>
       </div>
-      <div class="list-group-item list-group-item-action" *ngFor="let prodQuant of ordine.prodotti">
+      <div class="list-group-item list-group-item-action" *ngFor="let prodQuant of animaleOrdine.ordine.prodotti">
         <div class="row">
           <div class="col-sm-5">
-            <img height="80px" class="mx-lg-5 m-3 image-hover" src="{{getUrlImmagineProdotto(prodQuant.prodotto.id)}}" alt="Immagine prodotto '{{prodQuant.prodotto.nome}}'">
+            <img height="80px" class="mx-lg-5 m-3" src="{{getUrlImmagineProdotto(prodQuant.prodotto.id)}}" alt="Immagine prodotto '{{prodQuant.prodotto.nome}}'">
           </div>
           <div class="col">
             <h5 class="py-3">{{prodQuant.prodotto.nome}}</h5>
@@ -35,7 +36,7 @@
         </div>
 
       </div>
-      <button type="button" class="btn btn-sm btn-outline-danger mt-2" *ngIf="ordine.dataConsegna === null" (click)="annullaOrdine(ordine)">
+      <button type="button" class="btn btn-sm btn-outline-danger mt-2" *ngIf="animaleOrdine.ordine.dataConsegna === null" (click)="annullaOrdine(animaleOrdine)">
         Annulla ordine
       </button>
     </div>

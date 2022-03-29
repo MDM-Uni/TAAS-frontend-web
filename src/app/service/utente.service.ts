@@ -18,6 +18,11 @@ export class UtenteService {
     return this.http.get<Utente>(this.apiServerUrl +'/user/' + utente.email + '/' + utente.nome);
   }
 
+  public getAnimals(idUtente: number) : Observable<Array<Animale>>{
+    return this.http.get<Array<Animale>>(this.apiServerUrl +'/animals/' + idUtente);
+  }
+
+
   public updateAnimal(utente: Utente,animale: Animale, animaleAggiornato: Animale) : Observable<Animale>{
     return this.http.put<Animale>(this.apiServerUrl + '/updateAnimal/' + utente.id + '/' + animale.id, animaleAggiornato);
   }

@@ -1,5 +1,11 @@
 import {ProdottoQuantita} from "./carrello";
 import {Indirizzo} from "./indirizzo";
+import {Animale} from "../../model/animale";
+
+export interface AnimaleOrdine {
+  animale: Animale,
+  ordine: Ordine
+}
 
 export interface Ordine {
   id: number
