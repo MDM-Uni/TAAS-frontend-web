@@ -31,13 +31,7 @@ export class GestoreAnimaliService{
   }
 
   getAnimale(idAnimale: number) {
-    let animale = this.animali[idAnimale];
-
-    if (animale === undefined) {
-      console.log(`Animale non trovato ${idAnimale}`);
-      return false;
-    }
-    return animale;
+    return this.animali.find(animale => animale.id === idAnimale);
   }
 
 }

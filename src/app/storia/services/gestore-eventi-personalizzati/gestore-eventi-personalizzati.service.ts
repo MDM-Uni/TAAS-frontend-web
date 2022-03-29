@@ -30,12 +30,11 @@ export class GestoreEventiPersonalizzatiService {
   }
 
   getEventiPersonalizzati(idAnimale?: number): Observable<EventoPersonalizzato[]> {
-    let params = new HttpParams();
     let url = `${GestoreEventiPersonalizzatiService.basicUrl}/getStoria`;
     if (idAnimale) {
-      params.append('idAnimale', idAnimale);
+      url += `/${idAnimale}`;
     }
-    return this.trasformaArrayEventiPersonalizzati(this.http.get<EventoPersonalizzatoDTO[]>(url, {params: params}));
+    return this.trasformaArrayEventiPersonalizzati(this.http.get<EventoPersonalizzatoDTO[]>(url));
   }
 
   deleteEventoPersonalizzato(evento: EventoPersonalizzato): Observable<void> {
