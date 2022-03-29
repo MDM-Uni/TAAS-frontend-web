@@ -9,7 +9,7 @@
         <select class="flex-shrink-1" name="nomeAnimaleSelect" formControlName="idAnimale">
           <optgroup label="I tuoi fedeli animali">
             <option value=0 selected="">Tutti i tuoi animali</option>
-            <option *ngFor="let animale of animali | async" [ngValue]="animale.id">
+            <option *ngFor="let animale of animali" [ngValue]="animale.id">
               {{animale.nome}}
             </option>
           </optgroup>

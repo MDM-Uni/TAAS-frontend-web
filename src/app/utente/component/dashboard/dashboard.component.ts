@@ -38,12 +38,14 @@ export class DashboardComponent implements OnInit {
   signOut(): void {
     localStorage.removeItem('google_auth');
     this.router.navigateByUrl('/login').then();
+    localStorage.removeItem('utente')
   }
 
   public getUser(utente: Utente): void {
     this.utenteService.getUser(utente).subscribe(
       (response) => {
         this.utente = response;
+          localStorage.setItem('utente', JSON.stringify(this.utente));
       },
       (err) => {
         alert(err.message);
@@ -55,6 +57,7 @@ export class DashboardComponent implements OnInit {
     this.utenteService.deleteAnimal(this.utente,animale).subscribe(data => {
         let index = this.utente.animali.indexOf(animale)
         this.utente.animali.splice(index,1)
+        localStorage.setItem('utente', JSON.stringify(this.utente));
       },
         err => {console.log(err)})
   }
@@ -67,10 +70,12 @@ export class DashboardComponent implements OnInit {
     let index = this.utente.animali.indexOf(this.animaleSelezionato)
     this.utente.animali.splice(index,1)
     this.utente.animali.push(event)
+    localStorage.setItem('utente', JSON.stringify(this.utente));
   }
 
   addAnimalD(event: Utente){
     this.utente.animali = event.animali;
+    localStorage.setItem('utente', JSON.stringify(this.utente));
   }
 
 }

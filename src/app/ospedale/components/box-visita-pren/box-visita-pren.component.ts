@@ -14,7 +14,7 @@ import {GestoreVisiteService} from "../../services/gestore-visite/gestore-visite
   styleUrls: ['./box-visita-pren.component.css']
 })
 export class BoxVisitaPrenComponent implements OnInit, OnDestroy {
-  animali!: Observable<Animale[]>;
+  animali!: Animale[];
   @Output() visitaAggiuntaEmitter = new EventEmitter<Visita>();
 
   postVisitaForm = this.formBuilder.group({

@@ -1,33 +1,40 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Observable, Subscription} from "rxjs";
+import {Observable, of, Subscription} from "rxjs";
 import {Animale} from "../../models/animale";
+import {Utente} from "../../../utente/model/utente";
 @Injectable({
   providedIn: 'root'
 })
 export class GestoreAnimaliService{
 
-  animali!: Observable<Animale[]>;
-  animaliMap: Map<number, Animale> = new Map<number, Animale>();
+  animali!: Animale[];
 
   constructor(private http: HttpClient) {
   }
 
-  getAnimali(): Observable<Animale[]> {
-    this.animali = this.http.get<Animale[]>("assets/animali-IDs-mock.json");
-    this.animali.subscribe(animali => {
-      animali.forEach(animale => {
-        this.animaliMap.set(animale.id, animale);
-      });
-    });
+  getAnimali(): Animale[] {
+    // this.animali = this.http.get<Animale[]>("assets/animali-IDs-mock.json");
+    // this.animali.subscribe(animali => {
+    //   animali.forEach(animale => {
+    //     this.animaliMap.set(animale.id, animale);
+    //   });
+    // });
+    let utente_string = localStorage.getItem('utente');
+    if (utente_string) {
+      let utente: Utente = JSON.parse(utente_string);
+      this.animali = utente.animali;
+    } else {
+      throw "Utente non in sessione";
+    }
     return this.animali;
   }
 
   getAnimale(idAnimale: number) {
-    let animale = this.animaliMap.get(idAnimale);
+    let animale = this.animali[idAnimale];
 
     if (animale === undefined) {
-      console.log(`Animale non trovato ${animale}`);
+      console.log(`Animale non trovato ${idAnimale}`);
       return false;
     }
     return animale;

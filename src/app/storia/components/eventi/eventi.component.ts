@@ -26,7 +26,7 @@ export class EventiComponent implements OnInit, OnDestroy, OnChanges {
     "tipoEvento":"",
     "tipoVisita":"",
   });
-  animali!: Observable<Animale[]>;
+  animali!: Animale[];
   eventi!: Observable<Evento[]>;
 
   constructor(
