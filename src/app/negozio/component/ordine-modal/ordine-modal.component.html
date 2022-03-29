@@ -1,11 +1,59 @@
 <div class="modal" id="modalOrdine" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+  <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-sm-down" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <div class="modal-title">Ordina</div>
         <button type="button" class="close btn btn-close" (click)="closeModal()" data-dismiss="modal" aria-label="Close"></button>
       </div>
+
       <div class="modal-body">
+
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li *ngFor="let fase of fasiOrdine.slice(0,faseCorrente+1); let i = index" class="breadcrumb-item">
+              <a *ngIf="faseCorrente !== i" (click)="faseCorrente !== i && selezionaFase(i)" href="javascript:void(0)">{{fase}}</a>
+              {{faseCorrente === i ? fase : ""}}
+            </li>
+          </ol>
+          <hr>
+        </nav>
+
+        <!-- fase di scelta animale -->
+        <div *ngIf="faseCorrente === 0" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+          <div class="col" *ngFor="let animale of animali" (click)="selezionaAnimale(animale)">
+            <div class="card card-hover">
+              <img height="150px" class="mx-lg-5 m-3 image-hover" src="assets/images/cat_dogs.svg" alt="Immagine animale '{{animale.nome}}'">
+              <div class="card-body">
+                <h5 class="card-title">{{animale.nome}}</h5>
+                <small>{{animale.razza}}</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- fase di scelta indirizzo -->
+        <div *ngIf="faseCorrente === 1" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+          <div class="col" *ngFor="let indirizzo of indirizzi" (click)="selezionaIndirizzo(indirizzo)">
+            <div class="card card-hover">
+              <img height="150px" class="mx-lg-5 m-3 image-hover" src="assets/images/indirizzo.svg" alt="Immagine indirizzo">
+              <div class="card-body">
+                <p class="card-title">{{indirizzo | indirizzo}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- fase di pagamento -->
+        <div *ngIf="faseCorrente === 2" class="d-flex">
+          <button type="button" class="btn btn-primary m-auto" (click)="paga()">
+            Paga
+          </button>
+        </div>
+
+        <!-- fase di conferma -->
+        <div *ngIf="faseCorrente === 3" class="d-flex">
+          <h4>Ordine confermato!</h4>
+        </div>
 
       </div>
     </div>
