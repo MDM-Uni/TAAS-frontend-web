@@ -45,9 +45,7 @@
 
         <!-- fase di pagamento -->
         <div *ngIf="faseCorrente === 2" class="d-flex">
-          <button type="button" class="btn btn-primary m-auto" (click)="paga()">
-            Paga
-          </button>
+          <ngx-paypal [config]="payPalConfig"></ngx-paypal>
         </div>
 
         <!-- fase di conferma -->

@@ -7,6 +7,7 @@ import {Animale} from "../../../model/animale";
 import {Indirizzo} from "../../model/indirizzo";
 import {IndirizziService} from "../../service/indirizzi.service";
 import {OrdiniService} from "../../service/ordini.service";
+import {ICreateOrderRequest, IPayPalConfig} from "ngx-paypal";
 
 @Component({
   selector: 'app-ordine-modal',
@@ -25,6 +26,7 @@ export class OrdineModalComponent implements OnInit {
   private animale: Animale;
   private indirizzo: Indirizzo;
   private ordiniService: OrdiniService;
+  payPalConfig: IPayPalConfig;
 
   constructor(utenteService: UtenteService, indirizziService: IndirizziService, ordiniService: OrdiniService) {
     this.utenteService = utenteService
@@ -40,6 +42,7 @@ export class OrdineModalComponent implements OnInit {
     this.carrello = carrello
     this.utenteService.getAnimals(environment.mockUser).subscribe((animali) => this.animali = animali)
     this.indirizziService.getIndirizzi(environment.mockUser).subscribe((indirizzi) => this.indirizzi = indirizzi)
+    this.initPayPal()
     this.modal.show()
   }
 
@@ -62,10 +65,54 @@ export class OrdineModalComponent implements OnInit {
     this.faseCorrente++
   }
 
-  paga() {
-    this.ordiniService.creaOrdine(this.carrello.id, this.indirizzo.id, this.animale.id).subscribe({
-      complete: () => this.faseCorrente++,
-      error: (err) => console.log(err)
-  })
+  /*************************/
+
+  initPayPal() {
+    this.payPalConfig = {
+      currency: 'EUR',
+      clientId: 'sb',
+      createOrderOnClient: () => <ICreateOrderRequest>{
+        intent: 'CAPTURE',
+        purchase_units: [
+          {
+            amount: {
+              currency_code: 'EUR',
+              value: this.carrello.totale.toString(),
+              breakdown: {
+                item_total: {
+                  currency_code: 'EUR',
+                  value: this.carrello.totale.toString()
+                }
+              }
+            },
+            items: this.carrello.prodotti.map<any>((prodQuant) => {
+              return {
+                name: prodQuant.prodotto.nome,
+                quantity: prodQuant.quantita,
+                category: 'DIGITAL_GOODS',
+                unit_amount: {
+                  currency_code: 'EUR',
+                  value: prodQuant.prodotto.prezzo.toString(),
+                },
+              }
+            })
+          }
+        ]
+      },
+      advanced: {
+        commit: 'true'
+      },
+      style: {
+        label: 'paypal',
+        layout: 'vertical'
+      },
+      onClientAuthorization: () => {
+        this.ordiniService.creaOrdine(this.carrello.id, this.indirizzo.id, this.animale.id).subscribe({
+          complete: () => this.faseCorrente++,
+          error: (err) => console.log(err)
+        })
+      },
+      onError: (err) => console.log('OnError', err),
+    };
   }
 }
