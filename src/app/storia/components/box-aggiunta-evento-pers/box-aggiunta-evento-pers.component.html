@@ -1,9 +1,17 @@
 <li class="list-group-item p-3">
   <form method="post" [formGroup]="postEventoForm" (ngSubmit)="handleAggiuntaEventoPersonalizzato()">
-    <div class="input-group g-2" >
+    <div class="input-group d-flex flex-row g-2" >
+      <select class="form-select " formControlName="animale">
+        <optgroup label="I tuoi fedeli animali">
+          <option
+            *ngFor="let animale of animali" [ngValue]="animale">
+            {{animale.nome}}
+          </option>
+        </optgroup>
+      </select>
       <input class="form-control" type="file" (change)="onImmagineAggiunta($event)" aria-label="Allega">
-      <input class="form-control flex-row ms-auto" type="text" formControlName="testo">
-      <button class="btn btn-primary flex-row ms-auto" type="submit" >
+      <input class="form-control flex-grow-1" type="text" formControlName="testo">
+      <button class="btn btn-primary" type="submit" >
         Aggiungi
       </button>
     </div>
