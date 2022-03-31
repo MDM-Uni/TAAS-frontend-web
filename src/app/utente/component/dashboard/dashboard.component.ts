@@ -30,6 +30,7 @@ export class DashboardComponent implements OnInit {
     const storage = localStorage.getItem('auth');
     if(storage){
       this.userDetails = JSON.parse(storage);
+      console.log(this.userDetails)
       let user = new Utente(0,this.userDetails.name,this.userDetails.email,this.animali);
       this.getUser(user);
     } else { this.signOut();}
@@ -44,6 +45,7 @@ export class DashboardComponent implements OnInit {
     this.utenteService.getUser(utente).subscribe(
       (response) => {
         this.utente = response;
+        localStorage.setItem("user", JSON.stringify(response));
       },
       (err) => {
         alert(err.message);
