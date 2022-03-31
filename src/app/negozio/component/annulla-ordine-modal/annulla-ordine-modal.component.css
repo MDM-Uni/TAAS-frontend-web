@@ -1,0 +1,16 @@
+.modal.show {
+  animation-name: open-modal;
+  animation-duration: 0.2s;
+}
+
+@keyframes open-modal {
+  0% {
+    transform: scale(0.5);
+  }
+  50% {
+    transform: scale(1.01);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

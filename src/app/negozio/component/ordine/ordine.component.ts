@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {OrdiniService} from "../../service/ordini.service";
 import {ProdottiService} from "../../service/prodotti.service";
 import {AnimaleOrdine} from "../../model/ordine";
 import {environment} from "../../../../environments/environment";
 import {Animale} from "../../../model/animale";
 import {UtenteService} from "../../../service/utente.service";
+import {HotToastService} from "@ngneat/hot-toast";
+import {AnnullaOrdineModalComponent} from "../annulla-ordine-modal/annulla-ordine-modal.component";
 
 @Component({
   selector: 'app-ordine',
@@ -12,15 +14,14 @@ import {UtenteService} from "../../../service/utente.service";
   styleUrls: ['./ordine.component.css']
 })
 export class OrdineComponent implements OnInit {
-  private ordiniService: OrdiniService;
-  private prodottiService: ProdottiService;
   animaleOrdineList: Array<AnimaleOrdine>
   animaliUtente: Array<Animale>
+  @ViewChild(AnnullaOrdineModalComponent) annullaOrdineModal: AnnullaOrdineModalComponent
 
-  constructor(ordiniService: OrdiniService, prodottiService: ProdottiService, utenteService: UtenteService) {
-    this.ordiniService = ordiniService
-    this.prodottiService = prodottiService
-
+  constructor(private ordiniService: OrdiniService,
+              private prodottiService: ProdottiService,
+              private utenteService: UtenteService,
+              private toast: HotToastService) {
     this.ordiniService.getOrdini(environment.mockUser).subscribe((animaleOrdineList) => {
         utenteService.getAnimals(environment.mockUser).subscribe((animali) => {
           this.animaleOrdineList = animaleOrdineList
@@ -39,10 +40,22 @@ export class OrdineComponent implements OnInit {
     return this.prodottiService.getUrlImmagineProdotto(id)
   }
 
-  annullaOrdine(animaleOrdine: AnimaleOrdine) {
-    this.ordiniService.annullaOrdine(animaleOrdine.ordine.id).subscribe(() => {
-      let index = this.animaleOrdineList.indexOf(animaleOrdine)
-      this.animaleOrdineList.splice(index,1)
-    })
+  openModal(animaleOrdine: AnimaleOrdine) {
+    this.annullaOrdineModal.openModal(this.annullaOrdine(animaleOrdine))
+  }
+
+  private annullaOrdine(animaleOrdine: AnimaleOrdine) {
+    return () => {
+      this.ordiniService.annullaOrdine(animaleOrdine.ordine.id)
+        .pipe(this.toast.observe({
+          loading: "Attendi",
+          success: "Ordine annullato con successo",
+          error: "C\'è stato un problema... l\'ordine non è stato annullato"
+        }))
+        .subscribe(() => {
+          let index = this.animaleOrdineList.indexOf(animaleOrdine)
+          this.animaleOrdineList.splice(index, 1)
+        })
+    }
   }
 }

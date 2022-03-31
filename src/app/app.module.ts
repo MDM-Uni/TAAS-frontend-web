@@ -33,6 +33,7 @@ import "@angular/common/locales/global/it"
 import {IndirizzoPipe} from "./negozio/model/indirizzo";
 import { OrdineModalComponent } from './negozio/component/ordine-modal/ordine-modal.component';
 import {NgxPayPalModule} from "ngx-paypal";
+import { AnnullaOrdineModalComponent } from './negozio/component/annulla-ordine-modal/annulla-ordine-modal.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import {NgxPayPalModule} from "ngx-paypal";
     SidebarComponent,
     IndirizzoPipe,
     OrdineModalComponent,
+    AnnullaOrdineModalComponent,
   ],
   imports: [
     BrowserModule,

@@ -36,9 +36,13 @@
         </div>
 
       </div>
-      <button type="button" class="btn btn-sm btn-outline-danger mt-2" *ngIf="animaleOrdine.ordine.dataConsegna === null" (click)="annullaOrdine(animaleOrdine)">
-        Annulla ordine
-      </button>
+      <div class="d-flex justify-content-end">
+        <button type="button" class="btn btn-danger mt-3" *ngIf="animaleOrdine.ordine.dataConsegna === null" (click)="openModal(animaleOrdine)">
+          Annulla ordine
+        </button>
+      </div>
     </div>
   </div>
 </div>
+
+<app-annulla-ordine-modal></app-annulla-ordine-modal>
