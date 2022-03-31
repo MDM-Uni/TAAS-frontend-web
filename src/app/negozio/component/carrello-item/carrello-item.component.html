@@ -12,11 +12,11 @@
     <div class="col m-auto">
       <div class="btn-toolbar">
         <span class="my-auto my-2 mx-auto">quantità: </span>
-        <div class="input-group me-3 mx-sm-auto" style="width: 130px">
+        <div class="input-group mx-sm-auto" style="width: 130px">
           <div class="input-group-prepend">
             <button class="btn btn-outline-danger" (click)="decrementaQuantita()" type="button"><i class="fas fa-minus"></i></button>
           </div>
-          <input readonly type="number" [(ngModel)]="quantita" class="form-control text-center" placeholder="quantità" aria-label="quantità" aria-describedby="basic-addon2">
+          <input readonly [(ngModel)]="quantita" class="form-control text-center" placeholder="quantità" aria-label="quantità" aria-describedby="basic-addon2">
           <div class="input-group-append">
             <button class="btn btn-outline-success" (click)="incrementaQuantita()" type="button"><i class="fas fa-plus"></i></button>
           </div>
