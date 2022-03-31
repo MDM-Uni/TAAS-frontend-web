@@ -15,7 +15,7 @@ import {HotToastService} from "@ngneat/hot-toast";
 export class ProdottoModalComponent implements OnInit {
   prodotto: Prodotto | undefined
   carrello: Carrello | undefined
-  quantita = 0
+  quantita = 1
   private modal: any
 
   constructor(private prodottiService: ProdottiService,
@@ -28,7 +28,7 @@ export class ProdottoModalComponent implements OnInit {
   }
 
   openModal(prodotto: Prodotto) {
-    this.quantita = 0
+    this.quantita = 1
     this.prodotto = prodotto
     this.carrelliService.getCarrello(environment.mockUser)
       .subscribe((carrello) => this.carrello = carrello)
