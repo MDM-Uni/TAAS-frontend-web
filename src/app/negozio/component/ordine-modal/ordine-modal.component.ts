@@ -77,11 +77,11 @@ export class OrdineModalComponent implements OnInit {
           {
             amount: {
               currency_code: 'EUR',
-              value: this.carrello.totale.toString(),
+              value: this.carrello.totale.toPrecision(2),
               breakdown: {
                 item_total: {
                   currency_code: 'EUR',
-                  value: this.carrello.totale.toString()
+                  value: this.carrello.totale.toPrecision(2)
                 }
               }
             },
@@ -92,7 +92,7 @@ export class OrdineModalComponent implements OnInit {
                 category: 'DIGITAL_GOODS',
                 unit_amount: {
                   currency_code: 'EUR',
-                  value: prodQuant.prodotto.prezzo.toString(),
+                  value: prodQuant.prodotto.prezzo.toPrecision(2),
                 },
               }
             })
