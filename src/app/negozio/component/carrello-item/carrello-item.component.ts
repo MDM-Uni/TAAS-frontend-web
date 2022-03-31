@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {ProdottoQuantita} from "../../model/carrello";
 import {ProdottiService} from "../../service/prodotti.service";
 import {CarrelliService} from "../../service/carrelli.service";
+import {HotToastService} from "@ngneat/hot-toast";
 
 @Component({
   selector: 'app-carrello-item',
@@ -11,14 +12,12 @@ import {CarrelliService} from "../../service/carrelli.service";
 export class CarrelloItemComponent implements OnInit {
   @Input() idCarrello: number | undefined
   @Input() prodQuant: ProdottoQuantita | undefined;
-  @Input() callbackRimuoviProdotto: (() => void) | undefined
+  @Input() callbackModificaQuantita: ((_: number) => void) | undefined
   quantita: number | undefined = 0
-  private prodottiService: ProdottiService;
-  private carrelliService: CarrelliService;
 
-  constructor(prodottiService: ProdottiService, carrelliService: CarrelliService) {
-    this.prodottiService = prodottiService
-    this.carrelliService = carrelliService
+  constructor(private prodottiService: ProdottiService,
+              private carrelliService: CarrelliService,
+              private toast: HotToastService) {
   }
 
   ngOnInit(): void {
@@ -32,16 +31,28 @@ export class CarrelloItemComponent implements OnInit {
   decrementaQuantita() {
     if (this.quantita! > 0) {
       this.carrelliService.rimuoviDalCarrello(this.idCarrello!, this.prodQuant!.prodotto.id,1)
+        .pipe(this.toast.observe({
+          loading: "Attendi",
+          success: "Articolo rimosso dal carrello",
+          error: "C\'è stato un problema... l\'articolo non è stato rimosso dal carrello"
+        }))
         .subscribe(() => {
           this.quantita!--
-          if (this.quantita === 0)
-            this.callbackRimuoviProdotto!()
+          this.callbackModificaQuantita!(-1)
         })
     }
   }
 
   incrementaQuantita() {
     this.carrelliService.aggiungiAlCarrello(this.idCarrello!, this.prodQuant!.prodotto.id,1)
-      .subscribe(() => this.quantita!++)
+      .pipe(this.toast.observe({
+        loading: "Attendi",
+        success: 'Articolo aggiunto al carrello',
+        error: 'C\'è stato un problema... l\'articolo non è stato aggiunto al carrello'
+      }))
+      .subscribe(() => {
+        this.quantita!++
+        this.callbackModificaQuantita!(1)
+      })
   }
 }

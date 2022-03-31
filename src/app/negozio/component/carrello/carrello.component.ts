@@ -20,10 +20,17 @@ export class CarrelloComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  rimuoviProdotto(prodQuant: ProdottoQuantita) {
-    return () => {
+  modificaQuantita(prodQuant: ProdottoQuantita) {
+    return (n: number) => {
       let index = this.carrello!.prodotti.indexOf(prodQuant)
-      this.carrello?.prodotti.splice(index, 1)
+
+      let numModificati = n > 0 ? n : -Math.min(-n,prodQuant.quantita)
+      prodQuant.quantita += numModificati
+      this.carrello!.numeroArticoli += numModificati
+      this.carrello!.totale += numModificati * prodQuant.prodotto.prezzo
+
+      if (prodQuant.quantita <= 0)
+        this.carrello?.prodotti.splice(index, 1)
     }
   }
 
