@@ -19,11 +19,11 @@ export class AnnullaOrdineModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.modal = new Modal(document.getElementById("modalAnnullaOrdine") as Element)
-    this.valoreMotivoSelect = 0
   }
 
   openModal(callbackAnnullaOrdine: () => void) {
     this.callbackAnnullaOrdine = callbackAnnullaOrdine
+    this.valoreMotivoSelect = 0
     this.modal.show()
   }
 
