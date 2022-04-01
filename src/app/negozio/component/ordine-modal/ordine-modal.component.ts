@@ -8,6 +8,8 @@ import {Indirizzo} from "../../model/indirizzo";
 import {IndirizziService} from "../../service/indirizzi.service";
 import {OrdiniService} from "../../service/ordini.service";
 import {ICreateOrderRequest, IPayPalConfig} from "ngx-paypal";
+import {ProdottiService} from "../../service/prodotti.service";
+import {HotToastService} from "@ngneat/hot-toast";
 
 @Component({
   selector: 'app-ordine-modal',
@@ -17,21 +19,19 @@ import {ICreateOrderRequest, IPayPalConfig} from "ngx-paypal";
 export class OrdineModalComponent implements OnInit {
   private modal: Modal;
   carrello: Carrello;
-  private utenteService: UtenteService;
   animali: Array<Animale>;
-  fasiOrdine = ['Scegli animale', 'Scegli indirizzo di consegna', 'Pagamento','Conferma']
+  fasiOrdine = ['Scegli animale', 'Scegli indirizzo di consegna', 'Riepilogo e pagamento','Conferma']
   faseCorrente = 0
   indirizzi: Array<Indirizzo>;
-  private indirizziService: IndirizziService;
-  private animale: Animale;
-  private indirizzo: Indirizzo;
-  private ordiniService: OrdiniService;
+  animale: Animale;
+  indirizzo: Indirizzo;
   payPalConfig: IPayPalConfig;
 
-  constructor(utenteService: UtenteService, indirizziService: IndirizziService, ordiniService: OrdiniService) {
-    this.utenteService = utenteService
-    this.indirizziService = indirizziService
-    this.ordiniService = ordiniService
+  constructor(private utenteService: UtenteService,
+              private indirizziService: IndirizziService,
+              private ordiniService: OrdiniService,
+              private prodottiService: ProdottiService,
+              private toast: HotToastService) {
   }
 
   ngOnInit(): void {
@@ -40,6 +40,7 @@ export class OrdineModalComponent implements OnInit {
 
   openModal(carrello: Carrello) {
     this.carrello = carrello
+    this.faseCorrente = 0
     this.utenteService.getAnimals(environment.mockUser).subscribe((animali) => this.animali = animali)
     this.indirizziService.getIndirizzi(environment.mockUser).subscribe((indirizzi) => this.indirizzi = indirizzi)
     this.initPayPal()
@@ -107,12 +108,19 @@ export class OrdineModalComponent implements OnInit {
         layout: 'vertical'
       },
       onClientAuthorization: () => {
-        this.ordiniService.creaOrdine(this.carrello.id, this.indirizzo.id, this.animale.id).subscribe({
-          complete: () => this.faseCorrente++,
-          error: (err) => console.log(err)
-        })
+        this.ordiniService.creaOrdine(this.carrello.id, this.indirizzo.id, this.animale.id)
+          .pipe(this.toast.observe({
+            loading: "Attendi",
+            success: "Ordine effettuato con successo",
+            error: "C\'è stato un problema... non è stato possibile effettuare l'ordine"
+          }))
+          .subscribe(() => this.faseCorrente++)
       },
-      onError: (err) => console.log('OnError', err),
+      onError: (err) => this.toast.error('Il servizio di pagamento ha riscontrato un problema... riprovare'),
     };
+  }
+
+  getUrlImmagineProdotto(id: number) {
+    return this.prodottiService.getUrlImmagineProdotto(id)
   }
 }
