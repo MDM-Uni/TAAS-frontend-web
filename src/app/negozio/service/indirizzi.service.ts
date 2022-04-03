@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {environment} from "../../../environments/environment";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Indirizzo} from "../model/indirizzo";
 
@@ -18,8 +18,8 @@ export class IndirizziService {
     return this.http.get<Array<Indirizzo>>(`${this.baseUrl}/${idUtente}`)
   }
 
-  aggiungiIndirizzo(idUtente: number, indirizzo: Indirizzo): Observable<Indirizzo> {
-    return this.http.post<Indirizzo>(`${this.baseUrl}/${idUtente}/aggiungi`, indirizzo)
+  aggiungiIndirizzo(idUtente: number, citta: string, via: string, numeroCivico: number, interno: string | null): Observable<Indirizzo> {
+    return this.http.post<Indirizzo>(`${this.baseUrl}/${idUtente}/crea`, new Indirizzo(0,citta,via,numeroCivico,interno))
   }
 
   rimuoviIndirizzo(idUtente: number, idIndirizzo: number): Observable<any> {

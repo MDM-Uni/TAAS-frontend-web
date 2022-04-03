@@ -1,11 +1,11 @@
 import {Pipe, PipeTransform} from "@angular/core";
 
 export class Indirizzo {
-  id: number
-  citta: string
-  via: string
-  numeroCivico: number
-  interno: string | null
+  constructor(public id: number,
+              public citta: string,
+              public via: string,
+              public numeroCivico: number,
+              public interno: string | null){}
 }
 
 @Pipe({

@@ -50,14 +50,17 @@
             </div>
 
             <div class="col">
-              <div class="card card-hover">
+              <div class="card card-hover" (click)="toggleCollapse()">
                 <img height="150px" class="mx-lg-5 m-3 image-hover" src="assets/images/plus.svg" alt="Nuovo indirizzo">
                 <div class="card-body">
-                  <p class="card-title">Nuovo indirizzo</p>
+                  <p class="card-title text-primary text-center">Nuovo indirizzo</p>
                 </div>
               </div>
             </div>
           </div>
+
+          <!-- inserisci nuovo indirizzo -->
+          <app-indirizzo-collapse [callbackAggiungiIndirizzo]="aggiungiIndirizzo()"></app-indirizzo-collapse>
         </div>
 
         <!-- fase di pagamento -->

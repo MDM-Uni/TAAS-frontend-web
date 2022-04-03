@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Carrello} from "../../model/carrello";
 import {Modal} from "bootstrap";
 import {UtenteService} from "../../../service/utente.service";
@@ -10,6 +10,7 @@ import {OrdiniService} from "../../service/ordini.service";
 import {ICreateOrderRequest, IPayPalConfig} from "ngx-paypal";
 import {ProdottiService} from "../../service/prodotti.service";
 import {HotToastService} from "@ngneat/hot-toast";
+import {IndirizzoCollapseComponent} from "../indirizzo-collapse/indirizzo-collapse.component";
 
 @Component({
   selector: 'app-ordine-modal',
@@ -26,6 +27,7 @@ export class OrdineModalComponent implements OnInit {
   animale: Animale;
   indirizzo: Indirizzo;
   payPalConfig: IPayPalConfig;
+  @ViewChild(IndirizzoCollapseComponent) indirizzoCollapse: IndirizzoCollapseComponent;
 
   constructor(private utenteService: UtenteService,
               private indirizziService: IndirizziService,
@@ -66,7 +68,25 @@ export class OrdineModalComponent implements OnInit {
     this.faseCorrente++
   }
 
-  /*************************/
+  aggiungiIndirizzo() {
+    return (citta: string, via: string, numeroCivico: number, interno: string | null) => {
+      this.indirizziService.aggiungiIndirizzo(environment.mockUser, citta, via, numeroCivico, interno)
+        .pipe(this.toast.observe({
+          success: 'Indirizzo aggiunto con successo',
+          error: "C'è stato un problema... l'indirizzo non è stato aggiunti",
+          loading: "Attendi"
+        }))
+        .subscribe((indirizzo) => this.indirizzi.push(indirizzo))
+    }
+  }
+
+  getUrlImmagineProdotto(id: number) {
+    return this.prodottiService.getUrlImmagineProdotto(id)
+  }
+
+  toggleCollapse() {
+    this.indirizzoCollapse.toggleCollapse()
+  }
 
   initPayPal() {
     this.payPalConfig = {
@@ -118,9 +138,5 @@ export class OrdineModalComponent implements OnInit {
       },
       onError: (err) => this.toast.error('Il servizio di pagamento ha riscontrato un problema... riprovare'),
     };
-  }
-
-  getUrlImmagineProdotto(id: number) {
-    return this.prodottiService.getUrlImmagineProdotto(id)
   }
 }

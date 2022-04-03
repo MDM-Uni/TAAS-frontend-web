@@ -34,6 +34,7 @@ import {IndirizzoPipe} from "./negozio/model/indirizzo";
 import { OrdineModalComponent } from './negozio/component/ordine-modal/ordine-modal.component';
 import {NgxPayPalModule} from "ngx-paypal";
 import { AnnullaOrdineModalComponent } from './negozio/component/annulla-ordine-modal/annulla-ordine-modal.component';
+import { IndirizzoCollapseComponent } from './negozio/component/indirizzo-collapse/indirizzo-collapse.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { AnnullaOrdineModalComponent } from './negozio/component/annulla-ordine-
     IndirizzoPipe,
     OrdineModalComponent,
     AnnullaOrdineModalComponent,
+    IndirizzoCollapseComponent,
   ],
   imports: [
     BrowserModule,
