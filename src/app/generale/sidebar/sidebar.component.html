@@ -5,24 +5,24 @@
   </a>
   <hr>
   <ul class="nav nav-pills flex-md-column flex-row mb-auto">
-    <li class="nav-item"> <a href="#" class="nav-link active" aria-current="page"> <i class="fa fa-home"></i><span class="ms-2">Dashboard</span> </a> </li>
-    <li> <a href="#" class="nav-link text-white"> <i class="fa fa-fw fa-shopping-cart"></i><span class="ms-2">Negozio</span> </a> </li>
-    <li> <a href="#" class="nav-link text-white"> <i class="fa fa-clinic-medical"></i><span class="ms-2">Ospedale</span> </a> </li>
-    <li> <a href="#" class="nav-link text-white"> <i class="fa fa-hotel"></i><span class="ms-2">Pensione</span> </a> </li>
+    <li class="nav-item"> <a href="#" class="nav-link text-white" routerLink="/sidebar/dashboard" routerLinkActive="active" aria-current="page"> <i class="fa fa-home"></i><span class="ms-2">Dashboard</span> </a> </li>
+    <li class="nav-item"> <a href="#" class="nav-link text-white" routerLink="/sidebar/negozio" routerLinkActive="active"> <i class="fa fa-fw fa-shopping-cart"></i><span class="ms-2">Negozio</span> </a> </li>
+    <li class="nav-item"> <a href="#" class="nav-link text-white" routerLink="/sidebar/ospedale" routerLinkActive="active"> <i class="fa fa-clinic-medical"></i><span class="ms-2">Ospedale</span> </a> </li>
+    <li class="nav-item"> <a href="#" class="nav-link text-white"> <i class="fa fa-hotel"></i><span class="ms-2">Pensione</span> </a> </li>
   </ul>
   <hr>
-  <div class="dropdown" (click)="toggleDropdownUtente()"> <a href="#" id="dropdown-utente" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"> <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-    <strong> Utente </strong> </a>
+  <div class="dropdown" (click)="toggleDropdownUtente()"> <a href="#" id="dropdown-utente" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"> <img [src]="userDetails?.photoUrl" alt="" width="32" height="32" class="rounded-circle me-2">
+    <strong> {{utente?.nome}} </strong> </a>
     <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
       <li><a class="dropdown-item" href="#"> <i class="fa fa-fw fa-cat"> </i> Animali</a></li>
       <li>
         <hr class="dropdown-divider">
       </li>
       <li><a class="dropdown-item" href="#"> <i class="fa fa-fw fa-cog"> </i> Impostazioni</a></li>
-      <li><a class="dropdown-item" href="#"> <i class="fa fa-fw fa-door-open"> </i> Esci</a></li>
+      <li><a (click)="logout()" class="dropdown-item" href="#"> <i class="fa fa-fw fa-door-open"> </i> Esci</a></li>
     </ul>
   </div>
 </div>
 <div class="sidebar-content">
-  <app-negozio></app-negozio>
+  <router-outlet></router-outlet>
 </div>

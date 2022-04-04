@@ -3,7 +3,7 @@
 <ng-template #mymodal let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Dettagli animale</h4>
-    <button type="button" class="close-button" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <button type="button" class="btn btn-outline-danger" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">×</span>
     </button>
   </div>
@@ -20,7 +20,7 @@
       <div style="margin-top:10px" class="form-inline" *ngFor="let patologia of this.animaleDaVisualizzare.patologie; let i=index; trackBy: customTrackBy">
         <label>Patologia {{i+1}}: </label>
         <input value="{{patologia}}" style="margin-left:5px" type='text' name='sameName{{i}}' [(ngModel)]='animaleDaVisualizzare.patologie[i]'>
-        <button *ngIf="this.animaleDaVisualizzare.patologie.length-1 == i" style="margin-left:10px" (click)="addPatologia()" class="btn btn-primary"><i class="fa fa-fw fa-plus"></i></button>
+        <button *ngIf="this.animaleDaVisualizzare.patologie.length-1 == i && this.animaleDaVisualizzare.patologie[i] !== ''" style="margin-left:10px" (click)="addPatologia()" class="btn btn-primary"><i class="fa fa-fw fa-plus"></i></button>
         <button *ngIf="i!==0" style="margin-left:5px" (click)="removePatologia(i)" class="btn btn-danger"><i class="fa fa-fw fa-remove"></i></button>
       </div>
       <div class="form-group">
