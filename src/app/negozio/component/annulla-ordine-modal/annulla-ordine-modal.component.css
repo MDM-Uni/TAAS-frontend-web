@@ -14,3 +14,7 @@
     transform: scale(1);
   }
 }
+
+.modal {
+  overflow: hidden; /* Hide scrollbars */
+}
