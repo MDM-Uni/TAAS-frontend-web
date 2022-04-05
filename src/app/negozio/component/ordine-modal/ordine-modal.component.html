@@ -39,6 +39,10 @@
         <div *ngIf="faseCorrente === 1" class="p-3 px-lg-5">
           <h4 class="mb-4">Seleziona un indirizzo per la consegna</h4>
           <small>Seleziona uno dei tuoi indirizzi oppure inseriscine uno nuovo.</small>
+
+          <!-- inserisci nuovo indirizzo -->
+          <app-indirizzo-collapse [callbackAggiungiIndirizzo]="aggiungiIndirizzo()"></app-indirizzo-collapse>
+
           <div class="mt-0 row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
             <div class="col" *ngFor="let indir of indirizzi" (click)="selezionaIndirizzo(indir)">
               <div class="card card-hover">
@@ -58,9 +62,6 @@
               </div>
             </div>
           </div>
-
-          <!-- inserisci nuovo indirizzo -->
-          <app-indirizzo-collapse [callbackAggiungiIndirizzo]="aggiungiIndirizzo()"></app-indirizzo-collapse>
         </div>
 
         <!-- fase di pagamento -->

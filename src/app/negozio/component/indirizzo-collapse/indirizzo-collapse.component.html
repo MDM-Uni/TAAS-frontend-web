@@ -17,7 +17,7 @@
 
         <div class="form-group row mb-3">
           <p class="col-3 col-form-label">Numero civico</p>
-          <input name="numeroCivico" [(ngModel)]="numeroCivico" type="email" class="form-control col" placeholder="Numero civico">
+          <input name="numeroCivico" [(ngModel)]="numeroCivico" type="number" class="form-control col" placeholder="Numero civico">
         </div>
 
         <div class="form-group row mb-3">
@@ -26,6 +26,9 @@
         </div>
 
         <div class="row justify-content-end">
+          <button type="button" class="btn btn-danger col-1 me-3" (click)="toggleCollapse()">
+            Annulla
+          </button>
           <button type="button" class="btn btn-primary col-2"
                   [disabled]="disabilita()"
                   (click)="aggiungiIndirizzo()">
