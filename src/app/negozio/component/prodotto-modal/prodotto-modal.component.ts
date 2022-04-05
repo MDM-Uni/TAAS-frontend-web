@@ -5,6 +5,7 @@ import {ProdottiService} from "../../service/prodotti.service";
 import {CarrelliService} from "../../service/carrelli.service";
 import {Carrello} from "../../model/carrello";
 import {environment} from "../../../../environments/environment";
+import {HotToastService} from "@ngneat/hot-toast";
 
 @Component({
   selector: 'app-prodotto-modal',
@@ -14,15 +15,12 @@ import {environment} from "../../../../environments/environment";
 export class ProdottoModalComponent implements OnInit {
   prodotto: Prodotto | undefined
   carrello: Carrello | undefined
-  quantita = 0
+  quantita = 1
   private modal: any
-  private prodottiService: ProdottiService
-  private carrelliService: CarrelliService;
 
-
-  constructor(prodottiService: ProdottiService, carrelliService: CarrelliService) {
-    this.prodottiService = prodottiService
-    this.carrelliService = carrelliService
+  constructor(private prodottiService: ProdottiService,
+              private carrelliService: CarrelliService,
+              private toast: HotToastService) {
   }
 
   ngOnInit(): void {
@@ -30,7 +28,7 @@ export class ProdottoModalComponent implements OnInit {
   }
 
   openModal(prodotto: Prodotto) {
-    this.quantita = 0
+    this.quantita = 1
     this.prodotto = prodotto
     this.carrelliService.getCarrello(environment.mockUser)
       .subscribe((carrello) => this.carrello = carrello)
@@ -56,7 +54,12 @@ export class ProdottoModalComponent implements OnInit {
   }
 
   aggiungiAlCarrello() {
-    this.carrelliService.aggiungiAlCarrello(this.carrello!.id, this.prodotto!.id, this.quantita)
-      .subscribe((carrello) => window.alert(carrello))
+    this.carrelliService.aggiungiAlCarrello(this.carrello!.id, this.prodotto!.id, this.quantita).pipe(
+      this.toast.observe({
+        loading: "Attendi",
+        success: 'Articolo aggiunto al carrello',
+        error: 'C\'è stato un problema... l\'articolo non è stato aggiunto al carrello'
+      })
+    ).subscribe()
   }
 }

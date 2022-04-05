@@ -9,7 +9,21 @@
 
   <div *ngIf="carrello !== undefined && carrello.numeroArticoli > 0" class="card-body">
     <div class="list-group" *ngFor="let prodQuant of carrello.prodotti">
-      <app-carrello-item [callbackRimuoviProdotto]="rimuoviProdotto(prodQuant)" [idCarrello]="carrello.id" [prodQuant]="prodQuant"></app-carrello-item>
+      <app-carrello-item
+        [callbackModificaQuantita]="modificaQuantita(prodQuant)"
+        [idCarrello]="carrello.id"
+        [prodQuant]="prodQuant"></app-carrello-item>
+    </div>
+
+    <div class="d-flex justify-content-end pt-3">
+      <p class="my-auto me-4">{{carrello.numeroArticoli}} articol{{carrello.numeroArticoli == 1 ? 'o' : 'i'}},</p>
+      <p class="my-auto me-4">totale <strong>€ {{carrello.totale | number}}</strong></p>
+      <button type="button" class="btn btn-primary" (click)="openModal()">Procedi all'ordine</button>
     </div>
   </div>
 </div>
+
+<!--------------------------------------------------------------------------------------------------------------------->
+
+<!-- finestra di dialogo per l'ordine -->
+<app-ordine-modal></app-ordine-modal>

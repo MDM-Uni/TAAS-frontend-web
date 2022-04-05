@@ -1,0 +1,38 @@
+.card-hover {
+  transition: transform .1s ease-in-out;
+  cursor: pointer;
+}
+
+.card-hover:hover {
+  transform: scale(1.1);
+  background-color: #f8f9fa;
+}
+
+.card img {
+  object-fit: scale-down;
+}
+
+.image-hover {
+  transition: transform .2s ease-in-out;
+}
+
+.card-hover:hover .image-hover {
+  transform: scale(1.01) rotate(5deg);
+}
+
+.modal.show {
+  animation-name: open-modal;
+  animation-duration: 0.2s;
+}
+
+@keyframes open-modal {
+  0% {
+    transform: scale(0.5);
+  }
+  50% {
+    transform: scale(1.01);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

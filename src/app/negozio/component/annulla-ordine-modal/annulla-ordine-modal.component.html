@@ -1,0 +1,36 @@
+<div class="modal" id="modalAnnullaOrdine" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title">Annulla ordine</div>
+        <button type="button" class="close btn btn-close" (click)="closeModal()" data-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h2>Annullamento ordine</h2>
+        <p></p>
+
+        <form>
+          <div class="form-group">
+            <label for="motivoSelect">Motivo dell'annullamento ordine:</label>
+            <select name="select" class="form-select mt-1" id="motivoSelect" [(ngModel)]="valoreMotivoSelect" aria-label="Motivo dell'annullamento dell'ordine">
+              <option [selected]="i === 0" [hidden]="i === 0" *ngFor="let opzione of opzioni; let i = index" [ngValue]="i">{{opzione}}</option>
+            </select>
+            <div *ngIf="valoreMotivoSelect === 3">
+              <label class="mt-3" for="note">Indica il motivo per cui hai cambiato idea:</label>
+              <p class="my-1 text-secondary my-1">(il tuo parere ci aiuta! 😊)</p>
+              <textarea type="text" class="form-control mt-1" id="note" name="motivo" [(ngModel)]="valoreMotivoText" aria-describedby="Note" placeholder="Motivo"></textarea>
+            </div>
+          </div>
+          <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-danger mt-3"
+                    [disabled]="valoreMotivoSelect === 0 || valoreMotivoSelect === 3 && (valoreMotivoText === undefined || valoreMotivoText === '')"
+                    (click)="annullaOrdine()">
+              Annula ordine
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {
   FacebookLoginProvider,
@@ -29,11 +29,18 @@ import { AggiungiAnimaleComponent } from './utente/component/aggiungi-animale/ag
 import { DatePipe } from '@angular/common';
 import { SidebarComponent } from './generale/sidebar/sidebar.component';
 import { OrdineComponent } from './negozio/component/ordine/ordine.component';
+import "@angular/common/locales/global/it"
+import {IndirizzoPipe} from "./negozio/model/indirizzo";
+import { OrdineModalComponent } from './negozio/component/ordine-modal/ordine-modal.component';
+import {NgxPayPalModule} from "ngx-paypal";
+import { AnnullaOrdineModalComponent } from './negozio/component/annulla-ordine-modal/annulla-ordine-modal.component';
+import { IndirizzoCollapseComponent } from './negozio/component/indirizzo-collapse/indirizzo-collapse.component';
 import {googleCalendarEventUrl} from "google-calendar-url";
 import { BoxAggiuntaEventoPersComponent } from './storia/components/box-aggiunta-evento-pers/box-aggiunta-evento-pers.component';
 import { EventoPersonalizzatoComponent } from './storia/components/evento-personalizzato/evento-personalizzato.component';
 import { OspedaleComponent } from './ospedale/components/ospedale/ospedale.component';
 import { StoriaComponent } from './storia/components/storia/storia.component';
+
 
 @NgModule({
   declarations: [
@@ -56,6 +63,10 @@ import { StoriaComponent } from './storia/components/storia/storia.component';
     DettagliAnimaleComponent,
     AggiungiAnimaleComponent,
     SidebarComponent,
+    IndirizzoPipe,
+    OrdineModalComponent,
+    AnnullaOrdineModalComponent,
+    IndirizzoCollapseComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,7 +77,8 @@ import { StoriaComponent } from './storia/components/storia/storia.component';
     NgbModule,
     ReactiveFormsModule,
     FormsModule,
-    HotToastModule.forRoot()
+    HotToastModule.forRoot(),
+    NgxPayPalModule
   ],
   providers: [
     DatePipe,
@@ -86,7 +98,7 @@ import { StoriaComponent } from './storia/components/storia/storia.component';
         )
       }]
     } as SocialAuthServiceConfig
-  }],
+  }, { provide: LOCALE_ID, useValue: 'it' }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
