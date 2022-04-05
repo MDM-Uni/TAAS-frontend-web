@@ -1,9 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Carrello} from "../../model/carrello";
 import {Modal} from "bootstrap";
-import {UtenteService} from "../../../service/utente.service";
+import {UtenteService} from "../../../utente/service/utente.service";
 import {environment} from "../../../../environments/environment";
-import {Animale} from "../../../model/animale";
+import {Animale} from "../../../utente/model/animale";
 import {Indirizzo} from "../../model/indirizzo";
 import {IndirizziService} from "../../service/indirizzi.service";
 import {OrdiniService} from "../../service/ordini.service";

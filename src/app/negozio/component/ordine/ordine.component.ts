@@ -3,8 +3,8 @@ import {OrdiniService} from "../../service/ordini.service";
 import {ProdottiService} from "../../service/prodotti.service";
 import {AnimaleOrdine} from "../../model/ordine";
 import {environment} from "../../../../environments/environment";
-import {Animale} from "../../../model/animale";
-import {UtenteService} from "../../../service/utente.service";
+import {Animale} from "../../../utente/model/animale";
+import {UtenteService} from "../../../utente/service/utente.service";
 import {HotToastService} from "@ngneat/hot-toast";
 import {AnnullaOrdineModalComponent} from "../annulla-ordine-modal/annulla-ordine-modal.component";
 

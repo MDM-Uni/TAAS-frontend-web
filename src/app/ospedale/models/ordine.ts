@@ -45,7 +45,7 @@ export class Ordine implements Evento{
   }
 
   getData(): Date {
-    return this.dataAcquisto;
+    return this.dataAcquisto!;
   }
 
 }
