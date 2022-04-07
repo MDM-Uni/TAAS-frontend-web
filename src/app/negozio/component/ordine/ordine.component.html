@@ -8,6 +8,39 @@
   </div>
 
   <div class="card-body">
+    <form class="row g-3 align-items-center">
+      <div class="col-auto d-flex align-items-center">
+        <strong>Visualizza ordini</strong>
+      </div>
+
+      <div class="input-group col" style="max-width: 250px; min-width: 250px">
+        <div class="input-group-prepend">
+          <span class="input-group-text"><i class="py-1 fa fa-calendar"></i></span>
+        </div>
+        <select name="select" class="frm-select px-2" (change)="filtra()" [(ngModel)]="tempoSelect" aria-label="Periodo in cui visualizzare gli ordini">
+          <option [selected]="i === 0" *ngFor="let tempo of tempi; let i = index" [ngValue]="tempo">{{tempiString[i]}}</option>
+        </select>
+      </div>
+
+      <div class="form-check col-auto me-3">
+        <input class="form-check-input" name="non consegnati" (change)="filtra()" type="checkbox" value="" [(ngModel)]="mostraNonConsegnati" checked>
+        <label class="form-check-label">
+          Mostra ordini non consegnati
+        </label>
+      </div>
+
+      <div class="form-check col-auto">
+        <input class="form-check-input" name="consegnati" (change)="filtra()" type="checkbox" value="" [(ngModel)]="mostraConsegnati" checked>
+        <label class="form-check-label">
+          Mostra ordini consegnati
+        </label>
+      </div>
+    </form>
+
+    <hr>
+    <div *ngIf="!animaleOrdineList || animaleOrdineList.length === 0">
+      <h3 class="text-center my-5">Nessun ordine</h3>
+    </div>
     <div class="list-group" *ngFor="let animaleOrdine of animaleOrdineList; let i=index">
       <hr class="mt-3" *ngIf="i > 0">
       <div class="d-inline-flex mb-3">
@@ -20,7 +53,7 @@
         <p><strong>Indirizzo di consegna: </strong><span class="mx-2">{{animaleOrdine.ordine.indirizzoConsegna | indirizzo}}</span></p>
         <p><strong>Consegnato: </strong><span class="mx-2">{{animaleOrdine.ordine.dataConsegna === null ? "No" : animaleOrdine.ordine.dataConsegna | date:'EEEE dd/MM/Y'}}</span></p>
       </div>
-      <div class="list-group-item list-group-item-action" *ngFor="let prodQuant of animaleOrdine.ordine.prodotti">
+      <div class="list-group-item" *ngFor="let prodQuant of animaleOrdine.ordine.prodotti">
         <div class="row">
           <div class="col-sm-5">
             <img height="80px" class="mx-lg-5 m-3" src="{{getUrlImmagineProdotto(prodQuant.prodotto.id)}}" alt="Immagine prodotto '{{prodQuant.prodotto.nome}}'">

@@ -14,9 +14,17 @@ import {AnnullaOrdineModalComponent} from "../annulla-ordine-modal/annulla-ordin
   styleUrls: ['./ordine.component.css']
 })
 export class OrdineComponent implements OnInit {
-  animaleOrdineList: Array<AnimaleOrdine>
-  animaliUtente: Array<Animale>
   @ViewChild(AnnullaOrdineModalComponent) annullaOrdineModal: AnnullaOrdineModalComponent
+
+  animaliUtente: Array<Animale>
+  animaleOrdineAll: Array<AnimaleOrdine>
+  animaleOrdineList: Array<AnimaleOrdine>
+
+  tempi = [3,6,12,24,36,Number.POSITIVE_INFINITY];
+  tempoSelect = this.tempi[0];
+  tempiString = ['Ultimi 3 mesi','Ultimi 6 mesi','Ultimo anno','Ultimi 2 anni','Ultimi 3 anni','Tutti gli ordini'];
+  mostraNonConsegnati = true;
+  mostraConsegnati = true;
 
   constructor(private ordiniService: OrdiniService,
               private prodottiService: ProdottiService,
@@ -24,11 +32,12 @@ export class OrdineComponent implements OnInit {
               private toast: HotToastService) {
     this.ordiniService.getOrdini(environment.mockUser).subscribe((animaleOrdineList) => {
         utenteService.getAnimals(environment.mockUser).subscribe((animali) => {
-          this.animaleOrdineList = animaleOrdineList
+          this.animaleOrdineAll = animaleOrdineList
           for (let animOrd of animaleOrdineList) {
             let index = animali.findIndex((a) => a.id == animOrd.animale.id)
             animOrd.animale.nome = animali[index].nome
           }
+          this.filtra()
         })
       })
   }
@@ -53,9 +62,25 @@ export class OrdineComponent implements OnInit {
           error: "C\'è stato un problema... l\'ordine non è stato annullato"
         }))
         .subscribe(() => {
-          let index = this.animaleOrdineList.indexOf(animaleOrdine)
-          this.animaleOrdineList.splice(index, 1)
+          let index = this.animaleOrdineAll.indexOf(animaleOrdine)
+          this.animaleOrdineAll.splice(index, 1)
+          this.filtra()
         })
     }
+  }
+
+  mesiTraDate(d1: Date, d2: Date) {
+    let months;
+    months = (d2.getFullYear() - d1.getFullYear()) * 12;
+    months += d2.getMonth() - d1.getMonth();
+    return months <= 0 ? 0 : months;
+  }
+
+  filtra() {
+    this.animaleOrdineList = this.animaleOrdineAll.filter((animOrd) =>
+      this.mesiTraDate(new Date(animOrd.ordine.dataAcquisto),new Date()) <= this.tempoSelect
+      && (this.mostraConsegnati && animOrd.ordine.dataConsegna !== null
+        || this.mostraNonConsegnati && animOrd.ordine.dataConsegna === null)
+    )
   }
 }
