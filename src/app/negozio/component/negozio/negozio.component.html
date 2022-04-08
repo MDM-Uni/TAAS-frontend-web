@@ -1,5 +1,14 @@
-<div class="mx-3 mx-lg-5">
-  <app-lista-prodotti></app-lista-prodotti>
-  <app-ordine></app-ordine>
-  <app-carrello></app-carrello>
+<div class="navbar navbar-light navbar-expand-lg bg-light justify-content-between px-2" (click)="aggiornaNumArticoliCarrello()">
+  <h4 class="navbar-brand"><a href="#" class="nav-link link-secondary" routerLink="/negozio" aria-current="page">Negozio</a></h4>
+  <ul class="navbar-nav">
+    <li class="nav-item me-3"><a href="#" class="nav-link" routerLink="/ordini"> <i class="fa fa-fw fa-shopping-bag"></i><span class="ms-1">Ordini</span> </a> </li>
+    <li class="nav-item">
+      <a href="#" class="nav-link" routerLink="/carrello"> <i class="fa fa-shopping-cart"></i>
+        <span *ngIf="numArticoliCarrello" class="position-absolute top-80 start-120 translate-middle badge rounded-pill bg-danger ms-1">{{numArticoliCarrello}}</span>
+        <span [ngClass]="{'ms-1': !numArticoliCarrello, 'ms-2': numArticoliCarrello}">Carrello</span>
+    </a></li>
+  </ul>
+</div>
+<div class="mx-3 mx-lg-5 mt-3 mt-lg-4">
+  <router-outlet></router-outlet>
 </div>

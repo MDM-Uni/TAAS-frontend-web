@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {CarrelliService} from "../../service/carrelli.service";
+import {environment} from "../../../../environments/environment";
 
 @Component({
   selector: 'app-negozio',
@@ -6,10 +8,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./negozio.component.css']
 })
 export class NegozioComponent implements OnInit {
+  numArticoliCarrello: number | undefined;
 
-  constructor() { }
+  constructor(private carrelliService: CarrelliService) {
+    this.aggiornaNumArticoliCarrello()
+  }
 
   ngOnInit(): void {
   }
 
+  aggiornaNumArticoliCarrello() {
+    this.carrelliService.getCarrello(environment.mockUser).subscribe((carrello) => this.numArticoliCarrello = carrello.numeroArticoli)
+  }
 }
