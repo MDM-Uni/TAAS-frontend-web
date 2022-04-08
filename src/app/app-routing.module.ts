@@ -9,9 +9,10 @@ import { NegozioComponent } from './negozio/component/negozio/negozio.component'
 import {ListaProdottiComponent} from "./negozio/component/lista-prodotti/lista-prodotti.component";
 import {OrdineComponent} from "./negozio/component/ordine/ordine.component";
 import {CarrelloComponent} from "./negozio/component/carrello/carrello.component";
+import {HomepageComponent} from "./generale/homepage/homepage.component";
 
 const routes: Routes = [
-  {path:'', redirectTo: 'login', pathMatch: 'full'},
+  {path:'', component: HomepageComponent},
   {path:'login', component: LoginComponent},
   {path:'', component: SidebarComponent, children: [
       {path:'dashboard', component: DashboardComponent},
