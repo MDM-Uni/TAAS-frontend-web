@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
   loginWithGoogle(): void {
     this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID).then(data => {
       localStorage.setItem("auth", JSON.stringify(data));
-      this.router.navigateByUrl('/sidebar/dashboard');
+      this.router.navigateByUrl('/dashboard');
     });
   }
 
@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
   loginWithFacebook(): void {
     this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID).then(data => {
       localStorage.setItem("auth", JSON.stringify(data));
-      this.router.navigateByUrl('/sidebar/dashboard');
+      this.router.navigateByUrl('/dashboard');
     })
   }
 

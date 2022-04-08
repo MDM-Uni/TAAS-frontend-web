@@ -5,9 +5,9 @@
   </a>
   <hr>
   <ul class="nav nav-pills flex-md-column flex-row mb-auto">
-    <li class="nav-item"> <a href="#" class="nav-link text-white" routerLink="/sidebar/dashboard" routerLinkActive="active" aria-current="page"> <i class="fa fa-home"></i><span class="ms-2">Dashboard</span> </a> </li>
-    <li class="nav-item"> <a href="#" class="nav-link text-white" routerLink="/sidebar/negozio" routerLinkActive="active"> <i class="fa fa-fw fa-shopping-cart"></i><span class="ms-2">Negozio</span> </a> </li>
-    <li class="nav-item"> <a href="#" class="nav-link text-white" routerLink="/sidebar/ospedale" routerLinkActive="active"> <i class="fa fa-clinic-medical"></i><span class="ms-2">Ospedale</span> </a> </li>
+    <li class="nav-item"> <a href="#" class="nav-link text-white" routerLink="/dashboard" routerLinkActive="active" aria-current="page"> <i class="fa fa-home"></i><span class="ms-2">Dashboard</span> </a> </li>
+    <li class="nav-item"> <a href="#" class="nav-link text-white" routerLink="/negozio" [ngClass]="{'active': ['/negozio', '/ordini', '/carrello'].includes(router.url)}"> <i class="fa fa-fw fa-shopping-cart"></i><span class="ms-2">Negozio</span> </a> </li>
+    <li class="nav-item"> <a href="#" class="nav-link text-white" routerLink="/ospedale" routerLinkActive="active"> <i class="fa fa-clinic-medical"></i><span class="ms-2">Ospedale</span> </a> </li>
     <li class="nav-item"> <a href="#" class="nav-link text-white"> <i class="fa fa-hotel"></i><span class="ms-2">Pensione</span> </a> </li>
   </ul>
   <hr>

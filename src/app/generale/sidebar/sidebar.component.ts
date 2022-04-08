@@ -15,7 +15,7 @@ export class SidebarComponent implements OnInit {
   public userDetails: any;
 
   constructor(
-    private router: Router,
+    public router: Router,
     private socialAuthService: SocialAuthService,
   ) { }
 

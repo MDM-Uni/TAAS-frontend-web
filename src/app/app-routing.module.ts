@@ -6,14 +6,22 @@ import {SidebarComponent} from "./generale/sidebar/sidebar.component";
 import {StoriaComponent} from "./storia/components/storia/storia.component";
 import {OspedaleComponent} from "./ospedale/components/ospedale/ospedale.component";
 import { NegozioComponent } from './negozio/component/negozio/negozio.component';
+import {ListaProdottiComponent} from "./negozio/component/lista-prodotti/lista-prodotti.component";
+import {OrdineComponent} from "./negozio/component/ordine/ordine.component";
+import {CarrelloComponent} from "./negozio/component/carrello/carrello.component";
 
 const routes: Routes = [
-  {path:'', component: LoginComponent},
-  {path:'sidebar', component: SidebarComponent, children: [
+  {path:'', redirectTo: 'login', pathMatch: 'full'},
+  {path:'login', component: LoginComponent},
+  {path:'', component: SidebarComponent, children: [
       {path:'dashboard', component: DashboardComponent},
       {path:'storia', component: StoriaComponent},
       {path:'ospedale', component: OspedaleComponent},
-      {path:'negozio', component: NegozioComponent},
+      {path:'', component: NegozioComponent, children: [
+        {path:'negozio', component: ListaProdottiComponent},
+        {path:'ordini', component: OrdineComponent},
+        {path:'carrello', component: CarrelloComponent},
+        ]},
     ]},
 ];
 
