@@ -51,7 +51,10 @@ export class ListaProdottiComponent implements OnInit {
     }
 
     if (this.cerca) {
-      let sim = new Map(this.prodotti.map((p) => [p, p.nome.includes(this.cerca) ? 1 : diceCoefficient(this.cerca, p.nome)]))
+      let sim = new Map(this.prodotti.map((p) => [
+        p,
+        p.nome.includes(this.cerca) || this.cerca.trim() === '' ? 1 : diceCoefficient(this.cerca, p.nome)
+      ]))
       this.prodotti = this.prodotti.filter((p) => sim.get(p)! >= 0.4)
       this.prodotti.sort((a,b) => sim.get(a)! - sim.get(b)!)
     }
