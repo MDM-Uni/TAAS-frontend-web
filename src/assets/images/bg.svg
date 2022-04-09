@@ -29,8 +29,8 @@
      fit-margin-right="0"
      fit-margin-bottom="0"
      inkscape:zoom="0.80378836"
-     inkscape:cx="130.6314"
-     inkscape:cy="380.69723"
+     inkscape:cx="205.89997"
+     inkscape:cy="204.03381"
      inkscape:window-width="1920"
      inkscape:window-height="1017"
      inkscape:window-x="-8"
@@ -107,6 +107,9 @@
        id="path3991"
        style="fill:url(#radialGradient15361);fill-opacity:1;stroke-width:2.61871;stroke-linecap:round;stroke-linejoin:round"
        d="M 194.12069,49.1313 C 49.08113,37.0517 36.32417,48.767194 19.086203,49.1313 v 39.776161 c 35.952477,-2.221949 86.984977,3.879402 125.993807,2.765904 24.51754,-1.039207 19.56295,-1.650624 48.80792,-4.95829 z"
-       sodipodi:nodetypes="cccccc" />
+       sodipodi:nodetypes="cccccc"
+       inkscape:export-filename="C:\Users\dawoz\IdeaProjects\TAAS-frontend-web\src\assets\images\bg1.svg"
+       inkscape:export-xdpi="239.853"
+       inkscape:export-ydpi="239.853" />
   </g>
 </svg>

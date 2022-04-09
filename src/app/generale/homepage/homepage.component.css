@@ -13,6 +13,38 @@
   transform: translateY(10%);
 }
 
+#logo {
+  transition: 0.3s;
+}
+
+#logo:hover {
+  transform: scale(1.05);
+}
+
+#motto {
+  animation: fadein;
+  animation-duration: 2s;
+  transition: 0.3s;
+}
+
+#motto:hover {
+  transform: scale(1.02);
+}
+
+@keyframes fadein {
+  0% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 100%;
+  }
+}
+
 @media only screen and (min-width: 600px) {
   /* For tablets: */
   .background {
@@ -32,4 +64,8 @@
   .logo-div {
     height: 800px;
   }
+}
+
+footer {
+  margin-top: 80px;
 }
