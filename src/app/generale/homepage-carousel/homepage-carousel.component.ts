@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Carousel} from "bootstrap";
 
 @Component({
@@ -7,26 +7,10 @@ import {Carousel} from "bootstrap";
   styleUrls: ['./homepage-carousel.component.css']
 })
 export class HomepageCarouselComponent implements OnInit {
-  id = 'carousel';
+  @Input() id: string;
+  @Input() slides: Array<{src: string, titolo: string, desc: string}>;
   carousel: Carousel;
   slideCorrente = 0;
-  slides = [
-    {
-      src: 'https://upload.wikimedia.org/wikipedia/commons/4/45/Wide_lightning.jpg',
-      titolo: 'Titolo 1',
-      desc: 'Descrizione 1',
-    },
-    {
-      src: 'https://upload.wikimedia.org/wikipedia/commons/4/45/Wide_lightning.jpg',
-      titolo: 'Titolo 2',
-      desc: 'Descrizione 2',
-    },
-    {
-      src: 'https://upload.wikimedia.org/wikipedia/commons/4/45/Wide_lightning.jpg',
-      titolo: 'Titolo 3',
-      desc: 'Descrizione 3',
-    }
-  ];
 
   constructor() {
   }

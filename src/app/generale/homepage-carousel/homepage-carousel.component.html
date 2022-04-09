@@ -3,12 +3,8 @@
         <button type="button" class="carousel-indicator" *ngFor="let slide of slides; let i = index" (click)="vaiA(i)" [ngClass]="{'active': i === slideCorrente}"></button>
     </div>
     <div class="carousel-inner">
-        <div *ngFor="let slide of slides; let i = index" class="carousel-item{{i === 0 ? ' active' : ''}}">
-            <img class="img-fluid" [src]="slide.src" [alt]="slide.titolo" height="700px">
-            <div class="carousel-caption">
-                <h5>{{slide.titolo}}</h5>
-                <p>{{slide.desc}}</p>
-            </div>
+        <div *ngFor="let slide of slides; let i = index" class="carousel-item{{i === 0 ? ' active' : ''}} text-center">
+            <img class="img-fluid mx-auto" [src]="slide.src" [alt]="slide.titolo" height="700px">
         </div>
     </div>
   <button (click)="indietro()" class="carousel-control-prev" type="button">

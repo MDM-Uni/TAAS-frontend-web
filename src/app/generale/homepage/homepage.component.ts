@@ -6,6 +6,44 @@ import {Component, HostListener, OnInit} from '@angular/core';
   styleUrls: ['./homepage.component.css']
 })
 export class HomepageComponent implements OnInit {
+  slidesNegozio = [
+    {
+      src: 'assets/images/shop1.jpg',
+      titolo: 'Titolo 1',
+      desc: 'Descrizione 1',
+    },
+    {
+      src: 'assets/images/shop2.jpg',
+      titolo: 'Titolo 2',
+      desc: 'Descrizione 2',
+    },
+  ];
+
+  slidesOspedale = [
+    {
+      src: 'assets/images/hospital1.jpg',
+      titolo: 'Titolo 1',
+      desc: 'Descrizione 1',
+    },
+    {
+      src: 'assets/images/hospital2.jpg',
+      titolo: 'Titolo 2',
+      desc: 'Descrizione 2',
+    },
+  ];
+
+   slidesPensione = [
+    {
+      src: 'assets/images/house1.jpg',
+      titolo: 'Titolo 1',
+      desc: 'Descrizione 1',
+    },
+    {
+      src: 'assets/images/house2.jpg',
+      titolo: 'Titolo 2',
+      desc: 'Descrizione 2',
+    },
+  ];
 
   constructor() { }
 
