@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-homepage',
@@ -12,4 +12,14 @@ export class HomepageComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  @HostListener('window:scroll', ['event'])
+  onScroll() {
+    let elem = document.getElementById('cardStrutture')!
+    let top = elem.getBoundingClientRect().top
+    let height = window.innerHeight
+    if (top <= height) {
+      elem.classList.add('fadein')
+      elem.style.opacity = "1"
+    }
+  }
 }
