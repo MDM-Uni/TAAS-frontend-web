@@ -19,23 +19,28 @@ export class SidebarComponent implements OnInit {
     private socialAuthService: SocialAuthService,
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit(){
     this.dropdownUtente = new Dropdown(document.getElementById("dropdown-utente") as Element)
-    const session = localStorage.getItem("user")
-    const logDetails = localStorage.getItem("auth")
-    if(session != null && logDetails != null){
-      this.utente = JSON.parse(session);
-      this.userDetails = JSON.parse(logDetails);
-    }
+    this.getUtente().then()
+    this.getDetailsAuth().then()
   }
 
   toggleDropdownUtente() {
     this.dropdownUtente.toggle()
   }
 
+  async getUtente(){
+    this.utente = JSON.parse(localStorage.getItem("utente")!);
+  }
+
+  async getDetailsAuth(){
+    this.userDetails = JSON.parse(localStorage.getItem("auth")!);
+  }
+
   logout(): void {
     this.socialAuthService.signOut().then();
     localStorage.removeItem('auth')
+    localStorage.removeItem('utente')
     this.router.navigateByUrl('')
   }
 
