@@ -22,3 +22,17 @@ Procedimento equivalente ai `components`.
 > Angular: 13.1.x
 > Angular CLI: 13.1.x
 
+## Build e push docker image
+
+Se non già fatto in precedenza fare l'accesso a Docker Hub:
+
+```bash
+docker login
+```
+Poi buildare l'immagine e pushare:
+```bash
+docker build -t marcoscale98/taass_frontend_web:<date> .
+docker push marcoscale98/taass_frontend_web:<date>
+```
+dove `<date>` è la data di oggi in formato yyyyMMdd
+
