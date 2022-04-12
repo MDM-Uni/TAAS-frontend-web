@@ -42,6 +42,7 @@ import { OspedaleComponent } from './ospedale/components/ospedale/ospedale.compo
 import { StoriaComponent } from './storia/components/storia/storia.component';
 import { HomepageComponent } from './generale/homepage/homepage.component';
 import { HomepageCarouselComponent } from './generale/homepage-carousel/homepage-carousel.component';
+import { OrdineItemStoriaComponent } from './storia/components/ordine-item-storia/ordine-item-storia.component';
 
 
 @NgModule({
@@ -71,6 +72,7 @@ import { HomepageCarouselComponent } from './generale/homepage-carousel/homepage
     IndirizzoCollapseComponent,
     HomepageComponent,
     HomepageCarouselComponent,
+    OrdineItemStoriaComponent,
   ],
   imports: [
     BrowserModule,

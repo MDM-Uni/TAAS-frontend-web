@@ -1,0 +1,13 @@
+<li *ngIf="animaleOrdine !== undefined" class="list-group-item p-3">
+  <div class="container">
+    <p>{{animaleOrdine.ordine.dataAcquisto | date:'EEEE dd/MM/Y'}}</p>
+    <div class="row justify-content-start align-items-center">
+      <p class="col-auto me-4">Hai acquistato {{animaleOrdine.ordine.numeroArticoli}} prodott{{animaleOrdine.ordine.numeroArticoli > 1 ? 'i' : 'o'}} per {{animaleOrdine.animale.nome}}:</p>
+      <div class="col-auto text-center" *ngFor="let prodotto of animaleOrdine.ordine.prodotti">
+        <img height="50px" [src]="getUrlImmagineProdotto(prodotto.prodotto.id)" alt="Immagine {{prodotto.prodotto.nome}}">
+        <p class="text-dark"><strong>{{prodotto.quantita}} x</strong> {{prodotto.prodotto.nome}}</p>
+      </div>
+      <a href="#" class="nav-link link-info" routerLink="/ordini">Vedi nel negozio</a>
+    </div>
+  </div>
+</li>

@@ -12,6 +12,10 @@ import {GestoreVisiteService} from "../../../ospedale/services/gestore-visite/ge
 import {
   GestoreEventiPersonalizzatiService
 } from "../../services/gestore-eventi-personalizzati/gestore-eventi-personalizzati.service";
+import {AnimaleOrdine, Ordine} from "../../../negozio/model/ordine";
+import {OrdiniService} from "../../../negozio/service/ordini.service";
+import {environment} from "../../../../environments/environment";
+import {UtenteService} from "../../../utente/service/utente.service";
 
 type VisitaDTO = { tipoVisita: string, data: string, durataInMinuti: number, note: string, id: number, idAnimale: number };
 
@@ -28,6 +32,7 @@ export class EventiComponent implements OnInit, OnDestroy, OnChanges {
   });
   animali!: Animale[];
   eventi!: Observable<Evento[]>;
+  animaleOrdineList: Array<AnimaleOrdine>;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -35,8 +40,21 @@ export class EventiComponent implements OnInit, OnDestroy, OnChanges {
     private gestoreVisiteService: GestoreVisiteService,
     private gestoreAnimaliService: GestoreAnimaliService,
     private gestoreEventiPersonalizzati: GestoreEventiPersonalizzatiService,
-    private toast: HotToastService
+    private toast: HotToastService,
+    private utenteService: UtenteService,
+    private ordiniService: OrdiniService
 ) {
+    ordiniService.getOrdini(environment.mockUser).subscribe((ordini) => {
+      this.ordiniService.getOrdini(environment.mockUser).subscribe((animaleOrdineList) => {
+        utenteService.getAnimals(environment.mockUser).subscribe((animali) => {
+          this.animaleOrdineList = animaleOrdineList
+          for (let animOrd of animaleOrdineList) {
+            let index = animali.findIndex((a) => a.id == animOrd.animale.id)
+            animOrd.animale.nome = animali[index].nome
+          }
+        })
+      })
+    })
   }
 
   ngOnInit(): void {
