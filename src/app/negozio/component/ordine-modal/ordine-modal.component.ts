@@ -28,6 +28,7 @@ export class OrdineModalComponent implements OnInit {
   indirizzo: Indirizzo;
   payPalConfig: IPayPalConfig;
   @ViewChild(IndirizzoCollapseComponent) indirizzoCollapse: IndirizzoCollapseComponent;
+  showEliminaButton: boolean;
 
   constructor(private utenteService: UtenteService,
               private indirizziService: IndirizziService,
@@ -78,6 +79,20 @@ export class OrdineModalComponent implements OnInit {
         }))
         .subscribe((indirizzo) => this.indirizzi.push(indirizzo))
     }
+  }
+
+  eliminaIndirizzo(indir: Indirizzo) {
+    this.indirizziService.rimuoviIndirizzo(environment.mockUser,indir.id)
+      .pipe(this.toast.observe({
+        success: 'Indirizzo rimosso con successo',
+        error: "C'è stato un problema... l'indirizzo non è stato rimosso",
+        loading: "Attendi"
+      }))
+      .subscribe((indirizzo) => {
+        let index = this.indirizzi.indexOf(indirizzo)
+        this.indirizzi.splice(index,1)
+        this.toggleShowElimina()
+      })
   }
 
   getUrlImmagineProdotto(id: number) {
@@ -138,5 +153,9 @@ export class OrdineModalComponent implements OnInit {
       },
       onError: (err) => this.toast.error('Il servizio di pagamento ha riscontrato un problema... riprovare'),
     };
+  }
+
+  toggleShowElimina() {
+    this.showEliminaButton = !this.showEliminaButton;
   }
 }
