@@ -77,7 +77,7 @@
           <small>Controlla attentamente i prodotti e i dati prima di proseguire.</small>
           <hr class="mb-4">
           <h4 class="mb-3">Prodotti</h4>
-          <p><strong>Stai acquistando per: </strong><span class="mx-2">{{animale.nome}}</span></p>
+          <p><strong>Stai acquistando per: </strong><span class="mx-2" style="font-size: large">{{animale.nome}}</span> <strong class="ms-3">Totale:</strong><span style="font-size: large"> € {{carrello.totale | number}}</span></p>
           <div class="list-group-item" *ngFor="let prodQuant of carrello.prodotti">
             <div class="row">
               <div class="col-2 col-lg-3 text-center">
