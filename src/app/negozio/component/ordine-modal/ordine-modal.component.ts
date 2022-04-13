@@ -149,7 +149,12 @@ export class OrdineModalComponent implements OnInit {
             success: "Ordine effettuato con successo",
             error: "C\'è stato un problema... non è stato possibile effettuare l'ordine"
           }))
-          .subscribe(() => this.faseCorrente++)
+          .subscribe(() => {
+            this.faseCorrente++
+            this.carrello.totale = 0
+            this.carrello.numeroArticoli = 0
+            this.carrello.prodotti = []
+          })
       },
       onError: (err) => this.toast.error('Il servizio di pagamento ha riscontrato un problema... riprovare'),
     };
