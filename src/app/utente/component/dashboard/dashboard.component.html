@@ -48,7 +48,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let animale of utente.animali"
+                      <tr *ngFor="let animale of utente?.animali"
                           [class.selected]="animale === animaleSelezionato"
                           (click)="onSelect(animale)">
                         <td>{{animale?.nome}}</td>
