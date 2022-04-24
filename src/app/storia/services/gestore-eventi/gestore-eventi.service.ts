@@ -14,6 +14,7 @@ import {
 import {onErrorResumeNext} from "rxjs/operators";
 import {FormGroup} from "@angular/forms";
 import {EventoPersonalizzato} from "../../models/evento-personalizzato";
+import {GestoreUtenteService} from "../gestore-utente/gestore-utente.service";
 
 
 @Injectable({
@@ -27,6 +28,7 @@ export class GestoreEventiService {
     private gestoreVisite: GestoreVisiteService,
     private gestoreEventiPersonalizzati: GestoreEventiPersonalizzatiService,
     private gestoreAnimali: GestoreAnimaliService,
+    private gestoreUtente: GestoreUtenteService,
   ) { }
 
 
@@ -48,7 +50,8 @@ export class GestoreEventiService {
       );
     }
     if (tipoEvento === '' || tipoEvento === 'evento-personalizzato') {
-      eventiPersonalizzati = this.gestoreEventiPersonalizzati.getEventiPersonalizzati(filterForm.get('idAnimale')?.value).pipe(
+      let utente_loggato = this.gestoreUtente.getUtenteLoggato();
+      eventiPersonalizzati = this.gestoreEventiPersonalizzati.getEventiPersonalizzatiUtente(utente_loggato.id, filterForm.get('idAnimale')!.value != 0 ? filterForm.get('idAnimale')!.value : undefined).pipe(
         catchError(err => of(<EventoPersonalizzato[]>[])),
       );
     }

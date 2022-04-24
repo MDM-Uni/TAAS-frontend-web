@@ -37,6 +37,15 @@ export class GestoreEventiPersonalizzatiService {
     return this.trasformaArrayEventiPersonalizzati(this.http.get<EventoPersonalizzatoDTO[]>(url));
   }
 
+  getEventiPersonalizzatiUtente(idUtente: number, idAnimale?: number): Observable<EventoPersonalizzato[]> {
+    let url = `${GestoreEventiPersonalizzatiService.basicUrl}/getStoriaUtente`;
+    url += `/${idUtente}`;
+    if (idAnimale) {
+      url += `?idAnimale=${idAnimale}`;
+    }
+    return this.trasformaArrayEventiPersonalizzati(this.http.get<EventoPersonalizzatoDTO[]>(url));
+  }
+
   deleteEventoPersonalizzato(evento: EventoPersonalizzato): Observable<void> {
     return this.http.post<void>(`${GestoreEventiPersonalizzatiService.basicUrl}/deleteEventoPersonalizzato`, evento);
   }
