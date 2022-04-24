@@ -34,7 +34,7 @@ export class BoxVisitaPrenComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.animali = this.animaliService.getAnimali();
+    this.animali = this.animaliService.getAnimaliUtente();
   }
 
   //invia richiesta di aggiunta visita
