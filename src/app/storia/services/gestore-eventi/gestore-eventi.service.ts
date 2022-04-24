@@ -21,14 +21,29 @@ import {EventoPersonalizzato} from "../../models/evento-personalizzato";
 })
 export class GestoreEventiService {
 
+  // filterForm del tipo simile { "idAnimale": number, "tipoEvento": string, "tipoVisita": string }
+  constructor(
+    private http: HttpClient,
+    private gestoreVisite: GestoreVisiteService,
+    private gestoreEventiPersonalizzati: GestoreEventiPersonalizzatiService,
+    private gestoreAnimali: GestoreAnimaliService,
+  ) { }
+
+
   getEventi(filterForm: FormGroup): Observable<Evento[]> {
     let visite = of(<Visita[]>[]);
     let eventiPersonalizzati = of(<EventoPersonalizzato[]>[]);
-    let tipoEvento = filterForm.get('tipoEvento')?.value;
+    let tipoEvento = filterForm.get('tipoEvento')?.value; //tipoEvento=='' vuol dire tutti
+    let listaAnimali = [];
+    if (filterForm.get("idAnimale")!.value == 0) {//tutti gli animali dell'utente
+      listaAnimali = this.gestoreAnimali.getAnimaliUtente();
+    } else {
+      listaAnimali.push(this.gestoreAnimali.getAnimale(filterForm.get("idAnimale")!.value));
+    }
     if (tipoEvento === '' || tipoEvento === 'visita') {
       if (tipoEvento !== 'visita')
-        filterForm.get('tipoVisita')?.setValue('');
-      visite = this.gestoreVisite.trasformaArrayVisite(this.gestoreVisite.getVisite(filterForm.get('idAnimale')?.value, filterForm.get('tipoVisita')?.value)).pipe(
+        filterForm.get('tipoVisita')!.setValue('');
+      visite = this.gestoreVisite.trasformaArrayVisite(this.gestoreVisite.getVisiteAnimali(listaAnimali, filterForm.get('tipoVisita')!.value)).pipe(
         catchError(err => of(<Visita[]>[])),
       );
     }
@@ -61,11 +76,4 @@ export class GestoreEventiService {
       // })
     );
   }
-
-
-  constructor(
-    private http: HttpClient,
-    private gestoreVisite: GestoreVisiteService,
-    private gestoreEventiPersonalizzati: GestoreEventiPersonalizzatiService,
-  ) { }
 }
