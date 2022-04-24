@@ -58,15 +58,19 @@ export class DettagliAnimaleComponent implements OnInit {
     let peloLungo: boolean = (<HTMLInputElement>document.getElementById("pelolungo")).checked;
     const animale: Animale = new Animale(nome,data,this.animaleDaVisualizzare.patologie,razza,peso,peloLungo);
 
-    this.utenteService.updateAnimal(this.utenteCorrente,this.animaleDaVisualizzare,animale).subscribe(
-      (response) => {
-        this.updateA.emit(response)
-        this.modalService.dismissAll()
-      },
-      (err) => {
-        alert(err.message);
-      }
-    )
+    if(nome.length > 0){
+      this.utenteService.updateAnimal(this.utenteCorrente,this.animaleDaVisualizzare,animale).subscribe(
+        (response) => {
+          this.updateA.emit(response)
+          this.modalService.dismissAll()
+        },
+        (err) => {
+          alert("Il campo Data è obbligatorio");
+        }
+      )
+    } else {
+      alert("Il campo Nome è obbligatorio");
+    }
 
   }
 

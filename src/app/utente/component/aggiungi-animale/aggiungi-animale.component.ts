@@ -48,16 +48,22 @@ export class AggiungiAnimaleComponent implements OnInit {
     //let patologie: Array<string> = (<HTMLInputElement>document.getElementById("patologie")).value.split(",");
     let peloLungo: boolean = (<HTMLInputElement>document.getElementById("peloLungo")).checked;
     let animale: Animale = new Animale(nome,data,this.patologie,razza,peso,peloLungo);
-    this.utenteService.addAnimal(this.utenteCorrente,animale).subscribe(
-      (response) => {
-        this.patologie = [''];
-        this.addA.emit(response)
-        this.modalService.dismissAll()
-      },
-      (err) => {
-        alert(err.message);
-      }
-    )
+
+    if(nome.length > 0){
+      this.utenteService.addAnimal(this.utenteCorrente,animale).subscribe(
+        (response) => {
+          this.patologie = [''];
+          this.addA.emit(response)
+          this.modalService.dismissAll()
+        },
+        (err) => {
+          alert("Il campo Data è obbligatorio");
+        }
+      )
+    } else {
+      alert("Il campo Nome è obbligatorio");
+    }
+
   }
 
   addPatologia() {
