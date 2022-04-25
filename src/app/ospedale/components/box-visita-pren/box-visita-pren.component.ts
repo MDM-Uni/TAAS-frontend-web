@@ -22,7 +22,7 @@ export class BoxVisitaPrenComponent implements OnInit, OnDestroy {
     durataInMinuti:30,
     note:"",
     tipoVisita:"VACCINO",
-    idAnimale:1
+    idAnimale: 0
   });
 
 
@@ -39,6 +39,27 @@ export class BoxVisitaPrenComponent implements OnInit, OnDestroy {
 
   //invia richiesta di aggiunta visita
   onSubmit() {
+    if (this.postVisitaForm.get('idAnimale')!.value < 0) {
+      this.toast.error('Seleziona un animale');
+      return;
+    }
+    if(this.postVisitaForm.get('data')!.value === ''){
+      this.toast.error('Inserisci una data');
+      return;
+    }
+    let data_ = new Date(Date.parse(this.postVisitaForm.get('data')!.value));
+    if (data_.getTime() < BoxVisitaPrenComponent.getDataMinima().getTime()) {
+      this.toast.error('La visita non può essere prenotata per oggi o prima');
+      return;
+    }
+    if (this.postVisitaForm.get('durataInMinuti')!.value <= 0) {
+      this.toast.error('Inserisci una durata valida');
+      return;
+    }
+    if (this.postVisitaForm.get('tipoVisita')!.value === '') {
+      this.toast.error('Seleziona una tipologia di visita');
+      return;
+    }
     let visita = this.postVisitaForm.value;
     // console.log("Visita da inviare", visita);
     let risultato = this.visiteService.postVisita(this.postVisitaForm.value);
@@ -61,5 +82,13 @@ export class BoxVisitaPrenComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+  }
+
+  private static getDataMinima() {
+    let oggi = new Date(Date.now());
+    oggi.setDate(oggi.getDate() + 1);
+    let domani = oggi;
+    domani.setHours(0,0,0,0);
+    return domani;
   }
 }
