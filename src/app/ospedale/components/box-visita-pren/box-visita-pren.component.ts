@@ -8,6 +8,14 @@ import {Visita} from "../../models/visita";
 import {HotToastService} from "@ngneat/hot-toast";
 import {GestoreVisiteService} from "../../services/gestore-visite/gestore-visite.service";
 
+let valoriInizialiVisita = {
+  data:"",
+  durataInMinuti:30,
+  note:"",
+  tipoVisita:"VACCINO",
+  idAnimale: 0
+};
+
 @Component({
   selector: 'app-box-visita-pren',
   templateUrl: './box-visita-pren.component.html',
@@ -17,13 +25,7 @@ export class BoxVisitaPrenComponent implements OnInit, OnDestroy {
   animali!: Animale[];
   @Output() visitaAggiuntaEmitter = new EventEmitter<Visita>();
 
-  postVisitaForm = this.formBuilder.group({
-    data:"",
-    durataInMinuti:30,
-    note:"",
-    tipoVisita:"VACCINO",
-    idAnimale: 0
-  });
+  postVisitaForm = this.formBuilder.group(valoriInizialiVisita);
 
 
   constructor(
@@ -76,7 +78,7 @@ export class BoxVisitaPrenComponent implements OnInit, OnDestroy {
     ).subscribe({
       next: (data) => {
         this.visitaAggiuntaEmitter.emit(visita);
-        this.postVisitaForm.reset();
+        this.postVisitaForm.reset(valoriInizialiVisita);
       },
     });
   }
