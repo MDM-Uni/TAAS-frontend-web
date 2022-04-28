@@ -1,8 +1,9 @@
 #stage 1
 FROM node:17-alpine as node
 WORKDIR /app
-COPY . .
+COPY package*.json ./
 RUN npm install --legacy-peer-deps
+COPY . .
 RUN npm run build
 #stage 2
 FROM nginx:alpine
