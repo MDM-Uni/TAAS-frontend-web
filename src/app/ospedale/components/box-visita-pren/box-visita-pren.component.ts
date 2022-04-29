@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
-import {FormBuilder} from "@angular/forms";
+import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators} from "@angular/forms";
 import {GestoreAnimaliService} from "../../services/gestore-animali/gestore-animali.service";
 import {GestoreEventiService} from "../../../storia/services/gestore-eventi/gestore-eventi.service";
 import {map, Observable, tap} from "rxjs";
@@ -17,13 +17,7 @@ export class BoxVisitaPrenComponent implements OnInit, OnDestroy {
   animali!: Animale[];
   @Output() visitaAggiuntaEmitter = new EventEmitter<Visita>();
 
-  postVisitaForm = this.formBuilder.group({
-    data:"",
-    durataInMinuti:30,
-    note:"",
-    tipoVisita:"VACCINO",
-    idAnimale:1
-  });
+  postVisitaForm = new FormGroup({});
 
 
   constructor(
@@ -33,7 +27,22 @@ export class BoxVisitaPrenComponent implements OnInit, OnDestroy {
     private toast: HotToastService
   ) {}
 
+  get data(): FormGroup {
+    return this.postVisitaForm.get('data')! as FormGroup;
+  }
+
   ngOnInit(): void {
+    this.formBuilder.group({
+    data: this.formBuilder.group(
+      new Date(Date.now()), {
+        validators: [Validators.required, this.validaMinData()],
+        updateOn: 'change'
+      }),
+    durataInMinuti:[30, Validators.required],
+    note:"",
+    tipoVisita:["VACCINO", Validators.required],
+    idAnimale: [0, Validators.required]
+  });
     this.animali = this.animaliService.getAnimaliUtente();
   }
 
@@ -60,6 +69,28 @@ export class BoxVisitaPrenComponent implements OnInit, OnDestroy {
     });
   }
 
+  validaMinData() {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const data : Date = control.value;
+      console.log("data passata al validatore", data);
+      //data minima domani alle 00:00
+      let dataMinima = new Date(Date.now());
+      dataMinima.setDate(dataMinima.getDate() + 1);
+      dataMinima.setHours(0,0,0,0);
+      console.log("Data minima: " + dataMinima);
+      if (data.getTime() < dataMinima.getTime()) {
+        this.toast.error('La data della visita non può essere prima di oggi stesso (escluso)');
+        return {data: {value: control.value}};
+      } else {
+        return null;
+      }
+    };
+  }
+
   ngOnDestroy(): void {
+  }
+
+  private checkRequired() {
+
   }
 }

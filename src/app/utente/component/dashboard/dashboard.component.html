@@ -43,21 +43,25 @@
                 <div class="list-group">
                   <table class="table">
                     <thead class="thead-dark">
-                      <tr>
-                        <th style="font-size:15px" scope="col">Lista animali:</th>
-                      </tr>
+                    <tr>
+                      <th style="font-size:15px" scope="col">Lista animali:</th>
+                    </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let animale of utente?.animali"
-                          [class.selected]="animale === animaleSelezionato"
-                          (click)="onSelect(animale)">
-                        <td>{{animale?.nome}}</td>
-                        <td>
-                          <app-dettagli-animale (updateA)="updateAnimalD($event)" [animaleDaVisualizzare]="animaleSelezionato" [utenteCorrente]="utente"></app-dettagli-animale>
-                          <button style="margin-left:10px" (click)="deleteAnimal(animale)" type="button" class="btn btn-danger">Elimina</button>
-                        </td>
-                        <hr>
-                      </tr>
+                    <tr *ngFor="let animale of utente?.animali"
+                        [class.selected]="animale === animaleSelezionato"
+                        (click)="onSelect(animale)">
+                      <td>{{animale?.nome}}</td>
+                      <td>
+                        <app-dettagli-animale (updateA)="updateAnimalD($event)"
+                                              [animaleDaVisualizzare]="animaleSelezionato"
+                                              [utenteCorrente]="utente"></app-dettagli-animale>
+                        <button style="margin-left:10px" (click)="deleteAnimal(animale)" type="button"
+                                class="btn btn-danger">Elimina
+                        </button>
+                      </td>
+                      <hr>
+                    </tr>
                     </tbody>
                   </table>
                   <app-aggiungi-animale (addA)="addAnimalD($event)" [utenteCorrente]="utente"></app-aggiungi-animale>
@@ -70,4 +74,5 @@
       </div>
     </div>
   </div>
+  <app-eventi></app-eventi>
 </div>
