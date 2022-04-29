@@ -15,7 +15,7 @@
       </div>
       <div class="form-group"> <!-- Date input -->
         <label class="control-label" for="data">Data</label>
-        <input class="form-control" id="data" name="date" value='{{animaleDaVisualizzare.dataDiNascita.toString().slice(0,10)}}'>
+        <input type="date" placeholder="YYY/MM/DD" class="form-control" id="data" name="date" value='{{animaleDaVisualizzare.dataDiNascita.toString().slice(0,10)}}'>
       </div>
       <div style="margin-top:10px" class="form-inline" *ngFor="let patologia of this.animaleDaVisualizzare.patologie; let i=index; trackBy: customTrackBy">
         <label>Patologia {{i+1}}: </label>
@@ -29,7 +29,7 @@
       </div>
       <div class="form-group">
         <label for="peso">Peso</label>
-        <input type="nome" class="form-control" id="peso" placeholder="kg" value={{animaleDaVisualizzare.peso}}>
+        <input type="number" class="form-control" id="peso" placeholder="kg" value={{animaleDaVisualizzare.peso}}>
       </div>
       <div style="margin-top:10px" class="form-group form-check">
         <input value="false" type="checkbox" class="form-check-input" id="pelolungo" [checked]="animaleDaVisualizzare.peloLungo">
