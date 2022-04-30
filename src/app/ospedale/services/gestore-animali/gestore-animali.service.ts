@@ -13,13 +13,7 @@ export class GestoreAnimaliService{
   constructor(private http: HttpClient) {
   }
 
-  getAnimali(): Animale[] {
-    // this.animali = this.http.get<Animale[]>("assets/animali-IDs-mock.json");
-    // this.animali.subscribe(animali => {
-    //   animali.forEach(animale => {
-    //     this.animaliMap.set(animale.id, animale);
-    //   });
-    // });
+  getAnimaliUtente(): Animale[] {
     let utente_string = localStorage.getItem('utente');
     if (utente_string) {
       let utente: Utente = JSON.parse(utente_string);
@@ -31,7 +25,12 @@ export class GestoreAnimaliService{
   }
 
   getAnimale(idAnimale: number) {
-    return this.animali.find(animale => animale.id === idAnimale);
+    let animali = this.getAnimaliUtente();
+    let animale = animali.find(animale => animale.id === idAnimale);
+    if (animale)
+      return animale;
+    else
+      throw "Animale non dell'utente";
   }
 
 }

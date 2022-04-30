@@ -58,7 +58,7 @@ export class EventiComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnInit(): void {
-    this.animali = this.gestoreAnimaliService.getAnimali();
+    this.animali = this.gestoreAnimaliService.getAnimaliUtente();
     // this.animali.subscribe((animali) => {
     //   if (animali.length > 0) {
     //     let formControlIdAnimale = this.filterForm.get("idAnimale");
@@ -96,7 +96,7 @@ export class EventiComponent implements OnInit, OnDestroy, OnChanges {
       map((eventi: Evento[]) => {
         let eventoPers = new EventoPersonalizzato();
         eventoPers.id = 10;
-        eventoPers.testo = "LEo ha fatto una corsa";
+        eventoPers.testo = "Leo ha fatto una corsa";
         eventoPers.data = new Date(Date.now());
         eventi.push(eventoPers);
         return eventi;

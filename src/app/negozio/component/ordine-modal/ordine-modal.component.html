@@ -38,26 +38,33 @@
         <!-- fase di scelta indirizzo -->
         <div *ngIf="faseCorrente === 1" class="p-3 px-lg-5">
           <h4 class="mb-4">Seleziona un indirizzo per la consegna</h4>
-          <small>Seleziona uno dei tuoi indirizzi oppure inseriscine uno nuovo.</small>
+          <small *ngIf="!showEliminaButton">Seleziona uno dei tuoi indirizzi oppure inseriscine uno nuovo. Puoi eliminare un indirizzo cliccando su "Elimina indirizzo".</small>
+          <small *ngIf="showEliminaButton">Elimina un indirizzo cliccando sull'icona del cestino. Se hai cambiato idea fai click su "Elimina indirizzo".</small>
 
           <!-- inserisci nuovo indirizzo -->
           <app-indirizzo-collapse [callbackAggiungiIndirizzo]="aggiungiIndirizzo()"></app-indirizzo-collapse>
 
           <div class="mt-0 row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-            <div class="col" *ngFor="let indir of indirizzi" (click)="selezionaIndirizzo(indir)">
-              <div class="card card-hover">
-                <img height="150px" class="mx-lg-5 m-3 image-hover" src="assets/images/indirizzo.svg" alt="Immagine indirizzo">
-                <div class="card-body">
-                  <p class="card-title">{{indir | indirizzo}}</p>
+            <div class="col">
+              <div class="card card-hover mb-4" (click)="toggleCollapse()">
+                <div class="card-body row">
+                  <img height="88px" class="image-hover col" src="assets/images/plus.svg" alt="Nuovo indirizzo">
+                  <p class="card-title text-primary text-center col my-auto">Nuovo indirizzo</p>
+                </div>
+              </div>
+              <div class="card card-hover" (click)="toggleShowElimina()">
+                <div class="card-body row">
+                  <img height="88px" class="image-hover col" src="assets/images/minus.svg" alt="Elimina indirizzo">
+                  <p class="card-title text-danger text-center col my-auto">Elimina indirizzo</p>
                 </div>
               </div>
             </div>
-
-            <div class="col">
-              <div class="card card-hover" (click)="toggleCollapse()">
-                <img height="150px" class="mx-lg-5 m-3 image-hover" src="assets/images/plus.svg" alt="Nuovo indirizzo">
+            <div class="col" *ngFor="let indir of indirizzi" (click)="!showEliminaButton && selezionaIndirizzo(indir)">
+              <div style="height: 270px" class="card {{!showEliminaButton ? 'card-hover' : ''}}">
+                <button (click)="eliminaIndirizzo(indir)" style="position: absolute; top: 4px; right: 4px" *ngIf="showEliminaButton" type="button" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </button>
+                <img height="150px" class="mx-lg-5 m-3 {{!showEliminaButton ? 'image-hover' : ''}}" src="assets/images/indirizzo.svg" alt="Immagine indirizzo">
                 <div class="card-body">
-                  <p class="card-title text-primary text-center">Nuovo indirizzo</p>
+                  <p class="card-title">{{indir | indirizzo}}</p>
                 </div>
               </div>
             </div>
@@ -70,7 +77,7 @@
           <small>Controlla attentamente i prodotti e i dati prima di proseguire.</small>
           <hr class="mb-4">
           <h4 class="mb-3">Prodotti</h4>
-          <p><strong>Stai acquistando per: </strong><span class="mx-2">{{animale.nome}}</span></p>
+          <p><strong>Stai acquistando per: </strong><span class="mx-2" style="font-size: large">{{animale.nome}}</span> <strong class="ms-3">Totale:</strong><span style="font-size: large"> € {{carrello.totale | number}}</span></p>
           <div class="list-group-item" *ngFor="let prodQuant of carrello.prodotti">
             <div class="row">
               <div class="col-2 col-lg-3 text-center">
