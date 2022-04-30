@@ -18,6 +18,6 @@ export class NegozioComponent implements OnInit {
   }
 
   aggiornaNumArticoliCarrello() {
-    this.carrelliService.getCarrello(environment.mockUser).subscribe((carrello) => this.numArticoliCarrello = carrello.numeroArticoli)
+    this.carrelliService.getCarrello(environment.mockUserId).subscribe((carrello) => this.numArticoliCarrello = carrello.numeroArticoli)
   }
 }

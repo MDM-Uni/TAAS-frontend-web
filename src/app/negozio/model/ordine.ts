@@ -1,6 +1,7 @@
 import {ProdottoQuantita} from "./carrello";
 import {Indirizzo} from "./indirizzo";
 import {Animale} from "../../utente/model/animale";
+import {Evento} from "../../generale/models/evento";
 
 export interface AnimaleOrdine {
   animale: Animale,

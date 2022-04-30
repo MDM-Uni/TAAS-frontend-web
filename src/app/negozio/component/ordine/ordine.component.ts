@@ -30,8 +30,8 @@ export class OrdineComponent implements OnInit {
               private prodottiService: ProdottiService,
               private utenteService: UtenteService,
               private toast: HotToastService) {
-    this.ordiniService.getOrdini(environment.mockUser).subscribe((animaleOrdineList) => {
-        utenteService.getAnimals(environment.mockUser).subscribe((animali) => {
+    this.ordiniService.getOrdini(environment.mockUserId).subscribe((animaleOrdineList) => {
+        utenteService.getAnimals(environment.mockUserId).subscribe((animali) => {
           this.animaleOrdineAll = animaleOrdineList
           for (let animOrd of animaleOrdineList) {
             let index = animali.findIndex((a) => a.id == animOrd.animale.id)

@@ -1,4 +1,4 @@
-import {Evento} from "../../ospedale/models/evento";
+import {Evento} from "../../generale/models/evento";
 import {Animale} from "../../ospedale/models/animale";
 import {SafeUrl} from "@angular/platform-browser";
 

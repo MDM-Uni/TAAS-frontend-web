@@ -14,7 +14,7 @@ export class CarrelloComponent implements OnInit {
   @ViewChild(OrdineModalComponent) modalComponent: OrdineModalComponent | undefined
 
   constructor(carrelliService: CarrelliService) {
-    carrelliService.getCarrello(environment.mockUser).subscribe((carrello) => this.carrello = carrello)
+    carrelliService.getCarrello(environment.mockUserId).subscribe((carrello) => this.carrello = carrello)
   }
 
   ngOnInit(): void {

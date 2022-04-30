@@ -3,7 +3,7 @@ import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {GestoreAnimaliService} from "../../../ospedale/services/gestore-animali/gestore-animali.service";
 import {GestoreEventiService} from "../../services/gestore-eventi/gestore-eventi.service";
 import {map, Observable, of, Subscription, tap} from "rxjs";
-import {Evento} from "../../../ospedale/models/evento";
+import {Evento} from "../../../generale/models/evento";
 import {Visita} from "../../../ospedale/models/visita";
 import {Animale} from "../../../ospedale/models/animale";
 import {HotToastService} from "@ngneat/hot-toast";
@@ -16,6 +16,7 @@ import {AnimaleOrdine, Ordine} from "../../../negozio/model/ordine";
 import {OrdiniService} from "../../../negozio/service/ordini.service";
 import {environment} from "../../../../environments/environment";
 import {UtenteService} from "../../../utente/service/utente.service";
+import {OrdinePerEventi} from "../../models/ordine-per-eventi";
 
 type VisitaDTO = { tipoVisita: string, data: string, durataInMinuti: number, note: string, id: number, idAnimale: number };
 
@@ -44,33 +45,10 @@ export class EventiComponent implements OnInit, OnDestroy, OnChanges {
     private utenteService: UtenteService,
     private ordiniService: OrdiniService
 ) {
-    ordiniService.getOrdini(environment.mockUser).subscribe((ordini) => {
-      this.ordiniService.getOrdini(environment.mockUser).subscribe((animaleOrdineList) => {
-        utenteService.getAnimals(environment.mockUser).subscribe((animali) => {
-          this.animaleOrdineList = animaleOrdineList
-          for (let animOrd of animaleOrdineList) {
-            let index = animali.findIndex((a) => a.id == animOrd.animale.id)
-            animOrd.animale.nome = animali[index].nome
-          }
-        })
-      })
-    })
   }
 
   ngOnInit(): void {
     this.animali = this.gestoreAnimaliService.getAnimaliUtente();
-    // this.animali.subscribe((animali) => {
-    //   if (animali.length > 0) {
-    //     let formControlIdAnimale = this.filterForm.get("idAnimale");
-    //     formControlIdAnimale!.setValue(animali[0].id);
-    //     console.log(formControlIdAnimale!.value);
-    //     if (formControlIdAnimale)
-    //       this.eventi = this.gestoreEventiService.getEventi(formControlIdAnimale.value);
-    //     else this.eventi = of([]);
-    //   } else {
-    //     this.eventi = of([]);
-    //   }
-    // });
     this.eventi = this.gestoreEventiService.getEventi(this.filterForm);
   }
 
@@ -106,7 +84,7 @@ export class EventiComponent implements OnInit, OnDestroy, OnChanges {
         eventi.forEach(evento => console.log(evento));
       }),
       tap(eventi => console.log("Tipo EventoPersonalizzato", ((eventi[eventi.length-1]) instanceof EventoPersonalizzato))),
-      map((eventi: Evento[]) => eventi.sort((a:Evento, b:Evento) => ((b.data ? b.data.getTime() : 0) - (a.data ? a.data.getTime() : 0)))),
+      map((eventi: Evento[]) => eventi.sort((a:Evento, b:Evento) => ((b.getData() ? b.getData()!.getTime() : 0) - (a.getData() ? a.getData()!.getTime() : 0)))),
       tap(eventi => {
         console.log("Eventi sorted: ");
         eventi.forEach(evento => console.log(evento));
@@ -177,7 +155,7 @@ export class EventiComponent implements OnInit, OnDestroy, OnChanges {
     this.eventi = this.eventi.pipe(
       map((eventi) => {
         for (let i = 0; i < eventi.length; i++) {
-          if (eventi[i].data && eventi[i].data!.getTime() < evento.data!.getTime()) {
+          if (eventi[i].getData() && eventi[i].getData()!.getTime() < evento.getData()!.getTime()) {
             eventi.splice(i, 0, evento);
             return eventi;
           } else {
@@ -205,5 +183,11 @@ export class EventiComponent implements OnInit, OnDestroy, OnChanges {
     return evento as Visita;
   }
 
+  isOrdine(evento: Evento): boolean {
+    return evento instanceof OrdinePerEventi;
+  }
 
+  castToOrdine(evento: Evento) {
+    return evento as OrdinePerEventi;
+  }
 }

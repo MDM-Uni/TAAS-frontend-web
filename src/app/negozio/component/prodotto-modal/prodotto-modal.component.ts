@@ -30,7 +30,7 @@ export class ProdottoModalComponent implements OnInit {
   openModal(prodotto: Prodotto) {
     this.quantita = 1
     this.prodotto = prodotto
-    this.carrelliService.getCarrello(environment.mockUser)
+    this.carrelliService.getCarrello(environment.mockUserId)
       .subscribe((carrello) => this.carrello = carrello)
     this.modal?.show()
   }

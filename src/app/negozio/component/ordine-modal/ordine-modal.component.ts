@@ -44,8 +44,8 @@ export class OrdineModalComponent implements OnInit {
   openModal(carrello: Carrello) {
     this.carrello = carrello
     this.faseCorrente = 0
-    this.utenteService.getAnimals(environment.mockUser).subscribe((animali) => this.animali = animali)
-    this.indirizziService.getIndirizzi(environment.mockUser).subscribe((indirizzi) => this.indirizzi = indirizzi)
+    this.utenteService.getAnimals(environment.mockUserId).subscribe((animali) => this.animali = animali)
+    this.indirizziService.getIndirizzi(environment.mockUserId).subscribe((indirizzi) => this.indirizzi = indirizzi)
     this.initPayPal()
     this.modal.show()
   }
@@ -71,7 +71,7 @@ export class OrdineModalComponent implements OnInit {
 
   aggiungiIndirizzo() {
     return (citta: string, via: string, numeroCivico: number, interno: string | null) => {
-      this.indirizziService.aggiungiIndirizzo(environment.mockUser, citta, via, numeroCivico, interno)
+      this.indirizziService.aggiungiIndirizzo(environment.mockUserId, citta, via, numeroCivico, interno)
         .pipe(this.toast.observe({
           success: 'Indirizzo aggiunto con successo',
           error: "C'è stato un problema... l'indirizzo non è stato aggiunti",
@@ -82,7 +82,7 @@ export class OrdineModalComponent implements OnInit {
   }
 
   eliminaIndirizzo(indir: Indirizzo) {
-    this.indirizziService.rimuoviIndirizzo(environment.mockUser,indir.id)
+    this.indirizziService.rimuoviIndirizzo(environment.mockUserId,indir.id)
       .pipe(this.toast.observe({
         success: 'Indirizzo rimosso con successo',
         error: "C'è stato un problema... l'indirizzo non è stato rimosso",

@@ -1,4 +1,4 @@
-import {Evento} from "./evento";
+import {Evento} from "../../generale/models/evento";
 import {Animale} from "./animale";
 import {formatDate} from "@angular/common";
 

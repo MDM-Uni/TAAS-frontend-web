@@ -1,9 +1,8 @@
-import {Animale} from "./animale";
+import {Animale} from "../../ospedale/models/animale";
 
 export interface Evento {
   id?: number;
   animale?: Animale;
-  data?: Date;
 
   getData(): Date | undefined;
 }

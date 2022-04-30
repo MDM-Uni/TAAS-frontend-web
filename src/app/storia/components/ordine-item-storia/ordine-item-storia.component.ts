@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {AnimaleOrdine} from "../../../negozio/model/ordine";
 import {ProdottiService} from "../../../negozio/service/prodotti.service";
+import {OrdinePerEventi} from "../../models/ordine-per-eventi";
 
 @Component({
   selector: 'app-ordine-item-storia',
@@ -8,7 +9,7 @@ import {ProdottiService} from "../../../negozio/service/prodotti.service";
   styleUrls: ['./ordine-item-storia.component.css']
 })
 export class OrdineItemStoriaComponent implements OnInit {
-   @Input() animaleOrdine: AnimaleOrdine
+   @Input() ordine: OrdinePerEventi
 
   constructor(private prodottiService: ProdottiService) { }
 
