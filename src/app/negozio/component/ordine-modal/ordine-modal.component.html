@@ -22,7 +22,11 @@
         <div *ngIf="faseCorrente === 0" class="p-3 px-lg-5">
           <h4 class="mb-4">Scegli per quale animale stai acquistando</h4>
           <small>Potrai poi visualizzare gli acquisti effettuati per il tuo animale nella "Storia".</small>
-          <div class="mt-0 row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+          <div *ngIf="animali === undefined || animali.length == 0" class="text-center p-5 mt-4" style="border-radius: 10px; border: 3px solid #ffc107;">
+            <strong style="font-size: x-large" class="text-warning p-5">Sembra che tu non abbia ancora inserito un animale!</strong>
+            <p class="mt-4">Prima di proseguire con l'ordine, vai sulla dashboard e inserisci un animale. Poi potrai tornare qui e selezionare il tuo animale per l'acquisto.</p>
+          </div>
+          <div *ngIf="animali !== undefined && animali.length > 0" class="mt-0 row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
             <div class="col" *ngFor="let animale of animali" (click)="selezionaAnimale(animale)">
               <div class="card card-hover">
                 <img height="150px" class="mx-lg-5 m-3 image-hover" src="assets/images/cat_dogs.svg" alt="Immagine animale '{{animale.nome}}'">
