@@ -61,11 +61,6 @@
           *ngIf="isOrdine(evento)"
           [ordine]="castToOrdine(evento)"></app-ordine-item-storia>
       </div>
-      <div  *ngFor="let animOrd of animaleOrdineList">
-        <app-ordine-item-storia [ordine]="animOrd"></app-ordine-item-storia>
-        <!-- todo filtrare solo per animale selezionato  -->
-        <!-- todo mettere in ordine di data gli ordini insieme agli altri eventi  -->
-      </div>
     </div>
   </div>
 </div>

@@ -20,6 +20,7 @@ import {OrdiniService} from "../../../negozio/service/ordini.service";
 import {UtenteService} from "../../../utente/service/utente.service";
 import {AnimaleOrdine, Ordine} from "../../../negozio/model/ordine";
 import {OrdinePerEventi} from "../../models/ordine-per-eventi";
+import {Utente} from "../../../utente/model/utente";
 
 
 @Injectable({
@@ -27,6 +28,7 @@ import {OrdinePerEventi} from "../../models/ordine-per-eventi";
 })
 export class GestoreEventiService {
 
+  utente: Utente;
   // filterForm del tipo simile { "idAnimale": number, "tipoEvento": string, "tipoVisita": string }
   constructor(
     private http: HttpClient,
@@ -39,6 +41,8 @@ export class GestoreEventiService {
 
 
   getEventi(filterForm: FormGroup): Observable<Evento[]> {
+    this.utente = this.gestoreUtente.getUtenteLoggato();
+
     let visite = of(<Visita[]>[]);
     let eventiPersonalizzati = of(<EventoPersonalizzato[]>[]);
     let ordini = of(<OrdinePerEventi[]>[]);
@@ -67,7 +71,7 @@ export class GestoreEventiService {
     if(tipoEvento === '' || tipoEvento === 'ordine'){
       let idAnimale = filterForm.get('idAnimale')!.value;
       let ordiniObs;
-      ordiniObs = this.ordiniService.getOrdini(environment.mockUserId);
+      ordiniObs = this.ordiniService.getOrdini(this.utente.id);
       ordini = this.ordiniService.trasformaOrdiniPerEventi(ordiniObs, idAnimale).pipe(
         catchError(err => of(<OrdinePerEventi[]>[])),
       );
