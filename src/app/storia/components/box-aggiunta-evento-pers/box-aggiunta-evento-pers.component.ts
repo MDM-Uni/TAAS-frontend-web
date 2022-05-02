@@ -30,7 +30,7 @@ export class BoxAggiuntaEventoPersComponent implements OnInit {
 ) { }
 
   ngOnInit(): void {
-    this.animali = this.gestoreAnimali.getAnimali();
+    this.animali = this.gestoreAnimali.getAnimaliUtente();
     this.formResetConfig = {
       data: new Date(Date.now()),
       testo: "",

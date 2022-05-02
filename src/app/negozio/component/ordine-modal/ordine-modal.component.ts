@@ -116,11 +116,11 @@ export class OrdineModalComponent implements OnInit {
           {
             amount: {
               currency_code: 'EUR',
-              value: this.carrello.totale.toPrecision(2),
+              value: this.carrello.totale.toFixed(2),
               breakdown: {
                 item_total: {
                   currency_code: 'EUR',
-                  value: this.carrello.totale.toPrecision(2)
+                  value: this.carrello.totale.toFixed(2)
                 }
               }
             },
@@ -131,7 +131,7 @@ export class OrdineModalComponent implements OnInit {
                 category: 'DIGITAL_GOODS',
                 unit_amount: {
                   currency_code: 'EUR',
-                  value: prodQuant.prodotto.prezzo.toPrecision(2),
+                  value: prodQuant.prodotto.prezzo.toFixed(2),
                 },
               }
             })
@@ -152,7 +152,12 @@ export class OrdineModalComponent implements OnInit {
             success: "Ordine effettuato con successo",
             error: "C\'è stato un problema... non è stato possibile effettuare l'ordine"
           }))
-          .subscribe(() => this.faseCorrente++)
+          .subscribe(() => {
+            this.faseCorrente++
+            this.carrello.totale = 0
+            this.carrello.numeroArticoli = 0
+            this.carrello.prodotti = []
+          })
       },
       onError: (err) => this.toast.error('Il servizio di pagamento ha riscontrato un problema... riprovare'),
     };

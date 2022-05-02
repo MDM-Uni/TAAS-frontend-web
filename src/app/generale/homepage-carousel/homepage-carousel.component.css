@@ -1,0 +1,18 @@
+.carousel-indicator {
+  width: 50px;
+  margin: 5px 5px;
+  height: 3px;
+  background: #b6b6b6;
+  border: none;
+}
+
+.carousel-indicator.active {
+  background: #ffffff;
+}
+
+img {
+  margin: auto;
+  background-size: cover;
+  background-color: #494949;
+  width: 900px;
+}

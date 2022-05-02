@@ -40,6 +40,8 @@ import { BoxAggiuntaEventoPersComponent } from './storia/components/box-aggiunta
 import { EventoPersonalizzatoComponent } from './storia/components/evento-personalizzato/evento-personalizzato.component';
 import { OspedaleComponent } from './ospedale/components/ospedale/ospedale.component';
 import { StoriaComponent } from './storia/components/storia/storia.component';
+import { HomepageComponent } from './generale/homepage/homepage.component';
+import { HomepageCarouselComponent } from './generale/homepage-carousel/homepage-carousel.component';
 
 
 @NgModule({
@@ -67,6 +69,8 @@ import { StoriaComponent } from './storia/components/storia/storia.component';
     OrdineModalComponent,
     AnnullaOrdineModalComponent,
     IndirizzoCollapseComponent,
+    HomepageComponent,
+    HomepageCarouselComponent,
   ],
   imports: [
     BrowserModule,

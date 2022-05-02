@@ -33,7 +33,10 @@ export class DashboardComponent implements OnInit {
       console.log(this.userDetails)
       let user = new Utente(0,this.userDetails.name,this.userDetails.email,this.animali);
       this.getUser(user);
-    } else { this.signOut();}
+    } else {
+      this.signOut();
+      this.router.navigateByUrl('/login');
+    }
   }
 
   signOut(): void {

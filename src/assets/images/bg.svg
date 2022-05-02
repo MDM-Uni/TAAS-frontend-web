@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="175.26724mm"
+   height="48.390053mm"
+   viewBox="0 0 175.26724 48.390054"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   sodipodi:docname="bg.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="0.80378836"
+     inkscape:cx="205.89997"
+     inkscape:cy="204.03381"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient5362">
+      <stop
+         style="stop-color:#3685c9;stop-opacity:1"
+         offset="0"
+         id="stop5358" />
+      <stop
+         style="stop-color:#1cd8fe;stop-opacity:1;"
+         offset="0.60571784"
+         id="stop5364" />
+      <stop
+         style="stop-color:#3685c9;stop-opacity:1"
+         offset="1"
+         id="stop5360" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient2947">
+      <stop
+         style="stop-color:#44f5ff;stop-opacity:1"
+         offset="0"
+         id="stop2943" />
+      <stop
+         style="stop-color:#4dcbff;stop-opacity:1"
+         offset="0.80130738"
+         id="stop17129" />
+      <stop
+         style="stop-color:#4facfe;stop-opacity:1"
+         offset="1"
+         id="stop2945" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient5362"
+       id="linearGradient2949"
+       x1="108.77228"
+       y1="133.11125"
+       x2="108.28335"
+       y2="54.428665"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1,0,0,0.67279598,0,7.1627529)" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2947"
+       id="radialGradient15361"
+       cx="106.60345"
+       cy="91.706108"
+       fx="106.60345"
+       fy="91.706108"
+       r="87.517242"
+       gradientTransform="matrix(1.8781432,-0.00567412,0.00162506,0.24348193,-93.762137,47.138353)"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-19.086203,-43.680757)">
+    <path
+       id="rect918"
+       style="fill:url(#linearGradient2949);fill-opacity:1;stroke-width:2.61871;stroke-linecap:round;stroke-linejoin:round"
+       d="m 19.086203,46.469116 c 33.679111,-3.637914 52.347352,3.978747 87.881397,3.267731 63.60344,-1.272669 40.26242,-9.542615 87.38585,-3.894127 l -0.23276,43.064741 c -11.22193,1.310694 -17.51633,2.883846 -25.98559,2.625801 -46.90784,-1.429193 -37.38419,-5.550311 -59.24521,-2.904749 -35.364937,4.279756 -74.28979,4.169155 -89.803687,1.844941 z"
+       sodipodi:nodetypes="csccsscc" />
+    <path
+       id="path3991"
+       style="fill:url(#radialGradient15361);fill-opacity:1;stroke-width:2.61871;stroke-linecap:round;stroke-linejoin:round"
+       d="M 194.12069,49.1313 C 49.08113,37.0517 36.32417,48.767194 19.086203,49.1313 v 39.776161 c 35.952477,-2.221949 86.984977,3.879402 125.993807,2.765904 24.51754,-1.039207 19.56295,-1.650624 48.80792,-4.95829 z"
+       sodipodi:nodetypes="cccccc"
+       inkscape:export-filename="C:\Users\dawoz\IdeaProjects\TAAS-frontend-web\src\assets\images\bg1.svg"
+       inkscape:export-xdpi="239.853"
+       inkscape:export-ydpi="239.853" />
+  </g>
+</svg>
