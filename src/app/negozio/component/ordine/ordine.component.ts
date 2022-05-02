@@ -7,6 +7,7 @@ import {Animale} from "../../../utente/model/animale";
 import {UtenteService} from "../../../utente/service/utente.service";
 import {HotToastService} from "@ngneat/hot-toast";
 import {AnnullaOrdineModalComponent} from "../annulla-ordine-modal/annulla-ordine-modal.component";
+import {Utente} from "../../../utente/model/utente";
 
 @Component({
   selector: 'app-ordine',
@@ -14,6 +15,7 @@ import {AnnullaOrdineModalComponent} from "../annulla-ordine-modal/annulla-ordin
   styleUrls: ['./ordine.component.css']
 })
 export class OrdineComponent implements OnInit {
+  private utente: Utente;
   @ViewChild(AnnullaOrdineModalComponent) annullaOrdineModal: AnnullaOrdineModalComponent
 
   animaliUtente: Array<Animale>
@@ -30,8 +32,9 @@ export class OrdineComponent implements OnInit {
               private prodottiService: ProdottiService,
               private utenteService: UtenteService,
               private toast: HotToastService) {
-    this.ordiniService.getOrdini(environment.mockUser).subscribe((animaleOrdineList) => {
-        utenteService.getAnimals(environment.mockUser).subscribe((animali) => {
+    this.utente = JSON.parse(localStorage.getItem('utente')!);
+    this.ordiniService.getOrdini(this.utente.id).subscribe((animaleOrdineList) => {
+        utenteService.getAnimals(this.utente.id).subscribe((animali) => {
           this.animaleOrdineAll = animaleOrdineList
           for (let animOrd of animaleOrdineList) {
             let index = animali.findIndex((a) => a.id == animOrd.animale.id)
