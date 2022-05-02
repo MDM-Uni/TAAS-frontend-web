@@ -8,13 +8,6 @@ import {Visita} from "../../models/visita";
 import {HotToastService} from "@ngneat/hot-toast";
 import {GestoreVisiteService} from "../../services/gestore-visite/gestore-visite.service";
 
-let valoriInizialiVisita = {
-  data:"",
-  durataInMinuti:30,
-  note:"",
-  tipoVisita:"VACCINO",
-  idAnimale: 0
-};
 
 @Component({
   selector: 'app-box-visita-pren',
@@ -24,8 +17,14 @@ let valoriInizialiVisita = {
 export class BoxVisitaPrenComponent implements OnInit, OnDestroy {
   animali!: Animale[];
   @Output() visitaAggiuntaEmitter = new EventEmitter<Visita>();
-
-  postVisitaForm = this.formBuilder.group(valoriInizialiVisita);
+  valoriInizialiVisita = {
+    data: "",
+    durataInMinuti: 30,
+    note: "",
+    tipoVisita: "VACCINO",
+    idAnimale: 0,
+  };
+  postVisitaForm = this.formBuilder.group({});
 
 
   constructor(
@@ -33,19 +32,25 @@ export class BoxVisitaPrenComponent implements OnInit, OnDestroy {
     private animaliService: GestoreAnimaliService,
     private visiteService: GestoreVisiteService,
     private toast: HotToastService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.animali = this.animaliService.getAnimaliUtente();
+    if (this.animali.length > 0) {
+      this.valoriInizialiVisita.idAnimale = this.animali[0].id;
+    }
+    this.postVisitaForm = this.formBuilder.group(this.valoriInizialiVisita);
   }
 
   //invia richiesta di aggiunta visita
   onSubmit() {
-    if (this.postVisitaForm.get('idAnimale')!.value < 0) {
+    console.log(this.postVisitaForm.value);
+    if (this.postVisitaForm.get('idAnimale')!.value <= 0) {
       this.toast.error('Seleziona un animale');
       return;
     }
-    if(this.postVisitaForm.get('data')!.value === ''){
+    if (this.postVisitaForm.get('data')!.value === '') {
       this.toast.error('Inserisci una data');
       return;
     }
@@ -67,18 +72,18 @@ export class BoxVisitaPrenComponent implements OnInit, OnDestroy {
     let risultato = this.visiteService.postVisita(this.postVisitaForm.value);
     risultato = risultato.pipe(
       this.toast.observe({
-         loading: 'Sto verificando la disponibilità...',
-         success: 'Visita registrata con successo!',
-         error: 'Qualcosa è andato storto!'
+        loading: 'Sto verificando la disponibilità...',
+        success: 'Visita registrata con successo!',
+        error: 'Qualcosa è andato storto!'
       })
     );
     risultato.pipe(
-      map((id) => visita.id=id),
+      map((id) => visita.id = id),
       //tap((id) => console.log("Visita aggiunta con id: ", id))
     ).subscribe({
       next: (data) => {
         this.visitaAggiuntaEmitter.emit(visita);
-        this.postVisitaForm.reset(valoriInizialiVisita);
+        this.postVisitaForm.reset(this.valoriInizialiVisita);
       },
     });
   }
@@ -90,7 +95,7 @@ export class BoxVisitaPrenComponent implements OnInit, OnDestroy {
     let oggi = new Date(Date.now());
     oggi.setDate(oggi.getDate() + 1);
     let domani = oggi;
-    domani.setHours(0,0,0,0);
+    domani.setHours(0, 0, 0, 0);
     return domani;
   }
 }
