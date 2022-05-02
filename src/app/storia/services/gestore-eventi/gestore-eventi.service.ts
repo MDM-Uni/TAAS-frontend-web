@@ -72,7 +72,7 @@ export class GestoreEventiService {
       let idAnimale = filterForm.get('idAnimale')!.value;
       let ordiniObs;
       ordiniObs = this.ordiniService.getOrdini(this.utente.id);
-      ordini = this.ordiniService.trasformaOrdiniPerEventi(ordiniObs, idAnimale).pipe(
+      ordini = this.ordiniService.trasformaOrdiniPerEventi(ordiniObs, idAnimale!=0 ? idAnimale : undefined).pipe(
         catchError(err => of(<OrdinePerEventi[]>[])),
       );
     }
@@ -86,17 +86,17 @@ export class GestoreEventiService {
       reduce((eventi1, eventi2) => {
         return [...eventi1, ...eventi2];
       }),
-      tap(eventi => console.log("Numero eventi: " + eventi.length)),
+      // tap(eventi => console.log("Numero eventi: " + eventi.length)),
       map(eventi => {
         return eventi.sort((ev1, ev2) => ( (ev2.getData()?.getTime() ?? 0) - (ev1.getData()?.getTime() ?? 0) ));
       }),
-      tap(eventi => {
-        console.log("Date eventi ordinati");
-        eventi.forEach(evento => {
-            console.log(evento.getData()?.getTime() ?? 0);
-          }
-        );
-      })
+      // tap(eventi => {
+      //   console.log("Date eventi ordinati");
+      //   eventi.forEach(evento => {
+      //       console.log(evento.getData()?.getTime() ?? 0);
+      //     }
+      //   );
+      // }),
     );
   }
 }

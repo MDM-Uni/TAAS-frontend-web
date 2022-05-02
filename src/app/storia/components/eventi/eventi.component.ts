@@ -13,9 +13,6 @@ import {
   GestoreEventiPersonalizzatiService
 } from "../../services/gestore-eventi-personalizzati/gestore-eventi-personalizzati.service";
 import {AnimaleOrdine, Ordine} from "../../../negozio/model/ordine";
-import {OrdiniService} from "../../../negozio/service/ordini.service";
-import {environment} from "../../../../environments/environment";
-import {UtenteService} from "../../../utente/service/utente.service";
 import {OrdinePerEventi} from "../../models/ordine-per-eventi";
 
 type VisitaDTO = { tipoVisita: string, data: string, durataInMinuti: number, note: string, id: number, idAnimale: number };
@@ -27,9 +24,9 @@ type VisitaDTO = { tipoVisita: string, data: string, durataInMinuti: number, not
 })
 export class EventiComponent implements OnInit, OnDestroy, OnChanges {
   filterForm = this.formBuilder.group({
-    "idAnimale":0,
-    "tipoEvento":"",
-    "tipoVisita":"",
+    "idAnimale": 0,
+    "tipoEvento": "",
+    "tipoVisita": "",
   });
   animali!: Animale[];
   eventi!: Observable<Evento[]>;
@@ -42,9 +39,7 @@ export class EventiComponent implements OnInit, OnDestroy, OnChanges {
     private gestoreAnimaliService: GestoreAnimaliService,
     private gestoreEventiPersonalizzati: GestoreEventiPersonalizzatiService,
     private toast: HotToastService,
-    private utenteService: UtenteService,
-    private ordiniService: OrdiniService
-) {
+  ) {
   }
 
   ngOnInit(): void {
@@ -55,41 +50,6 @@ export class EventiComponent implements OnInit, OnDestroy, OnChanges {
   //preme il pulsante di filtro della lista di eventi
   onSubmitFilterForm() {
     this.eventi = this.gestoreEventiService.getEventi(this.filterForm);
-  }
-
-  //mockup
-  private addEventoPersonalizzato(visiteTrasformate: Observable<Visita[]>) {
-    return visiteTrasformate.pipe(
-      tap(visite => console.log("Visite trasformate: " + visite.length)),
-      map(visite => {
-        let eventi: Evento[] = [];
-        eventi.push(...visite);
-        return eventi;
-      }),
-      tap(eventi => {
-        console.log("Visite: ");
-        eventi.forEach(evento => console.log(evento));
-      }),
-      tap((eventi: Evento[]) => console.log("Tipo Visita: ",(eventi[0]) instanceof  Visita)),
-      map((eventi: Evento[]) => {
-        let eventoPers = new EventoPersonalizzato();
-        eventoPers.id = 10;
-        eventoPers.testo = "Leo ha fatto una corsa";
-        eventoPers.data = new Date(Date.now());
-        eventi.push(eventoPers);
-        return eventi;
-      }),
-      tap(eventi => {
-        console.log("Eventi: ");
-        eventi.forEach(evento => console.log(evento));
-      }),
-      tap(eventi => console.log("Tipo EventoPersonalizzato", ((eventi[eventi.length-1]) instanceof EventoPersonalizzato))),
-      map((eventi: Evento[]) => eventi.sort((a:Evento, b:Evento) => ((b.getData() ? b.getData()!.getTime() : 0) - (a.getData() ? a.getData()!.getTime() : 0)))),
-      tap(eventi => {
-        console.log("Eventi sorted: ");
-        eventi.forEach(evento => console.log(evento));
-      }),
-    );
   }
 
   ngOnDestroy(): void {
@@ -107,9 +67,9 @@ export class EventiComponent implements OnInit, OnDestroy, OnChanges {
     let res = this.gestoreVisiteService.deleteVisita(visita);
     res.pipe(
       this.toast.observe({
-         loading: 'Sto eliminando la visita...',
-         success: 'Visita eliminata con successo!',
-         error: 'Qualcosa è andato storto!'
+        loading: 'Sto eliminando la visita...',
+        success: 'Visita eliminata con successo!',
+        error: 'Qualcosa è andato storto!'
       })
     ).subscribe({
       next: (_: any) => {
@@ -131,9 +91,9 @@ export class EventiComponent implements OnInit, OnDestroy, OnChanges {
     let res = this.gestoreEventiPersonalizzati.deleteEventoPersonalizzato(evento);
     res.pipe(
       this.toast.observe({
-         loading: 'Sto eliminando l\'evento ...',
-         success: 'Evento eliminato con successo!',
-         error: 'Qualcosa è andato storto!'
+        loading: 'Sto eliminando l\'evento ...',
+        success: 'Evento eliminato con successo!',
+        error: 'Qualcosa è andato storto!'
       })
     ).subscribe({
       next: (_: any) => {
@@ -164,16 +124,21 @@ export class EventiComponent implements OnInit, OnDestroy, OnChanges {
         }
         return eventi;
       }),
-      tap(eventi => {
-        console.log("Eventi: ");
-        console.table(eventi);
-      })
+      // tap(eventi => {
+      //   console.log("Eventi: ");
+      //   console.table(eventi);
+      // })
     );
   }
 
 
-  isEventoPersonalizzato(val: Evento): boolean {return val instanceof EventoPersonalizzato}
-  isVisita(val: Evento):boolean {return val instanceof Visita}
+  isEventoPersonalizzato(val: Evento): boolean {
+    return val instanceof EventoPersonalizzato
+  }
+
+  isVisita(val: Evento): boolean {
+    return val instanceof Visita
+  }
 
   castToEventoPersonalizzato(evento: Evento): EventoPersonalizzato {
     return evento as EventoPersonalizzato;
