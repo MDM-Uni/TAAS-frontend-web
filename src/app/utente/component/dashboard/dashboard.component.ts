@@ -30,7 +30,7 @@ export class DashboardComponent implements OnInit {
     const storage = localStorage.getItem('auth');
     if(storage){
       this.userDetails = JSON.parse(storage);
-      console.log(this.userDetails)
+      // console.log(this.userDetails)
       let user = new Utente(0,this.userDetails.name,this.userDetails.email,this.animali);
       this.getUser(user);
     } else {

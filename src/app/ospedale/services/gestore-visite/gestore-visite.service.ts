@@ -55,9 +55,9 @@ export class GestoreVisiteService {
   trasformaArrayVisite(obsVisite: Observable<VisitaDTO[]>): Observable<Visita[]> {
     //aggiungo alle visite le informazioni sugli animali
     return obsVisite.pipe(
-      tap(visite => console.log("Visite ricevute: " + visite.length)),
+      // tap(visite => console.log("Visite ricevute: " + visite.length)),
       map(visite => visite.filter(visita => this.serviceAnimali.getAnimale(visita.idAnimale))),
-      tap(visite => console.log("Visite filtrate: " + visite.length)),
+      // tap(visite => console.log("Visite filtrate: " + visite.length)),
       //trasforma da tipo VisitaDTO[] a Visita[]
       map(visite => {
         return visite
@@ -67,21 +67,21 @@ export class GestoreVisiteService {
             return new Visita(visita.tipoVisita, new Date(visita.data), visita.durataInMinuti, visita.note, visita.id, animale);
           });
       }),
-      tap(visite => console.log("Visite trasformate da VisitaDTO[] a Visita[]: " + visite.length)),
-      tap(visite => visite.forEach(visita => {
-        console.log("Visite: ");
-        console.log(visita.data.getTime());
-      })),
+      // tap(visite => console.log("Visite trasformate da VisitaDTO[] a Visita[]: " + visite.length)),
+      // tap(visite => visite.forEach(visita => {
+      //   console.log("Visite: ");
+      //   console.log(visita.data.getTime());
+      // })),
 
       //ordino le visite per data in ordine decrescente
       map(visite => {
         visite.sort((a: Visita, b: Visita) => (b.data.getTime() - a.data.getTime()));
         return visite;
       }),
-      tap(visite => {
-        console.log("Visite ordinate:");
-        visite.forEach(visita => console.log(visita));
-      }),
+      // tap(visite => {
+      //   console.log("Visite ordinate:");
+      //   visite.forEach(visita => console.log(visita));
+      // }),
     );
   }
 
