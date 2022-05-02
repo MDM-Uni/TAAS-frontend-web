@@ -3,6 +3,7 @@ import {Carrello, ProdottoQuantita} from "../../model/carrello";
 import {CarrelliService} from "../../service/carrelli.service";
 import {environment} from "../../../../environments/environment";
 import {OrdineModalComponent} from "../ordine-modal/ordine-modal.component";
+import {Utente} from "../../../utente/model/utente";
 
 @Component({
   selector: 'app-carrello',
@@ -10,11 +11,13 @@ import {OrdineModalComponent} from "../ordine-modal/ordine-modal.component";
   styleUrls: ['./carrello.component.css']
 })
 export class CarrelloComponent implements OnInit {
+  private utente: Utente;
   carrello: Carrello | undefined
   @ViewChild(OrdineModalComponent) modalComponent: OrdineModalComponent | undefined
 
   constructor(carrelliService: CarrelliService) {
-    carrelliService.getCarrello(environment.mockUser).subscribe((carrello) => this.carrello = carrello)
+    this.utente = JSON.parse(localStorage.getItem('utente')!)
+    carrelliService.getCarrello(this.utente.id).subscribe((carrello) => this.carrello = carrello)
   }
 
   ngOnInit(): void {

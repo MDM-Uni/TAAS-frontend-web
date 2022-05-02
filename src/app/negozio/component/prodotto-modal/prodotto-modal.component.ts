@@ -6,6 +6,7 @@ import {CarrelliService} from "../../service/carrelli.service";
 import {Carrello} from "../../model/carrello";
 import {environment} from "../../../../environments/environment";
 import {HotToastService} from "@ngneat/hot-toast";
+import {Utente} from "../../../utente/model/utente";
 
 @Component({
   selector: 'app-prodotto-modal',
@@ -13,6 +14,8 @@ import {HotToastService} from "@ngneat/hot-toast";
   styleUrls: ['./prodotto-modal.component.css']
 })
 export class ProdottoModalComponent implements OnInit {
+  private utente: Utente;
+
   prodotto: Prodotto | undefined
   carrello: Carrello | undefined
   quantita = 1
@@ -28,9 +31,10 @@ export class ProdottoModalComponent implements OnInit {
   }
 
   openModal(prodotto: Prodotto) {
+    this.utente = JSON.parse(localStorage.getItem('utente')!);
     this.quantita = 1
     this.prodotto = prodotto
-    this.carrelliService.getCarrello(environment.mockUser)
+    this.carrelliService.getCarrello(this.utente.id)
       .subscribe((carrello) => this.carrello = carrello)
     this.modal?.show()
   }
