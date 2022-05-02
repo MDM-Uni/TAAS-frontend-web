@@ -11,6 +11,7 @@ import {ICreateOrderRequest, IPayPalConfig} from "ngx-paypal";
 import {ProdottiService} from "../../service/prodotti.service";
 import {HotToastService} from "@ngneat/hot-toast";
 import {IndirizzoCollapseComponent} from "../indirizzo-collapse/indirizzo-collapse.component";
+import {Utente} from "../../../utente/model/utente";
 
 @Component({
   selector: 'app-ordine-modal',
@@ -18,6 +19,7 @@ import {IndirizzoCollapseComponent} from "../indirizzo-collapse/indirizzo-collap
   styleUrls: ['./ordine-modal.component.css']
 })
 export class OrdineModalComponent implements OnInit {
+  private utente: Utente;
   private modal: Modal;
   carrello: Carrello;
   animali: Array<Animale>;
@@ -42,10 +44,11 @@ export class OrdineModalComponent implements OnInit {
   }
 
   openModal(carrello: Carrello) {
+    this.utente = JSON.parse(localStorage.getItem('utente')!);
     this.carrello = carrello
     this.faseCorrente = 0
-    this.utenteService.getAnimals(environment.mockUserId).subscribe((animali) => this.animali = animali)
-    this.indirizziService.getIndirizzi(environment.mockUserId).subscribe((indirizzi) => this.indirizzi = indirizzi)
+    this.utenteService.getAnimals(this.utente.id).subscribe((animali) => this.animali = animali)
+    this.indirizziService.getIndirizzi(this.utente.id).subscribe((indirizzi) => this.indirizzi = indirizzi)
     this.initPayPal()
     this.modal.show()
   }
@@ -71,7 +74,7 @@ export class OrdineModalComponent implements OnInit {
 
   aggiungiIndirizzo() {
     return (citta: string, via: string, numeroCivico: number, interno: string | null) => {
-      this.indirizziService.aggiungiIndirizzo(environment.mockUserId, citta, via, numeroCivico, interno)
+      this.indirizziService.aggiungiIndirizzo(this.utente.id, citta, via, numeroCivico, interno)
         .pipe(this.toast.observe({
           success: 'Indirizzo aggiunto con successo',
           error: "C'è stato un problema... l'indirizzo non è stato aggiunti",
@@ -82,7 +85,7 @@ export class OrdineModalComponent implements OnInit {
   }
 
   eliminaIndirizzo(indir: Indirizzo) {
-    this.indirizziService.rimuoviIndirizzo(environment.mockUserId,indir.id)
+    this.indirizziService.rimuoviIndirizzo(this.utente.id,indir.id)
       .pipe(this.toast.observe({
         success: 'Indirizzo rimosso con successo',
         error: "C'è stato un problema... l'indirizzo non è stato rimosso",

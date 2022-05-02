@@ -53,16 +53,16 @@ export class GestoreEventiPersonalizzatiService {
   trasformaArrayEventiPersonalizzati(obsVisite: Observable<EventoPersonalizzatoDTO[]>): Observable<EventoPersonalizzato[]> {
     //aggiungo agli evPersonalizzati le informazioni sugli animali
     return obsVisite.pipe(
-      tap(evPersonalizzati => {
-        console.log("Eventi Personalizzati ricevuti: ");
-        console.table(evPersonalizzati);
-      }),
+      // tap(evPersonalizzati => {
+      //   console.log("Eventi Personalizzati ricevuti: ");
+      //   console.table(evPersonalizzati);
+      // }),
       //tolgo eventi a cui non corrispondono un vero animale
       map(evPersonalizzati => evPersonalizzati.filter(evPers => this.serviceAnimale.getAnimale(evPers.idAnimale))),
-      tap(evPersonalizzati => {
-        console.log("EventiPersDTO filtrati da quelli che non corrispondono con un animale: ");
-        console.table(evPersonalizzati);
-      }),
+      // tap(evPersonalizzati => {
+      //   console.log("EventiPersDTO filtrati da quelli che non corrispondono con un animale: ");
+      //   console.table(evPersonalizzati);
+      // }),
       //trasforma da tipo EventoPersonalizzatoDTO[] a EventoPersonalizzato[]
       map(evPersonalizzati => {
         return evPersonalizzati
@@ -77,11 +77,11 @@ export class GestoreEventiPersonalizzatiService {
             return ev;
           });
       }),
-      tap(evPersonalizzati => console.log("Eventi trasformati: " + evPersonalizzati.length)),
-      tap(evPersonalizzati => {
-        console.log("Eventi trasformati: ");
-        console.table(evPersonalizzati);
-      }),
+      // tap(evPersonalizzati => console.log("Eventi trasformati: " + evPersonalizzati.length)),
+      // tap(evPersonalizzati => {
+      //   console.log("Eventi trasformati: ");
+      //   console.table(evPersonalizzati);
+      // }),
       //ordino le evPersonalizzati per data in ordine decrescente
       map(evPersonalizzati => {
         evPersonalizzati.sort((a: EventoPersonalizzato, b: EventoPersonalizzato) =>
@@ -101,7 +101,7 @@ export class GestoreEventiPersonalizzatiService {
       return null;
     }
     let url = `${GestoreEventiPersonalizzatiService.basicUrl}/getImmagineEventoPersonalizzato/${idEv}`;
-    console.log("Url per prendere l'immagine dell'evento personalizzato: " + url);
+    // console.log("Url per prendere l'immagine dell'evento personalizzato: " + url);
     return url;
   }
 
@@ -111,7 +111,7 @@ export class GestoreEventiPersonalizzatiService {
     if (urlOrNull) {
       this.http.get(urlOrNull, {responseType: 'blob'}).subscribe({
         next: (immagine) => {
-          console.log("Creo url immagine da visualizzare");
+          // console.log("Creo url immagine da visualizzare");
           let objectURL = URL.createObjectURL(immagine);
           ev.urlImmagine = this.sanitizer.bypassSecurityTrustUrl(objectURL);
           ev.haImmagine = true;

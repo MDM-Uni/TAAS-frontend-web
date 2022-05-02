@@ -5,7 +5,6 @@
 export const environment = {
   production: false,
   negozioEndpoint: "http://localhost:8082/api/v1",
-  mockUserId: 1
 };
 
 /*
