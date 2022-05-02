@@ -45,7 +45,7 @@ export class BoxVisitaPrenComponent implements OnInit, OnDestroy {
 
   //invia richiesta di aggiunta visita
   onSubmit() {
-    console.log(this.postVisitaForm.value);
+    // console.log(this.postVisitaForm.value);
     if (this.postVisitaForm.get('idAnimale')!.value <= 0) {
       this.toast.error('Seleziona un animale');
       return;
