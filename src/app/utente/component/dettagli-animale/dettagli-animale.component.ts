@@ -21,7 +21,7 @@ export class DettagliAnimaleComponent implements OnInit {
   @Input() utenteCorrente: Utente;
 
   @Output() updateA = new EventEmitter<Animale>();
-  patologie : Array<string>;
+  maxDate = new Date().toISOString();
 
   constructor(
     private modalService: NgbModal,

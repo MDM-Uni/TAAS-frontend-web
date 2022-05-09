@@ -15,7 +15,7 @@
       </div>
       <div class="form-group"> <!-- Date input -->
         <label class="control-label" for="data">Data</label>
-        <input type="date" placeholder="YYY/MM/DD" class="form-control" id="data" name="date" value='{{animaleDaVisualizzare.dataDiNascita.toString().slice(0,10)}}'>
+        <input type="date" placeholder="YYY/MM/DD" class="form-control" id="data" name="date" min="1980-01-01" max="{{maxDate.toString().slice(0,10)}}" value='{{animaleDaVisualizzare.dataDiNascita.toString().slice(0,10)}}'>
       </div>
       <div style="margin-top:10px" class="form-inline" *ngFor="let patologia of this.animaleDaVisualizzare.patologie; let i=index; trackBy: customTrackBy">
         <label>Patologia {{i+1}}: </label>

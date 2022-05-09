@@ -10,7 +10,7 @@ import {Animale} from "../model/animale";
 })
 export class UtenteService {
 
-  private apiServerUrl = 'http://localhost:8079/utente';
+  private apiServerUrl = 'http://localhost:8080/utente';
 
   constructor(private http: HttpClient) { }
 

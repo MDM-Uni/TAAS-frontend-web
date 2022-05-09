@@ -15,6 +15,7 @@ export class AggiungiAnimaleComponent implements OnInit {
   @Output() addA = new EventEmitter<Utente>();
   private closeResult: string;
   patologie = [""];
+  maxDate = new Date().toISOString();
 
   constructor(private modalService: NgbModal,
               private utenteService: UtenteService) { }
