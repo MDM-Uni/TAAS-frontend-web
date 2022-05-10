@@ -44,8 +44,8 @@ export class BoxAggiuntaEventoPersComponent implements OnInit {
   handleAggiuntaEventoPersonalizzato() {
     this.postEventoForm.patchValue({"data": new Date(Date.now())});
     let evento = this.postEventoForm.value;
-    console.log("form value post evento aggiunto")
-    console.table(evento);
+    console.log("evento personalizzato preso dalla form:")
+    console.log(evento);
     let risultato = this.gestoreEventiPersonalizzati.postEventoPersonalizzato(this.postEventoForm.value, this.file ?? undefined);
     risultato = risultato.pipe(
       this.toast.observe({

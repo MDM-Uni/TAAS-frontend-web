@@ -14,6 +14,7 @@ import {
 } from "../../services/gestore-eventi-personalizzati/gestore-eventi-personalizzati.service";
 import {AnimaleOrdine, Ordine} from "../../../negozio/model/ordine";
 import {OrdinePerEventi} from "../../models/ordine-per-eventi";
+import {formatDate} from "@angular/common";
 
 type VisitaDTO = { tipoVisita: string, data: string, durataInMinuti: number, note: string, id: number, idAnimale: number };
 
@@ -109,25 +110,35 @@ export class EventiComponent implements OnInit, OnDestroy, OnChanges {
     });
   }
 
-  handleEventoPersonalizzatoAggiunto(evento: EventoPersonalizzato) {
+  handleEventoPersonalizzatoAggiunto(evento_: EventoPersonalizzato) {
+    // ricreo l'evento personalizzato perchè altrimenti non estende Evento
+    let evento = new EventoPersonalizzato();
+    if(evento_.testo != "") evento.testo = evento_.testo;
+    if(evento_.data) evento.data = evento_.data;
+    else evento.data = new Date(Date.now());
+
     console.log("Evento personalizzato aggiunto");
     //insert evento in eventi, order by date
     this.eventi = this.eventi.pipe(
       map((eventi) => {
-        for (let i = 0; i < eventi.length; i++) {
-          if (eventi[i].getData() && eventi[i].getData()!.getTime() < evento.getData()!.getTime()) {
+        let i = 0;
+        while(i<eventi.length) {
+          let ev = eventi[i];
+          //se ho trovato un ev più vecchio, è ora di inserire l'evento
+          if (ev.getData() && ev.getData()!.getTime() < evento.getData()!.getTime()) {
             eventi.splice(i, 0, evento);
             return eventi;
-          } else {
-            eventi.push(evento)
           }
+          i++;
         }
+        //se non ho trovato un ev più vecchio, è ora di inserire l'evento
+        eventi.push(evento);
         return eventi;
       }),
-      // tap(eventi => {
-      //   console.log("Eventi: ");
-      //   console.table(eventi);
-      // })
+      tap(eventi => {
+        console.log("Eventi: ");
+        console.table(eventi);
+      })
     );
   }
 
