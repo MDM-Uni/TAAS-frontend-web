@@ -11,7 +11,7 @@ export type VisitaDTO = { tipoVisita: string, data: string, durataInMinuti: numb
   providedIn: 'root'
 })
 export class GestoreVisiteService {
-  static basicUrl = 'http://localhost:8079/ospedale';
+  static basicUrl = 'http://localhost:8081/ospedale';
 
   constructor(
     private http: HttpClient,

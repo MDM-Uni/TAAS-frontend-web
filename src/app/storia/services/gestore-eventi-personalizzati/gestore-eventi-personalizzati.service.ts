@@ -20,7 +20,7 @@ export type EventoPersonalizzatoDTO = {
   providedIn: 'root'
 })
 export class GestoreEventiPersonalizzatiService {
-  static basicUrl = 'http://localhost:8079/storia';
+  static basicUrl = 'http://localhost:8080/storia';
 
   constructor(
     private http: HttpClient,
